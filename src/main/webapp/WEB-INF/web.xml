@@ -16,7 +16,6 @@
             <param-value>
                 com.trnka.backend.dto;
                 com.trnka.backend.webservice;
-                com.trnka.backend.endpoint;
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
