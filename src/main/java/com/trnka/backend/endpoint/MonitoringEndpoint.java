@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 
 @Produces({MediaType.APPLICATION_JSON })
 @Consumes({MediaType.APPLICATION_JSON })
+@Path("monitoring")
 public interface MonitoringEndpoint {
 
     @GET
