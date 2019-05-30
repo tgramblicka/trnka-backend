@@ -1,15 +1,19 @@
 #!/bin/bash
+#ssh pi@192.168.1.15
 
-payara=/e/payara/
-#payara=/c/Users/tomas/dev
-project_location="/e/workspace_idea/trnka/trnka-backend"
+#payara=/e/payara/
+#project_location="/e/workspace_idea/trnka/trnka-backend"
+
+payara=/c/Users/tomas/dev
+project_location="/C/Users/tomas/dev/workspace/trnka/trnka-backend"
+
 war_name="trnka-backend.war"
 
 
 
 payara_location=${payara}/payara5/glassfish
 asadmin=${payara}/payara5/glassfish/bin/asadmin
-asadminpass="$asadmin --user admin --passwordfile=$project_location/src/setup/local/asadmin_password_file"
+asadminpass="$asadmin --user admin --passwordfile=$project_location/setup/local/asadmin_password_file"
 domain="domain1"
 
 
