@@ -16,6 +16,7 @@
         <version.jackson>2.9.8</version.jackson>
         <version.jersey>2.28</version.jersey>
         <version.trnka-restapi>1.0-SNAPSHOT</version.trnka-restapi>
+        <version.maria-db>8.0.16</version.maria-db>
     </properties>
 
 
@@ -35,6 +36,15 @@
             <version>${version.hibernate}</version>
             <scope>compile</scope>
         </dependency>
+
+
+        <!--MARIA_DB-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${version.maria-db}</version>
+        </dependency>
+
 
 
         <!--JERSEY JACKSON-->
