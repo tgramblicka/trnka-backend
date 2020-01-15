@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="text/javascript">
+    </script>
+    <title>Teacher Testing</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}"/>
+</head>
+<body>
+
+
+<main class="jumbotron">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{home}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{class}">Trieda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{learning}">Vyuka</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" th:href="@{testing}">Testovanie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{results}">Centralne vyhodnotenie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{dictionary}">Slovnik</a>
+                </li>
+        
+                <form class="form-inline my-2 my-lg-0 float-right">
+                    <button type="button" class="btn btn-secondary my-2 my-sm-0 float-right">Odhlasit</button>
+                </form>
+            </ul>
+        </div>
+    </nav>
+    
+    <p class="lead my-4">Zoznam testov:</p>
+    
+    <div class="container-fluid border my-2 py-2">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nazov testu</th>
+                <th scope="col">Uroven testu</th>
+                <th scope="col">Priradeny k triede</th>
+                <th scope="col">Finalny test</th>
+                <th scope="col">Uprava</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="test : ${tests}">
+                <td th:text="${test.name}">1</td>
+                <td th:text="${test.level}">1</td>
+                <td th:text="${test.className}">1</td>
+                <td th:text="${test.finalTest}">1</td>
+                <td><button type="button" class="btn btn-secondary my-2 my-sm-0">Upravit</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <form class="form-inline my-2 my-lg-0">
+        <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor test</button>
+    </form>
+    
+</main>
+</body>
+</html>
