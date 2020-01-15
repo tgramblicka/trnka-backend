@@ -1,20 +1,11 @@
 package com.trnka.backend.endpoint;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 
-
-@Produces({MediaType.APPLICATION_JSON })
-@Consumes({MediaType.APPLICATION_JSON })
-@Path("monitoring")
 public interface MonitoringEndpoint {
 
-    @GET
-    @Path("alive")
-    Response alive();
+    @GetMapping(path = "alive")
+    ResponseEntity<String> alive();
 
 }

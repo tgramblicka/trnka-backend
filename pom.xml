@@ -3,6 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.7.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
 
     <groupId>com.trnka</groupId>
     <artifactId>trnka-backend</artifactId>
@@ -11,7 +18,6 @@
     <packaging>war</packaging>
 
     <properties>
-        <version.javaee>8.0</version.javaee>
         <version.hibernate>5.4.2.Final</version.hibernate>
         <version.jackson>2.9.8</version.jackson>
         <version.jersey>2.28</version.jersey>
@@ -22,12 +28,29 @@
 
 
     <dependencies>
+        <!--        Spring -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>${version.javaee}</version>
-            <scope>provided</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.2.2.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>2.2.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>2.2.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>2.2.2.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <!--HIBERNATE-->
         <dependency>
@@ -40,24 +63,31 @@
 
         <!--MARIA_DB-->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${version.maria-db}</version>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>2.4.1</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+            <scope>provided</scope>
+        </dependency>
 
 
         <!--JERSEY JACKSON-->
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${version.jersey}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-multipart</artifactId>
-            <version>${version.jersey}</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.glassfish.jersey.media</groupId>-->
+        <!--            <artifactId>jersey-media-json-jackson</artifactId>-->
+        <!--            <version>${version.jersey}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.glassfish.jersey.media</groupId>-->
+        <!--            <artifactId>jersey-media-multipart</artifactId>-->
+        <!--            <version>${version.jersey}</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.trnka</groupId>
@@ -70,14 +100,17 @@
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <attachClasses>true</attachClasses>
-                    <classesClassifier>classes</classesClassifier>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
