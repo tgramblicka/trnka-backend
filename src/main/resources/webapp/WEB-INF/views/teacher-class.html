@@ -31,7 +31,9 @@
             <tr th:each="class : ${classes}">
                 <td th:text="${class.name}">1</td>
                 <td th:text="${class.studentCount}">1</td>
-                <td><button type="button" class="btn btn-secondary my-2 my-sm-0">Upravit</button></td>
+                <td>
+                    <button type="button" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
+                </td>
             </tr>
             </tbody>
         </table>

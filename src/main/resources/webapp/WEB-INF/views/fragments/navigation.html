@@ -29,7 +29,8 @@
         </ul>
         
         <form class="form-inline my-2 my-lg-0 float-right" action="#" th:action="@{/vst/ui/logout}" method="POST" >
-            <p  class="navbar-brand mb-0 h2">Logged in user: <span sec:authentication="name"></span></p>
+            <p  class="navbar-brand mb-0 h2"><span th:inline="text">Pouzivatel: [[${#httpServletRequest.remoteUser}]]!</span></p>
+            
             <input type="submit" class="btn btn-secondary my-2 my-sm-0 float-right" value="Odhlasit" />
         </form>
     </div>
