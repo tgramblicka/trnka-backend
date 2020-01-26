@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:fragment="setData(currentPage)">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a th:class="${currentPage} == 'home'? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{home}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a th:class="${currentPage} == 'class'? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{class}">Trieda</a>
+            </li>
+            <li class="nav-item">
+                <a th:class="${currentPage} == 'learning' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{learning}">Vyuka</a>
+            </li>
+            <li class="nav-item">
+                <a th:class="${currentPage} == 'testing' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{testing}">Testovanie</a>
+            </li>
+            <li class="nav-item">
+                <a th:class="${currentPage} == 'results' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{results}">Vysledky</a>
+            </li>
+            <li class="nav-item">
+                <a th:class="${currentPage} == 'dictionary' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{dictionary}">Slovnik</a>
+            </li>
+        
+        </ul>
+        
+        <form class="form-inline my-2 my-lg-0 float-right" action="#" th:action="@{/vst/ui/logout}" method="POST" >
+            <p  class="navbar-brand mb-0 h2">Logged in user: <span sec:authentication="name"></span></p>
+            <input type="submit" class="btn btn-secondary my-2 my-sm-0 float-right" value="Odhlasit" />
+        </form>
+    </div>
+</nav>
+</body>
+</html>
