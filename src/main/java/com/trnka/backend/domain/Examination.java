@@ -1,22 +1,22 @@
 package com.trnka.backend.domain;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import java.util.List;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-public class ExaminationBlock extends BaseEntity {
+public class Examination extends BaseEntity {
 
     private String name;
     private String audio;
@@ -26,7 +26,7 @@ public class ExaminationBlock extends BaseEntity {
     private Integer allowedRetries;
 
     @OneToMany
-    @JoinColumn(name = "examination_block_id", referencedColumnName = "id")
+    @JoinColumn(name = "examination_id", referencedColumnName = "id")
     private List<ExaminationStep> examinationSteps;
 
 

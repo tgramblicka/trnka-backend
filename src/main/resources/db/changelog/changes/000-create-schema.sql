@@ -6,9 +6,9 @@ CREATE TABLE course (id BIGINT NOT NULL, name VARCHAR(255) NULL, teacher_id BIGI
 
 CREATE TABLE course_student (course_id BIGINT NOT NULL, student_id BIGINT NOT NULL, CONSTRAINT PK_COURSE_STUDENT PRIMARY KEY (course_id, student_id));
 
-CREATE TABLE examination_block (id BIGINT NOT NULL, allowed_retries INT DEFAULT NULL NULL, audio VARCHAR(255) NULL, complexity BIGINT DEFAULT NULL NULL, name VARCHAR(255) NULL, timeout BIGINT DEFAULT NULL NULL, type INT DEFAULT NULL NULL, CONSTRAINT PK_EXAMINATION_BLOCK PRIMARY KEY (id));
+CREATE TABLE examination (id BIGINT NOT NULL, allowed_retries INT DEFAULT NULL NULL, audio VARCHAR(255) NULL, complexity BIGINT DEFAULT NULL NULL, name VARCHAR(255) NULL, timeout BIGINT DEFAULT NULL NULL, type INT DEFAULT NULL NULL, CONSTRAINT PK_EXAMINATION PRIMARY KEY (id));
 
-CREATE TABLE examination_step (id BIGINT NOT NULL, preserve_order BIT DEFAULT 0 NULL, brail_character_id BIGINT NOT NULL, examination_block_id BIGINT DEFAULT NULL NULL, CONSTRAINT PK_EXAMINATION_STEP PRIMARY KEY (id));
+CREATE TABLE examination_step (id BIGINT NOT NULL, preserve_order BIT DEFAULT 0 NULL, brail_character_id BIGINT NOT NULL, examination_id BIGINT DEFAULT NULL NULL, CONSTRAINT PK_EXAMINATION_STEP PRIMARY KEY (id));
 
 CREATE TABLE student (id BIGINT NOT NULL, device_identification_code VARCHAR(255) NULL, user_id BIGINT DEFAULT NULL NULL, CONSTRAINT PK_STUDENT PRIMARY KEY (id));
 
@@ -23,7 +23,7 @@ CREATE INDEX FK38jgjyongm0ve81vkf0gnvmku ON examination_step(brail_character_id)
 CREATE INDEX FK4xxxkt1m6afc9vxp3ryb0xfhi ON course_student(student_id);
 CREATE INDEX FKk5m148xqefonqw7bgnpm0snwj ON student(user_id);
 CREATE INDEX FKpb6g6pahj1mr2ijg92r7m1xlh ON teacher(user_id);
-CREATE INDEX FKrg7nxjlvm7ak0gvuhwgr96v21 ON examination_step(examination_block_id);
+CREATE INDEX FKrg7nxjlvm7ak0gvuhwgr96v21 ON examination_step(examination_id);
 CREATE INDEX FKsybhlxoejr4j3teomm5u2bx1n ON course(teacher_id);
 
 ALTER TABLE brail_character ADD CONSTRAINT FK1bsjbolbkeidctoruif7i3b6k FOREIGN KEY (audio_id) REFERENCES audio (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
@@ -32,6 +32,6 @@ ALTER TABLE course_student ADD CONSTRAINT FK4xxxkt1m6afc9vxp3ryb0xfhi FOREIGN KE
 ALTER TABLE student ADD CONSTRAINT FKk5m148xqefonqw7bgnpm0snwj FOREIGN KEY (user_id) REFERENCES user (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE course_student ADD CONSTRAINT FKlmj50qx9k98b7li5li74nnylb FOREIGN KEY (course_id) REFERENCES course (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE teacher ADD CONSTRAINT FKpb6g6pahj1mr2ijg92r7m1xlh FOREIGN KEY (user_id) REFERENCES user (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
-ALTER TABLE examination_step ADD CONSTRAINT FKrg7nxjlvm7ak0gvuhwgr96v21 FOREIGN KEY (examination_block_id) REFERENCES examination_block (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+ALTER TABLE examination_step ADD CONSTRAINT FKrg7nxjlvm7ak0gvuhwgr96v21 FOREIGN KEY (examination_id) REFERENCES examination (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE course ADD CONSTRAINT FKsybhlxoejr4j3teomm5u2bx1n FOREIGN KEY (teacher_id) REFERENCES teacher (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
