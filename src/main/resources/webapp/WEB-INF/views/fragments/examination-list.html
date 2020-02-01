@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="examination-list" class="examination-list container-fluid border my-2 py-2" th:fragment="setData(exams)">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID testu</th>
+            <th scope="col">Nazov testu</th>
+            <th scope="col">Uroven testu</th>
+            <th scope="col">Uprava</th>
+            <th scope="col">Vymazat</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="exam : ${exams}">
+            <td th:text="${exam.id}">1</td>
+            <td th:text="${exam.name}">1</td>
+            <td th:text="${exam.complexity}">1</td>
+            <td>
+                <button type="button" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-secondary my-2 my-sm-0">Vymazat</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

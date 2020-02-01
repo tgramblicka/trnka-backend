@@ -19,28 +19,8 @@
     
     <p class="lead my-4">Zoznam testov:</p>
     
-    <div class="container-fluid border my-2 py-2">
-        <table class="table table-hover">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">Nazov testu</th>
-                <th scope="col">Uroven testu</th>
-                <th scope="col">Priradeny k triede</th>
-                <th scope="col">Finalny test</th>
-                <th scope="col">Uprava</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="test : ${tests}">
-                <td th:text="${test.name}">1</td>
-                <td th:text="${test.level}">1</td>
-                <td th:text="${test.className}">1</td>
-                <td th:text="${test.finalTest}">1</td>
-                <td><button type="button" class="btn btn-secondary my-2 my-sm-0">Upravit</button></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <div id="examination-list" class="examination-list container-fluid border my-2 py-2" th:replace="fragments/examination-list.html :: setData(exams=${model.exams})"></div>
+    
     
     <form class="form-inline my-2 my-lg-0">
         <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor test</button>
