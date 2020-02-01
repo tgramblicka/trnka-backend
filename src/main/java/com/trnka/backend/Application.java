@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan("com.trnka.backend")
 @Slf4j
 @EnableJpaRepositories("com.trnka.backend.repository")
-@EntityScan(basePackages = {"com.trnka.trnkadevice.domain" })
+@EntityScan(basePackages = {"com.trnka.backend.domain" })
 
 public class Application {
 
