@@ -1,5 +1,6 @@
 package com.trnka.backend.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import lombok.EqualsAndHashCode;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Entity
 public class User extends BaseEntity {
 
+    @Column(unique = true)
     private String username;
     private String password;
 
