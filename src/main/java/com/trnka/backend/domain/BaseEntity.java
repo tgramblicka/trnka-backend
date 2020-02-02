@@ -10,11 +10,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @MappedSuperclass
 @Getter
 @Setter
 @EqualsAndHashCode
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vst_seq")
     @SequenceGenerator(name = "vst_seq", sequenceName = "vst_seq", allocationSize = 1)
