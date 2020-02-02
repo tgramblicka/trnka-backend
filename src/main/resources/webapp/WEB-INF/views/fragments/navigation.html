@@ -8,22 +8,22 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a th:class="${currentPage} == 'home'? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{home}">Home</a>
+                <a th:class="${currentPage} == 'home'? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/home}">Home</a>
             </li>
             <li class="nav-item">
-                <a th:class="${currentPage} == 'class'? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{class}">Trieda</a>
+                <a th:class="${currentPage} == 'class'? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/class}">Trieda</a>
             </li>
             <li class="nav-item">
-                <a th:class="${currentPage} == 'learning' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{learning}">Vyuka</a>
+                <a th:class="${currentPage} == 'learning' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/learning}">Vyuka</a>
             </li>
             <li class="nav-item">
-                <a th:class="${currentPage} == 'testing' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{testing}">Testovanie</a>
+                <a th:class="${currentPage} == 'testing' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/testing}">Testovanie</a>
             </li>
             <li class="nav-item">
-                <a th:class="${currentPage} == 'results' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{results}">Vysledky</a>
+                <a th:class="${currentPage} == 'results' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/results}">Vysledky</a>
             </li>
             <li class="nav-item">
-                <a th:class="${currentPage} == 'dictionary' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{dictionary}">Slovnik</a>
+                <a th:class="${currentPage} == 'dictionary' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/dictionary}">Slovnik</a>
             </li>
         
         </ul>

@@ -7,9 +7,9 @@ import com.trnka.backend.dto.VstClassDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public class VstClassService {
+public class CourseService {
 
-    public List<VstClassDto> getClasses(Long teacherId) {
+    public List<VstClassDto> getCourses(Long teacherId) {
         return new DummyData().getClasses(5);
     }
 

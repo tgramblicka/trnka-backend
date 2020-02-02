@@ -17,14 +17,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='testing')">
     </nav>
     
-    <p class="lead my-4">Zoznam testov:</p>
+    <form class="form-inline my-2 my-lg-0" method="get" th:action="@{/vst/ui/teacher/testing/create}">
+        <button type="submit" class="btn btn-primary my-2 my-sm-0">Vytvor novy test</button>
+    </form>
     
+    
+    <p class="lead my-4">Zoznam testov:</p>
     <div id="examination-list" class="examination-list container-fluid border my-2 py-2" th:replace="fragments/examination-list.html :: setData(exams=${model.exams})"></div>
     
-    
-    <form class="form-inline my-2 my-lg-0">
-        <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor test</button>
-    </form>
     
 </main>
 </body>

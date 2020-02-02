@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="create-step-form" class="container-fluid border my-2 py-2" th:fragment="setData(model)">
+    
+    
+    <form class="form-group my-2 my-lg-0" method="post" th:action="@{/vst/ui/teacher/testing/examination-step}" th:object="${model.examinationStepCreateDto}">
+        <input type="hidden" th:field="*{examinationId}" th:value="*{examinationId}">
+    
+        <div class="form-group row">
+            <label for="selectedBrailId" class="col-sm-2 col-form-label">Vyber znak: </label>
+            <div class="col-sm-10">
+                <select th:field="*{selectedBrailId}" id="selectedBrailId" class="custom-select mr-sm-2">
+                    <option th:each="brail : *{brails}" th:value="${brail.id}" th:text="${brail.letter} + ' ' + ${brail.brailRepresentation}"></option>
+                </select>
+            </div>
+        </div>
+       
+        <div class="form-group row">
+            <label for="preserveOrder" class="col-sm-2 col-form-label">Nazov: </label>
+            <div class="col-sm-10">
+                <input type="checkbox" id="preserveOrder" th:field="*{preserveOrder}" th:checked="*{preserveOrder}" class="form-control">
+            </div>
+        </div>
+       
+        <div class="form-group row">
+            <button type="submit" class="btn btn-primary my-2 my-sm-0" id="create-examination-step">Pridaj</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

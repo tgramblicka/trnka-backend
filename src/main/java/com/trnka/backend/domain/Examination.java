@@ -1,7 +1,9 @@
 package com.trnka.backend.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -25,10 +27,12 @@ public class Examination extends BaseEntity {
     private ExaminationType type;
     private Integer allowedRetries;
 
-    @OneToMany
-    @JoinColumn(name = "examination_id", referencedColumnName = "id")
-    private List<ExaminationStep> examinationSteps;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "examination_id")
+    private List<ExaminationStep> examinationSteps = new ArrayList<>();
 
-
+    public void addExaminationStep(ExaminationStep step) {
+        this.getExaminationSteps().add(step);
+    }
 
 }

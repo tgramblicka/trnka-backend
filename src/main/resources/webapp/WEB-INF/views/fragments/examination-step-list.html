@@ -17,8 +17,8 @@
         </thead>
         <tbody>
         <tr th:each="step : ${examinationSteps}">
-            <td th:text="${step.letter}">1</td>
-            <td th:text="${step.brailRepresentation}"></td>
+            <td th:text="${step.brailCharacter.letter}">1</td>
+            <td th:text="${step.brailCharacter.brailRepresentation}"></td>
             <td>
                 <input type="checkbox" th:checked="${step.preserveOrder}">
             </td>

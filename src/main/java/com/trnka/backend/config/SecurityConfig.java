@@ -1,12 +1,14 @@
 package com.trnka.backend.config;
 
-import com.trnka.backend.controller.LoginController;
-import com.trnka.backend.controller.RestApiPaths;
+import com.trnka.backend.dto.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+import com.trnka.backend.controller.LoginController;
+import com.trnka.backend.controller.RestApiPaths;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -28,8 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("{noop}aaaa").roles("TEACHER");
-        auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN");
+        auth.inMemoryAuthentication().withUser("a").password("{noop}a").roles(UserRole.TEACHER.name());
+        auth.inMemoryAuthentication().withUser("user").password("{noop}aaaa").roles(UserRole.TEACHER.name());
+        auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles(UserRole.ADMIN.name());
     }
+
+
+
 
 }

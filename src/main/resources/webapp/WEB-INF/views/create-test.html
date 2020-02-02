@@ -17,30 +17,9 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='testing')">
     </nav>
     <h2 class="lead my-4">Vytvorenie testu: </h2>
-    <div class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='class')">
-    </div>
-    
-    <div id="examination-step-list" th:replace="fragments/navigation.html :: setData(examinationSteps=${model.examinationSteps})"></div>
     
     
-    
-    <h2 class="lead my-4">Pridanie kroku: </h2>
-    
-    <form th:object="${model}" class="form-inline">
-        <label for="brailSelection">Vyber znak: </label>
-        <select th:field="${model.brailCharacters}" id="brailSelection">
-            <option th:each="brail : ${model.brailCharacters}" th:value="${brail}" th:text="${brail}"></option>
-        </select>
-        
-        <label for="preserveOrder">Vyžaduj v správnom poradí: </label>
-        <input type="checkbox" id="preserveOrder" name="preserveOrder" value="Bike" value="preserveOrder" checked>
-        
-        <button type="button" id="addStep" class="btn btn-primary mx-2">Pridaj</button>
-    </form>
-    <form class="form-inline my-2 my-lg-0">
-        <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor test</button>
-    </form>
-
+    <div id="test-form" class="container-fluid border my-2 py-2" th:replace="fragments/test-form.html :: setData(model=${model})"></div>
 </main>
 </body>
 </html>

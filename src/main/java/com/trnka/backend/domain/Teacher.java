@@ -1,5 +1,6 @@
 package com.trnka.backend.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ public class Teacher extends BaseEntity {
 
     @OneToMany
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    private List<Course> courseList;
+    private List<Course> courseList = new ArrayList<>();
 
     // courses
 }
