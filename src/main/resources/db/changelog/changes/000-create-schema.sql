@@ -6,7 +6,7 @@ CREATE TABLE course (id BIGINT NOT NULL, name VARCHAR(255) NULL, teacher_id BIGI
 
 CREATE TABLE course_student (course_id BIGINT NOT NULL, student_id BIGINT NOT NULL, CONSTRAINT PK_COURSE_STUDENT PRIMARY KEY (course_id, student_id));
 
-CREATE TABLE examination (id BIGINT NOT NULL, allowed_retries INT DEFAULT NULL NULL, audio VARCHAR(255) NULL, complexity BIGINT DEFAULT NULL NULL, name VARCHAR(255) NULL, timeout BIGINT DEFAULT NULL NULL, type INT DEFAULT NULL NULL, CONSTRAINT PK_EXAMINATION PRIMARY KEY (id));
+CREATE TABLE examination (id BIGINT NOT NULL, course_id BIGINT NOT NULL, allowed_retries INT DEFAULT NULL NULL, audio VARCHAR(255) NULL, complexity BIGINT DEFAULT NULL NULL, name VARCHAR(255) NULL, timeout BIGINT DEFAULT NULL NULL, type INT DEFAULT NULL NULL, CONSTRAINT PK_EXAMINATION PRIMARY KEY (id));
 
 CREATE TABLE examination_step (id BIGINT NOT NULL, preserve_order BIT DEFAULT 0 NULL, brail_character_id BIGINT NOT NULL, examination_id BIGINT DEFAULT NULL NULL, CONSTRAINT PK_EXAMINATION_STEP PRIMARY KEY (id));
 
@@ -25,6 +25,7 @@ CREATE INDEX FKk5m148xqefonqw7bgnpm0snwj ON student(user_id);
 CREATE INDEX FKpb6g6pahj1mr2ijg92r7m1xlh ON teacher(user_id);
 CREATE INDEX FKrg7nxjlvm7ak0gvuhwgr96v21 ON examination_step(examination_id);
 CREATE INDEX FKsybhlxoejr4j3teomm5u2bx1n ON course(teacher_id);
+CREATE INDEX FK_examination_course_id ON examination(course_id);
 
 ALTER TABLE brail_character ADD CONSTRAINT FK1bsjbolbkeidctoruif7i3b6k FOREIGN KEY (audio_id) REFERENCES audio (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE examination_step ADD CONSTRAINT FK38jgjyongm0ve81vkf0gnvmku FOREIGN KEY (brail_character_id) REFERENCES brail_character (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
@@ -34,4 +35,5 @@ ALTER TABLE course_student ADD CONSTRAINT FKlmj50qx9k98b7li5li74nnylb FOREIGN KE
 ALTER TABLE teacher ADD CONSTRAINT FKpb6g6pahj1mr2ijg92r7m1xlh FOREIGN KEY (user_id) REFERENCES user (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE examination_step ADD CONSTRAINT FKrg7nxjlvm7ak0gvuhwgr96v21 FOREIGN KEY (examination_id) REFERENCES examination (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE course ADD CONSTRAINT FKsybhlxoejr4j3teomm5u2bx1n FOREIGN KEY (teacher_id) REFERENCES teacher (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+ALTER TABLE examination ADD CONSTRAINT FK_examination_course_id FOREIGN KEY (course_id) REFERENCES course (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
