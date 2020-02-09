@@ -4,7 +4,9 @@ public enum Templates {
     CREATE_TEST("create-test"),
     EDIT_TEST("edit-test"),
     ERROR_PAGE("error"),
-    TESTING_PAGE("teacher-tests");
+    TESTING_PAGE("teacher-tests"),
+    COURSE_EDIT_PAGE("course-edit"),
+    COURSES_PAGE("teacher-class");
 
 
 

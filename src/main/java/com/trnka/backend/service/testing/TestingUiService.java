@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.trnka.backend.config.Templates;
+import com.trnka.backend.domain.Course;
 import com.trnka.backend.domain.Examination;
 import com.trnka.backend.domain.ExaminationStep;
 import com.trnka.backend.domain.ExaminationType;
@@ -14,7 +15,9 @@ import com.trnka.backend.dto.ExaminationStepCreateDto;
 import com.trnka.backend.dto.TestModel;
 import com.trnka.backend.dto.TestingPageModel;
 import com.trnka.backend.repository.BrailRepository;
+import com.trnka.backend.repository.CourseRepository;
 import com.trnka.backend.repository.ExaminationRepository;
+import com.trnka.backend.service.CourseService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,11 +27,17 @@ public class TestingUiService {
 
     private ExaminationRepository examinationRepository;
     private BrailRepository brailRepository;
+    private CourseRepository courseRepository;
+    private CourseService courseService;
 
     public TestingUiService(final ExaminationRepository examinationRepository,
-                            final BrailRepository brailRepository) {
+                            final BrailRepository brailRepository,
+                            final CourseRepository courseRepository,
+                            final CourseService courseService) {
         this.examinationRepository = examinationRepository;
         this.brailRepository = brailRepository;
+        this.courseRepository = courseRepository;
+        this.courseService = courseService;
     }
 
     public ModelAndView getTestingListUi() {
@@ -39,7 +48,7 @@ public class TestingUiService {
     @Transactional
     public ModelAndView createOrEditTest(TestModel dto) {
         if (dto.getExamination().getId() == null) {
-            return createTest(dto.getExamination());
+            return createTest(dto.getExamination(), dto.getSelectedCourseId());
         }
         return editTest(dto.getExamination());
     }
@@ -56,9 +65,17 @@ public class TestingUiService {
         return errorPage();
     }
 
-    private ModelAndView createTest(final Examination examination) {
+    private ModelAndView createTest(final Examination examination,
+                                    final Long selectedCourseId) {
+        addExaminationToCourse(examination, selectedCourseId);
         Examination saved = examinationRepository.save(examination);
         return getEditTestUiModel(saved);
+    }
+
+    private void addExaminationToCourse(final Examination examination,
+                                        final Long selectedCourseId) {
+        Course course = courseRepository.findById(selectedCourseId).get();
+        course.getExaminations().add(examination);
     }
 
     private void updateExamination(final Examination model,
@@ -73,7 +90,6 @@ public class TestingUiService {
         examination.setComplexity(1L);
         examination.setTimeout(100L);
         examination.setType(ExaminationType.TESTING);
-        doplnit course id; - test sa da vytvorit len z KURZU
         return examination;
     }
 
@@ -100,6 +116,7 @@ public class TestingUiService {
         ModelAndView mv = new ModelAndView(Templates.CREATE_TEST.getTemplateName());
         TestModel model = new TestModel();
         model.setExamination(createInitialExamination());
+        model.setCourses(courseService.getMyCoursesSelection());
         return mv.addObject("model", model);
     }
 

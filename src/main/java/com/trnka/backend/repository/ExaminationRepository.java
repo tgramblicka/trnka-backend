@@ -8,4 +8,6 @@ import com.trnka.backend.domain.Examination;
 @Repository
 public interface ExaminationRepository extends JpaRepository<Examination, Long> {
 
+    Examination findByName(String name);
+
 }

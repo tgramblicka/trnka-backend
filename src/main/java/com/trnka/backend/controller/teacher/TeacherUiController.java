@@ -1,5 +1,6 @@
-package com.trnka.backend.controller;
+package com.trnka.backend.controller.teacher;
 
+import com.trnka.backend.controller.RestApiPaths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,8 +52,7 @@ public class TeacherUiController {
 
     @RequestMapping(method = RequestMethod.GET, path = CLASS_PATH)
     public ModelAndView classManagement() {
-        ModelAndView mv = new ModelAndView("teacher-class");
-        return mv.addObject("teacherName", "Jan Testovaci").addObject("classes", courseService.getCourses(1L));
+        return courseService.getMyCoursesList();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = TESTING_PATH)
