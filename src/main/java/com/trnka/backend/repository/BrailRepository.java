@@ -7,4 +7,7 @@ import com.trnka.backend.domain.BrailCharacter;
 
 @Repository
 public interface BrailRepository extends JpaRepository<BrailCharacter, Long> {
+
+    BrailCharacter findByLetter(String letter);
+
 }
