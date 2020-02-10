@@ -15,9 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(RestApiPaths.PATH_UI_TEACHER)
+@RequestMapping(RestApiPaths.PATH_UI_COURSE)
 public class CourseUiController {
-    public static final String PATH_COURSE = "course";
+    public static final String PATH_MY_COURSES = "/all";
+
 
     private CourseService courseService;
 
@@ -25,13 +26,18 @@ public class CourseUiController {
         this.courseService = courseService;
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = PATH_MY_COURSES)
+    public ModelAndView classManagement() {
+        return courseService.getMyCoursesList();
+    }
 
-    @RequestMapping(method = RequestMethod.GET, path = PATH_COURSE)
+
+    @RequestMapping(method = RequestMethod.GET)
     public ModelAndView editTestOpen(@RequestParam(required = false) Long id) {
         return courseService.getCreateOrEditUi(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = PATH_COURSE)
+    @RequestMapping(method = RequestMethod.POST)
     public ModelAndView createTest(@ModelAttribute CourseModel dto) {
         return courseService.create(dto);
     }

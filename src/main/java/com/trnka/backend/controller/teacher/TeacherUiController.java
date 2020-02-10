@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(RestApiPaths.PATH_UI_TEACHER)
 public class TeacherUiController {
     public static final String HOME_PATH = "home";
-    public static final String CLASS_PATH = "class";
     public static final String TESTING_PATH = "testing";
     public static final String CREATE_TEST = "testing/create";
     public static final String EDIT_TEST = "testing/edit";
@@ -50,10 +49,6 @@ public class TeacherUiController {
         return mv.addObject("teacherName", "Jan Testovaci");
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = CLASS_PATH)
-    public ModelAndView classManagement() {
-        return courseService.getMyCoursesList();
-    }
 
     @RequestMapping(method = RequestMethod.GET, path = TESTING_PATH)
     public ModelAndView testManagement() {
