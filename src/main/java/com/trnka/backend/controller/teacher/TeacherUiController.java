@@ -24,6 +24,7 @@ public class TeacherUiController {
     public static final String TESTING_PATH = "testing";
     public static final String CREATE_TEST = "testing/create";
     public static final String EDIT_TEST = "testing/edit";
+    public static final String DELETE_TEST = "testing/delete";
     public static final String CREATE_EXAMINATION_STEP = "testing/examination-step";
 
     public static final String LEARNING_PATH = "learning";
@@ -49,7 +50,6 @@ public class TeacherUiController {
         return mv.addObject("teacherName", "Jan Testovaci");
     }
 
-
     @RequestMapping(method = RequestMethod.GET, path = TESTING_PATH)
     public ModelAndView testManagement() {
         return testingListService.getExaminationsForCurrentTeacher();
@@ -73,6 +73,11 @@ public class TeacherUiController {
     @RequestMapping(method = RequestMethod.GET, path = EDIT_TEST)
     public ModelAndView getEditTest(@RequestParam Long id) {
         return testingUiService.getEditTestUiModel(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = DELETE_TEST)
+    public ModelAndView deleteTest(@RequestParam Long id) {
+        return testingUiService.deleteTest(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = LEARNING_PATH)

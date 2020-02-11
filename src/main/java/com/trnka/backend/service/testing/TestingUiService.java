@@ -29,15 +29,18 @@ public class TestingUiService {
     private BrailRepository brailRepository;
     private CourseRepository courseRepository;
     private CourseService courseService;
+    private TestingListService testingListService;
 
     public TestingUiService(final ExaminationRepository examinationRepository,
                             final BrailRepository brailRepository,
                             final CourseRepository courseRepository,
-                            final CourseService courseService) {
+                            final CourseService courseService,
+                            final TestingListService testingListService) {
         this.examinationRepository = examinationRepository;
         this.brailRepository = brailRepository;
         this.courseRepository = courseRepository;
         this.courseService = courseService;
+        this.testingListService = testingListService;
     }
 
     public ModelAndView getTestingListUi() {
@@ -141,5 +144,10 @@ public class TestingUiService {
 
     private ModelAndView errorPage() {
         return new ModelAndView(Templates.ERROR_PAGE.getTemplateName());
+    }
+
+    public ModelAndView deleteTest(final Long id) {
+        examinationRepository.deleteById(id);
+        return testingListService.getExaminationsForCurrentTeacher();
     }
 }
