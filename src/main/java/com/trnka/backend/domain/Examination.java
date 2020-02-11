@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.EqualsAndHashCode;
@@ -30,6 +31,10 @@ public class Examination extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "examination_id")
     private List<ExaminationStep> examinationSteps = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     public void addExaminationStep(ExaminationStep step) {
         this.getExaminationSteps().add(step);

@@ -75,7 +75,7 @@ public class TestingUiService {
     private void addExaminationToCourse(final Examination examination,
                                         final Long selectedCourseId) {
         Course course = courseRepository.findById(selectedCourseId).get();
-        course.getExaminations().add(examination);
+        course.addExamination(examination);
     }
 
     private void updateExamination(final Examination model,

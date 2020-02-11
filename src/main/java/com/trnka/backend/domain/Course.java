@@ -37,8 +37,12 @@ public class Course extends BaseEntity {
                inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> students = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "course_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     private List<Examination> examinations = new ArrayList<>();
+
+    public void addExamination(final Examination examination) {
+        examination.setCourse(this);
+        getExaminations().add(examination);
+    }
 
 }
