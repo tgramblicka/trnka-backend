@@ -102,6 +102,8 @@ public class TestingUiService {
         TestModel model = new TestModel();
         model.setExamination(examination);
         model.setExaminationStepCreateDto(getExaminationStepCreateDto(examination));
+        model.setSelectedCourseId(examination.getCourse().getId());
+        model.setCourses(courseService.getMyCoursesSelection());
         return mv.addObject("model", model);
     }
 
