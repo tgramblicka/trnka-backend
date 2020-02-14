@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="text/javascript">
+    </script>
+    <title>Studenti triedy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}"/>
+</head>
+<body>
+
+
+<main class="jumbotron">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='class')">
+    </nav>
+    
+    
+    <p class="lead my-4">Studenti triedy {nazoTriedy}:</p>
+    
+    
+    <form class="form-inline my-2 my-lg-0" method="get" th:action="@{/vst/ui/student/create}">
+        <button type="submit" class="btn btn-primary my-2 my-sm-0">Pridaj noveho student</button>
+    </form>
+    
+    
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Prihlasovaci kod</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${model.students}">
+            <td th:text="${student.id}">1</td>
+            <td th:text="${student.name}">1</td>
+            <td th:text="${exam.complexity}">1</td>
+            <td>
+                <form method="get" th:action="@{/vst/ui/student/edit}" th:object="${student}">
+                    <input type="hidden" th:value="*{id}" name="id"/>
+                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
+                </form>
+            </td>
+            <td>
+                <form method="get" th:action="@{/vst/ui/student/delete}" th:object="${student}">
+                    <input type="hidden" th:value="*{id}" name="id"/>
+                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</main>
+</body>
+</html>
