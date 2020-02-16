@@ -20,7 +20,6 @@ CREATE TABLE vst_seq (next_val BIGINT DEFAULT NULL NULL);
 
 CREATE INDEX FK1bsjbolbkeidctoruif7i3b6k ON brail_character(audio_id);
 CREATE INDEX FK38jgjyongm0ve81vkf0gnvmku ON examination_step(brail_character_id);
-CREATE INDEX FK4xxxkt1m6afc9vxp3ryb0xfhi ON course_student(student_id);
 CREATE INDEX FKpb6g6pahj1mr2ijg92r7m1xlh ON teacher(user_id);
 CREATE INDEX FKrg7nxjlvm7ak0gvuhwgr96v21 ON examination_step(examination_id);
 CREATE INDEX FKsybhlxoejr4j3teomm5u2bx1n ON course(teacher_id);
@@ -28,8 +27,6 @@ CREATE INDEX FK_examination_course_id ON examination(course_id);
 
 ALTER TABLE brail_character ADD CONSTRAINT FK1bsjbolbkeidctoruif7i3b6k FOREIGN KEY (audio_id) REFERENCES audio (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE examination_step ADD CONSTRAINT FK38jgjyongm0ve81vkf0gnvmku FOREIGN KEY (brail_character_id) REFERENCES brail_character (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
-ALTER TABLE course_student ADD CONSTRAINT FK4xxxkt1m6afc9vxp3ryb0xfhi FOREIGN KEY (student_id) REFERENCES student (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
-ALTER TABLE course_student ADD CONSTRAINT FKlmj50qx9k98b7li5li74nnylb FOREIGN KEY (course_id) REFERENCES course (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE teacher ADD CONSTRAINT FKpb6g6pahj1mr2ijg92r7m1xlh FOREIGN KEY (user_id) REFERENCES user (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE examination_step ADD CONSTRAINT FKrg7nxjlvm7ak0gvuhwgr96v21 FOREIGN KEY (examination_id) REFERENCES examination (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE course ADD CONSTRAINT FKsybhlxoejr4j3teomm5u2bx1n FOREIGN KEY (teacher_id) REFERENCES teacher (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
