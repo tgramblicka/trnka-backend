@@ -19,7 +19,7 @@
     <h2 class="lead my-4">Vytvor / uprav kurz: </h2>
     
     <form class="form-group my-2 my-lg-0" method="post" th:action="@{/vst/ui/course}" th:object="${model.course}">
-<!--        <input type="hidden" th:field="*{id}" th:value="*{id}">-->
+        <input type="hidden" th:field="*{id}" th:value="*{id}">
         <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">Nazov: </label>
             <div class="col-sm-10">
@@ -31,7 +31,12 @@
         </div>
     </form>
     
-    
+    <form method="get" class="form-inline my-2 my-lg-0" th:action="@{/vst/ui/student/list}">
+        <input type="hidden" name="courseId" th:value="${model.course.id}">
+        <button type="submit" class="btn btn-primary my-2 my-sm-0">Sprava studentov triedy</button>
+    </form>
+
+
 </main>
 </body>
 </html>

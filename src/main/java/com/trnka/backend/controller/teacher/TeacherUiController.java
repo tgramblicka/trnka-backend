@@ -32,8 +32,6 @@ public class TeacherUiController {
     public static final String DICTIONARY_PATH = "dictionary";
 
     @Autowired
-    private CourseService courseService;
-    @Autowired
     private TestingUiService testingUiService;
     @Autowired
     private TestingListService testingListService;

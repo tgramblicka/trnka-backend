@@ -28,23 +28,20 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="class : ${classes}">
-                <td th:text="${class.name}">1</td>
-                <td th:text="${class.studentCount}">1</td>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.name}">1</td>
+                <td th:text="${course.studentCount}">1</td>
                 <td>
-                    <button type="button" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
+                    <form method="get" th:action="@{/vst/ui/course}" >
+                        <input type="hidden" name="id" th:value="${course.id}">
+                        <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
+                    </form>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
     
-    <form class="form-inline my-2 my-lg-0">
-        <a th:href="@{/vst/ui/course}">
-            <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor triedu</button>
-        </a>
-    </form>
-
 
 </main>
 </body>

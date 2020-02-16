@@ -21,38 +21,42 @@
     <p class="lead my-4">Studenti triedy {nazoTriedy}:</p>
     
     
-    <form class="form-inline my-2 my-lg-0" method="get" th:action="@{/vst/ui/student/create}">
-        <button type="submit" class="btn btn-primary my-2 my-sm-0">Pridaj noveho student</button>
-    </form>
-    
-    
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Prihlasovaci kod</th>
+            <th scope="col">Upravit</th>
+            <th scope="col">Vymazat</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="student : ${model.students}">
             <td th:text="${student.id}">1</td>
-            <td th:text="${student.name}">1</td>
-            <td th:text="${exam.complexity}">1</td>
+            <td th:text="${student.deviceIdentificationCode}">1</td>
             <td>
-                <form method="get" th:action="@{/vst/ui/student/edit}" th:object="${student}">
-                    <input type="hidden" th:value="*{id}" name="id"/>
+                <form method="get" th:action="@{/vst/ui/student}">
+                    <input type="hidden" th:value="${model.courseId}" name="courseId"/>
+                    <input type="hidden" th:value="${student.id}" name="studentId"/>
                     <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
                 </form>
             </td>
             <td>
-                <form method="get" th:action="@{/vst/ui/student/delete}" th:object="${student}">
-                    <input type="hidden" th:value="*{id}" name="id"/>
+                <form method="get" th:action="@{/vst/ui/student/delete}">
+                    <input type="hidden" th:value="${model.courseId}" name="courseId"/>
+                    <input type="hidden" th:value="${student.id}" name="studentId"/>
                     <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
+    
+    
+    <form class="form-group my-2 my-lg-0" method="get" th:action="@{/vst/ui/student}">
+        <input type="hidden" name="courseId" th:value="${model.courseId}">
+        <button type="submit" class="btn btn-primary my-2 my-sm-0">Pridaj noveho studenta</button>
+    </form>
 
 
 </main>

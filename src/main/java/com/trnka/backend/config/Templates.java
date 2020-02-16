@@ -6,7 +6,9 @@ public enum Templates {
     ERROR_PAGE("error"),
     TESTING_PAGE("teacher-tests"),
     COURSE_EDIT_PAGE("course-edit"),
-    COURSES_PAGE("teacher-class");
+    COURSES_PAGE("teacher-class"),
+    STUDENTS_LIST("students-list"),
+    STUDENT_EDIT_PAGE("student-edit");
 
 
 
