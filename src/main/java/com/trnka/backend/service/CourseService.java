@@ -33,7 +33,7 @@ public class CourseService {
 
     public ModelAndView getMyCoursesList() {
         ModelAndView mv = new ModelAndView(Templates.COURSES_PAGE.getTemplateName());
-        return mv.addObject("teacherName", "Jan Testovaci").addObject("classes", new DummyData().getClasses(5));
+        return mv.addObject("teacherName", "Jan Testovaci").addObject("courses", getMyCoursesSelection());
     }
 
     public List<CourseSelectDto> getMyCoursesSelection() {
@@ -45,7 +45,8 @@ public class CourseService {
         List<Course> courses = currentTeacher.get().getCourseList();
         return courses.stream()
                 .map(c -> new CourseSelectDto(c.getName(),
-                                              c.getId()))
+                                              c.getId(),
+                                              c.getStudents().size()))
                 .collect(Collectors.toList());
     }
 
@@ -56,12 +57,15 @@ public class CourseService {
             return new ModelAndView(Templates.ERROR_PAGE.getTemplateName());
         }
         Course course = dto.getCourse();
-        currentTeacher.get().getCourseList().add(course);
-        courseRepository.save(course);
+        if (course.getId() == null) {
+            currentTeacher.get().getCourseList().add(course);
+        }
+
+        Course savedCourse = courseRepository.save(course);
 
         CourseModel courseModel = new CourseModel();
-        courseModel.setCourse(course);
-        courseModel.setInfoMessage("Kurz bol uspesne vytvoreny.");
+        courseModel.setCourse(savedCourse);
+        courseModel.setInfoMessage("Kurz bol uspesne ulozeny.");
 
         return getMyCoursesList();
     }

@@ -9,4 +9,6 @@ import lombok.NoArgsConstructor;
 public class CourseModel {
     private Course course;
     private String infoMessage;
+    private String errorMessage;
+
 }

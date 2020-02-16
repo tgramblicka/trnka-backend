@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class CourseSelectDto {
     private String name;
     private Long id;
+    private Integer studentCount;
 }
