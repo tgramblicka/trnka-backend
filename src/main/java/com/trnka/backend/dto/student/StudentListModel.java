@@ -13,5 +13,6 @@ import java.util.List;
 public class StudentListModel {
     private List<Student> students;
     private Long courseId;
+    private String courseName;
     private String errorMessage;
 }

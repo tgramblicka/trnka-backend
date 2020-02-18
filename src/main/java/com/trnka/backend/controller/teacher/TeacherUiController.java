@@ -1,6 +1,5 @@
 package com.trnka.backend.controller.teacher;
 
-import com.trnka.backend.controller.RestApiPaths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.trnka.backend.controller.RestApiPaths;
 import com.trnka.backend.dto.TestModel;
-import com.trnka.backend.service.CourseService;
 import com.trnka.backend.service.testing.TestingListService;
 import com.trnka.backend.service.testing.TestingUiService;
 
