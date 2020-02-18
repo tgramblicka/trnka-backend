@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script th:src="@{/jquery/jquery-3.4.1.min.js}" src="../jquery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+    <title>Teacher Testing</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}"/>
+</head>
+<body>
+
+
+<main class="jumbotron">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='testing')">
+    </nav>
+    <h2 class="lead my-4">Uprava testu: </h2>
+    <div id="test-form" class="container-fluid border my-2 py-2" th:replace="fragments/test-form.html :: setData(model=${model})"></div>
+    
+    
+    <h2 class="lead my-4">Pridanie kroku: </h2>
+    <div id="create-step-form" class="container-fluid border my-2 py-2" th:replace="fragments/create-step-form.html :: setData(model=${model})"></div>
+    <div id="examination-step-list" th:replace="fragments/examination-step-list.html :: setData(examinationSteps=${model.examination.examinationSteps})"></div>
+    
+</main>
+</body>
+</html>

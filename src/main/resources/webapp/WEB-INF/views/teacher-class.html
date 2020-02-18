@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="text/javascript">
+    </script>
+    <title>Teacher Class Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}"/>
+</head>
+<body>
+
+
+<main class="jumbotron">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='class')">
+    </nav>
+    <p class="lead my-4">Zoznam Vasich tried:</p>
+    
+    <div class="container-fluid border my-2 py-2">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nazov triedy</th>
+                <th scope="col">Pocet ziakov</th>
+                <th scope="col">Uprava</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.name}">1</td>
+                <td th:text="${course.studentCount}">1</td>
+                <td>
+                    <form method="get" th:action="@{/vst/ui/course}" >
+                        <input type="hidden" name="id" th:value="${course.id}">
+                        <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    
+
+</main>
+</body>
+</html>
