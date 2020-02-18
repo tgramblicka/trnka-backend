@@ -15,7 +15,7 @@
     <artifactId>trnka-backend</artifactId>
     <name>trnka-backend</name>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <version.hibernate>5.4.4.Final</version.hibernate>
@@ -24,7 +24,6 @@
         <version.trnka-restapi>1.0-SNAPSHOT</version.trnka-restapi>
         <version.maria-db>8.0.16</version.maria-db>
     </properties>
-
 
 
     <dependencies>
@@ -90,7 +89,6 @@
         </dependency>
 
 
-
         <!--MARIA_DB-->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
@@ -106,7 +104,6 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -114,24 +111,20 @@
             <scope>provided</scope>
         </dependency>
 
-
-        <!--JERSEY JACKSON-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.glassfish.jersey.media</groupId>-->
-        <!--            <artifactId>jersey-media-json-jackson</artifactId>-->
-        <!--            <version>${version.jersey}</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.glassfish.jersey.media</groupId>-->
-        <!--            <artifactId>jersey-media-multipart</artifactId>-->
-        <!--            <version>${version.jersey}</version>-->
-        <!--        </dependency>-->
-
         <dependency>
             <groupId>com.trnka</groupId>
             <artifactId>restapi</artifactId>
             <version>${version.trnka-restapi}</version>
         </dependency>
+
+        <!--utils-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
