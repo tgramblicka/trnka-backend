@@ -34,5 +34,6 @@ public class LoginController {
         ModelAndView mv = new ModelAndView("login");
         return mv.addObject("logout", true);
     }
+    // Hello Marianni
 
 }
