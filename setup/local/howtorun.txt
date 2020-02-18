@@ -1,0 +1,5 @@
+mvn clean package
+java -jar
+
+browser:
+http://localhost:8080/vst/ui/course/all
