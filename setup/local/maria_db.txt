@@ -1,0 +1,26 @@
+SHOW DATABASES;
+create database `vst`;
+
+DUMP DB
+mysqldump --databases trnka-device > /home/pi/trnka-device/trnka-device.sql
+-------------------------
+
+MariaDB on synology:
+add this to path after installation:
+    PATH=$PATH:/volume1/@appstore/MariaDB10/usr/local/mariadb10/bin/ #MariaDB10 env
+creaate file
+    /var/packages/MariaDB10/etc/my.cnf
+add to my.cnf following:
+    socket=/run/mysqld/mysqld10.sock
+    bind-address=0.0.0.0
+
+
+
+
+ADD liquibase user:
+login o maria db:
+    mysql -u root -p
+grant liquibase user from PC
+    GRANT ALL ON `vst`.* TO 'vst'@'192.168.1.17' IDENTIFIED BY 'VST-user-123';       // PC liquibase user
+    GRANT ALL ON `vst`.* TO 'admin'@'localhost' IDENTIFIED BY 'VST-user-123';        // application-user
+
