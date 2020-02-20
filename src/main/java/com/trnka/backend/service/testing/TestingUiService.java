@@ -2,6 +2,7 @@ package com.trnka.backend.service.testing;
 
 import java.util.Optional;
 
+import com.trnka.backend.service.ErrorPage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -64,8 +65,9 @@ public class TestingUiService {
             examinationRepository.save(entity);
             return getEditTestUiModel(entity);
         }
-        log.error("Test with id {} not found!", model.getId());
-        return errorPage();
+        String msg = String.format("Test with id %s not found!", model.getId());
+        log.error(msg);
+        return ErrorPage.create(msg);
     }
 
     private ModelAndView createTest(final Examination examination,
@@ -129,8 +131,9 @@ public class TestingUiService {
     public ModelAndView createExaminationStep(final ExaminationStepCreateDto dto) {
         Optional<Examination> examination = examinationRepository.findById(dto.getExaminationId());
         if (examination == null) {
-            log.error("Examination with id {} does not exist!", dto.getExaminationId());
-            return errorPage();
+            String errorMsg = String.format("Examination with id %s does not exist!", dto.getExaminationId());
+            log.error(errorMsg);
+            return ErrorPage.create(errorMsg);
         }
         ExaminationStep step = new ExaminationStep();
         step.setBrailCharacter(brailRepository.findById(dto.getSelectedBrailId()).get());
@@ -140,10 +143,6 @@ public class TestingUiService {
         realExamination.addExaminationStep(step);
 
         return getEditTestUiModel(realExamination);
-    }
-
-    private ModelAndView errorPage() {
-        return new ModelAndView(Templates.ERROR_PAGE.getTemplateName());
     }
 
     public ModelAndView deleteTest(final Long id) {
