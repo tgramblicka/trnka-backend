@@ -3,7 +3,6 @@ package com.trnka.backend.service;
 import java.util.Collections;
 import java.util.Optional;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +36,7 @@ public class StudentService {
             log.error(courseNotFoundErrorMsg(courseId));
             StudentListModel model = new StudentListModel(Collections.EMPTY_LIST,
                                                           courseId,
-                                                          StringUtils.EMPTY,
+                                                          "",
                                                           courseNotFoundErrorMsg(courseId));
             return new ModelAndView(Templates.STUDENTS_LIST.getTemplateName()).addObject("model", model);
         }
