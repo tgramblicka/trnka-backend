@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserSession {
 
-    public static UserDetails currentUserDetails() {
+    public static UserDetails mockTestUserDetails() {
         User user = new User("a",
                              "a",
                              Collections.emptyList());
@@ -18,7 +18,7 @@ public class UserSession {
 
     }
 
-    public static UserDetails currentUserDetails1() {
+    public static UserDetails currentUserDetails() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
         if (authentication != null) {

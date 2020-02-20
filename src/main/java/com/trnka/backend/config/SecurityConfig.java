@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-//        configureWrapper(http);
+        configureWrapper(http);
     }
 
     private void configureWrapper(final HttpSecurity http) throws Exception {
@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("a").password("{noop}a").roles(UserRole.TEACHER.name());
-        auth.inMemoryAuthentication().withUser("user").password("{noop}aaaa").roles(UserRole.TEACHER.name());
+        auth.inMemoryAuthentication().withUser("user").password("{noop}0000").roles(UserRole.TEACHER.name());
         auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles(UserRole.ADMIN.name());
     }
 
