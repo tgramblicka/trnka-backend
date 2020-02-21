@@ -1,5 +1,14 @@
-mvn clean package
-java -jar
+1. v macbook konzole sa naviguj do adresare projektu a spusti
+mvnw spring-boot:run
+2. pockaj kym vypise v konzole "Trnka-backend is ready"
+3. Naviguj sa v prehliadaci na
+http://localhost:8080/vst/ui/login
+4. prihlas sa cez "user" a heslo "0000"
+5. si prihlaseny
 
-browser:
-http://localhost:8080/vst/ui/course/all
+
+
+
+
+
+
