@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.trnka.backend.domain.ExaminationStep;
-import com.trnka.restapi.dto.BrailCharacterDto;
-import com.trnka.restapi.dto.ExaminationStepDto;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import com.trnka.backend.domain.Course;
 import com.trnka.backend.domain.Examination;
+import com.trnka.backend.domain.ExaminationStep;
 import com.trnka.backend.domain.Student;
 import com.trnka.backend.repository.CourseRepository;
+import com.trnka.restapi.dto.BrailCharacterDto;
 import com.trnka.restapi.dto.ExaminationDto;
+import com.trnka.restapi.dto.ExaminationStepDto;
 import com.trnka.restapi.dto.StudentDTO;
 import com.trnka.restapi.dto.SyncDto;
 
