@@ -2,7 +2,7 @@ package com.trnka.backend.service.testing;
 
 import java.util.Optional;
 
-import com.trnka.backend.service.ErrorPage;
+import com.trnka.restapi.dto.ExaminationType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,7 +11,6 @@ import com.trnka.backend.config.Templates;
 import com.trnka.backend.domain.Course;
 import com.trnka.backend.domain.Examination;
 import com.trnka.backend.domain.ExaminationStep;
-import com.trnka.backend.domain.ExaminationType;
 import com.trnka.backend.dto.ExaminationStepCreateDto;
 import com.trnka.backend.dto.TestModel;
 import com.trnka.backend.dto.TestingPageModel;
@@ -19,6 +18,7 @@ import com.trnka.backend.repository.BrailRepository;
 import com.trnka.backend.repository.CourseRepository;
 import com.trnka.backend.repository.ExaminationRepository;
 import com.trnka.backend.service.CourseService;
+import com.trnka.backend.service.ErrorPage;
 
 import lombok.extern.slf4j.Slf4j;
 
