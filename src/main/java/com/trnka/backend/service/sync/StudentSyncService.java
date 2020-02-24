@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.trnka.backend.domain.ExaminationStep;
+import com.trnka.restapi.dto.BrailCharacterDto;
+import com.trnka.restapi.dto.ExaminationStepDto;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import com.trnka.backend.domain.Course;
@@ -51,6 +55,16 @@ public class StudentSyncService {
         dto.setTimeout(examination.getTimeout());
         dto.setType(examination.getType());
         dto.setComplexity(examination.getComplexity());
+        dto.setSteps(examination.getExaminationSteps().stream().map(this::mapExaminationStep).collect(Collectors.toList()));
+        return dto;
+    }
+
+    private ExaminationStepDto mapExaminationStep(ExaminationStep step) {
+        ExaminationStepDto dto = new ExaminationStepDto();
+        BrailCharacterDto bc = new BrailCharacterDto(step.getBrailCharacter().getLetter());
+        bc.setId(step.getBrailCharacter().getId());
+        dto.setBrailCharacter(bc);
+        dto.setPreserveOrder(step.getPreserveOrder());
         return dto;
     }
 
