@@ -98,17 +98,20 @@ public class StudentService {
 
     @Transactional
     public ModelAndView createStudent(final StudentModel model) {
-        Student student = model.getStudent();
+        Student studentDto = model.getStudent();
 
-        if (student.getId() == null) {
-            student.getCourse().getStudents().add(student);
+        Student studentEntity;
+        if (studentDto.getId() == null) {
+            studentDto.getCourse().getStudents().add(studentDto);
+            studentEntity = studentRepository.save(studentDto);
+        } else {
+            studentEntity = studentRepository.findById(studentDto.getId()).get();
+            studentEntity.setDeviceIdentificationCode(studentDto.getDeviceIdentificationCode());
         }
 
-        Student savedStudent = studentRepository.save(student);
-
-        model.setStudent(savedStudent);
+        model.setStudent(studentEntity);
         model.setInfoMessage("Student bol vytvoreny !");
-        return getStudentsListUi(student.getCourse().getId());
+        return getStudentsListUi(studentDto.getCourse().getId());
     }
 
     public ModelAndView delete(final Long courseId,

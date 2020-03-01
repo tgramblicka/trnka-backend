@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.trnka.backend.DummyData;
@@ -50,24 +51,35 @@ public class CourseService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public ModelAndView create(CourseModel dto) {
         Optional<Teacher> currentTeacher = teacherService.getCurrentTeacher();
         if (!currentTeacher.isPresent()) {
-            log.error("Non teacher cannot create a course !");
+            log.error("Non teacher cannot create a courseDto !");
             return new ModelAndView(Templates.ERROR_PAGE.getTemplateName());
         }
-        Course course = dto.getCourse();
-        if (course.getId() == null) {
-            currentTeacher.get().getCourseList().add(course);
+        Course courseDto = dto.getCourse();
+
+        Course courseEntity;
+        if (courseDto.getId() == null) {
+            currentTeacher.get().getCourseList().add(courseDto);
+            courseEntity = courseRepository.save(courseDto);
+        }
+        else {
+            courseEntity = updateCourse(courseDto);
         }
 
-        Course savedCourse = courseRepository.save(course);
-
         CourseModel courseModel = new CourseModel();
-        courseModel.setCourse(savedCourse);
+        courseModel.setCourse(courseEntity);
         courseModel.setInfoMessage("Kurz bol uspesne ulozeny.");
 
         return getMyCoursesList();
+    }
+
+    private Course updateCourse(Course dto){
+        Course course = courseRepository.findById(dto.getId()).get();
+        course.setName(dto.getName());
+        return course;
     }
 
     public ModelAndView getCreateOrEditUi(final Long id) {

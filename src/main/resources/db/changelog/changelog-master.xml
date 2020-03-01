@@ -21,4 +21,14 @@
                  stripComments="true"/>
     </changeSet>
 
+    <changeSet author="tomas.gramblicka" id="002-add-audit-data.sql">
+        <sqlFile encoding="utf8"
+                 path="changes/002-add-audit-data.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true" endDelimiter="//" />
+    </changeSet>
+
+
+
 </databaseChangeLog>
