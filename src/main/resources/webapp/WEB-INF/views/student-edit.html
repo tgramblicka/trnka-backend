@@ -37,7 +37,9 @@
                 <button type="submit" class="btn btn-primary my-2 my-sm-0">Potvrd</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-primary my-2 my-sm-0">Zrus</button>
+                <a th:href="@{/vst/ui/student/list(courseId=${model.student.course.id})}">
+                    <button type="button" class="btn btn-primary my-2 my-sm-0">Zrus</button>
+                </a>
             </div>
         </div>
     </form>
