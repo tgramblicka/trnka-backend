@@ -2,3 +2,6 @@ open console (git bash)
 mvn clean install
 mvn spring-boot:run
 navigate to URL: http://localhost:8080/vst/ui/login
+login with:
+    user: a
+    pwd:  a
