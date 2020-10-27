@@ -8,13 +8,15 @@ CREATE TABLE examination (id BIGINT NOT NULL, course_id BIGINT NOT NULL, allowed
 
 CREATE TABLE examination_step (id BIGINT NOT NULL, preserve_order BIT DEFAULT 0 NULL, brail_character_id BIGINT NOT NULL, examination_id BIGINT DEFAULT NULL NULL, CONSTRAINT PK_EXAMINATION_STEP PRIMARY KEY (id));
 
-CREATE TABLE student (id BIGINT NOT NULL, device_identification_code VARCHAR(255) NULL, course_id BIGINT NOT NULL, CONSTRAINT PK_COURSE PRIMARY KEY (id));
+CREATE TABLE student (id BIGINT NOT NULL, device_identification_code VARCHAR(255) NULL, course_id BIGINT NOT NULL, CONSTRAINT PK_STUDENT PRIMARY KEY (id));
 
 CREATE TABLE teacher (id BIGINT NOT NULL, user_id BIGINT DEFAULT NULL NULL, CONSTRAINT PK_TEACHER PRIMARY KEY (id));
 
 CREATE TABLE user (id BIGINT NOT NULL, password VARCHAR(255) NULL, username VARCHAR(255) NULL, CONSTRAINT PK_USER PRIMARY KEY (id));
 
-CREATE TABLE vst_seq (next_val BIGINT DEFAULT NULL NULL);
+create sequence vst_seq start with 100 minvalue 100 maxvalue 9223372036854775806 increment by 1 cache 20
+            nocycle;
+
 
 CREATE INDEX FK1bsjbolbkeidctoruif7i3b6k ON brail_character(audio_id);
 CREATE INDEX FK38jgjyongm0ve81vkf0gnvmku ON examination_step(brail_character_id);

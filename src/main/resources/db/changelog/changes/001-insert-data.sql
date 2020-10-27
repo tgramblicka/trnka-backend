@@ -41,7 +41,4 @@ INSERT INTO `brail_character` (`id`, `audio_id`, `brail_representation`, `letter
 
 
 
-INSERT INTO vst_seq (next_val) VALUES (100);
-
-
 SET FOREIGN_KEY_CHECKS=1; --

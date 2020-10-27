@@ -15,6 +15,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OrderBy;
 
 @Getter
 @Setter
@@ -32,6 +33,7 @@ public class Examination extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "examination_id")
+    @OrderBy(clause = "display_order DESC")
     private List<ExaminationStep> examinationSteps = new ArrayList<>();
 
     @ManyToOne
@@ -39,7 +41,10 @@ public class Examination extends BaseEntity {
     private Course course;
 
     public void addExaminationStep(ExaminationStep step) {
+        Integer order = this.getExaminationSteps().size()+1;
+        step.setDisplayOrder(order);
         this.getExaminationSteps().add(step);
     }
+
 
 }

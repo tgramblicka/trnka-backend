@@ -5,6 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class ExaminationStep extends BaseEntity {
 
@@ -24,4 +26,6 @@ public class ExaminationStep extends BaseEntity {
     private BrailCharacter brailCharacter;
 
     private Boolean preserveOrder;
+
+    private Integer displayOrder = 0;
 }

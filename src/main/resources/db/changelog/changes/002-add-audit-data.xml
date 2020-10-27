@@ -1,0 +1,138 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="002-add-audit-data" author="tomas.gramblicka">
+
+        <addColumn tableName="audio">
+            <column name="created_on" type="datetime"/>
+            <column name="updated_on" type="datetime"/>
+        </addColumn>
+        <update tableName="audio">
+            <column name="created_on" value="NOW()"/>
+        </update>
+        <update tableName="audio">
+            <column name="updated_on" value="NOW()"/>
+        </update>
+        <addNotNullConstraint tableName="audio" columnName="created_on" columnDataType="datetime"/>
+
+        <addColumn tableName="brail_character">
+            <column name="created_on" type="datetime"/>
+            <column name="updated_on" type="datetime"/>
+        </addColumn>
+        <update tableName="brail_character">
+            <column name="created_on" value="NOW()"/>
+        </update>
+        <update tableName="brail_character">
+            <column name="updated_on" value="NOW()"/>
+        </update>
+        <addNotNullConstraint tableName="brail_character" columnName="created_on" columnDataType="datetime"/>
+
+
+
+        <addColumn tableName="examination">
+            <column name="created_on" type="datetime"/>
+            <column name="updated_on" type="datetime"/>
+        </addColumn>
+        <update tableName="examination">
+            <column name="created_on" value="NOW()"/>
+        </update>
+        <update tableName="examination">
+            <column name="updated_on" value="NOW()"/>
+        </update>
+        <addNotNullConstraint tableName="examination" columnName="created_on" columnDataType="datetime"/>
+
+
+
+        <addColumn tableName="examination_step">
+            <column name="created_on" type="datetime"/>
+            <column name="updated_on" type="datetime"/>
+        </addColumn>
+        <update tableName="examination_step">
+            <column name="created_on" value="NOW()"/>
+        </update>
+        <update tableName="examination_step">
+            <column name="updated_on" value="NOW()"/>
+        </update>
+        <addNotNullConstraint tableName="examination_step" columnName="created_on" columnDataType="datetime"/>
+
+
+
+        <addColumn tableName="student">
+            <column name="created_on" type="datetime"/>
+            <column name="updated_on" type="datetime"/>
+        </addColumn>
+        <update tableName="student">
+            <column name="created_on" value="NOW()"/>
+        </update>
+        <update tableName="student">
+            <column name="updated_on" value="NOW()"/>
+        </update>
+        <addNotNullConstraint tableName="student" columnName="created_on" columnDataType="datetime"/>
+
+
+        <addColumn tableName="user">
+            <column name="created_on" type="datetime"/>
+            <column name="updated_on" type="datetime"/>
+        </addColumn>
+        <update tableName="user">
+            <column name="created_on" value="NOW()"/>
+        </update>
+        <update tableName="user">
+            <column name="updated_on" value="NOW()"/>
+        </update>
+        <addNotNullConstraint tableName="user" columnName="created_on" columnDataType="datetime"/>
+
+
+        <addColumn tableName="course">
+            <column name="created_on" type="datetime"/>
+            <column name="updated_on" type="datetime"/>
+        </addColumn>
+        <update tableName="course">
+            <column name="created_on" value="NOW()"/>
+        </update>
+        <update tableName="course">
+            <column name="updated_on" value="NOW()"/>
+        </update>
+        <addNotNullConstraint tableName="course" columnName="created_on" columnDataType="datetime"/>
+
+
+        <addColumn tableName="teacher">
+            <column name="created_on" type="datetime"/>
+            <column name="updated_on" type="datetime"/>
+        </addColumn>
+        <update tableName="teacher">
+            <column name="created_on" value="NOW()"/>
+        </update>
+        <update tableName="teacher">
+            <column name="updated_on" value="NOW()"/>
+        </update>
+        <addNotNullConstraint tableName="teacher" columnName="created_on" columnDataType="datetime"/>
+
+        <rollback>
+            <dropColumn tableName="audio" columnName="updated_on"></dropColumn>
+            <dropColumn tableName="audio" columnName="updated_on"></dropColumn>
+
+            <dropColumn tableName="teacher" columnName="updated_on"></dropColumn>
+            <dropColumn tableName="teacher" columnName="updated_on"></dropColumn>
+
+            <dropColumn tableName="brail_character" columnName="updated_on"></dropColumn>
+            <dropColumn tableName="brail_character" columnName="updated_on"></dropColumn>
+
+            <dropColumn tableName="examination" columnName="updated_on"></dropColumn>
+            <dropColumn tableName="examination" columnName="updated_on"></dropColumn>
+
+            <dropColumn tableName="examination_step" columnName="updated_on"></dropColumn>
+            <dropColumn tableName="examination_step" columnName="updated_on"></dropColumn>
+
+            <dropColumn tableName="student" columnName="updated_on"></dropColumn>
+            <dropColumn tableName="student" columnName="updated_on"></dropColumn>
+
+            <dropColumn tableName="user" columnName="updated_on"></dropColumn>
+            <dropColumn tableName="user" columnName="updated_on"></dropColumn>
+
+            <dropColumn tableName="course" columnName="updated_on"></dropColumn>
+            <dropColumn tableName="course" columnName="updated_on"></dropColumn>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
