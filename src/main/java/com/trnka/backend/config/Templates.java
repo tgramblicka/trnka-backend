@@ -8,7 +8,8 @@ public enum Templates {
     COURSE_EDIT_PAGE("course-edit"),
     COURSES_PAGE("teacher-class"),
     STUDENTS_LIST("students-list"),
-    STUDENT_EDIT_PAGE("student-edit");
+    STUDENT_EDIT_PAGE("student-edit"),
+    EXAMINATION_STEP_LIST("examination-step-list");
 
 
 

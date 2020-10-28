@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.trnka.backend.DummyData;
 import com.trnka.backend.config.Templates;
 import com.trnka.backend.domain.Course;
 import com.trnka.backend.domain.Teacher;
+import com.trnka.backend.dto.course.ExaminationStepReorderDto;
 import com.trnka.backend.dto.course.CourseModel;
 import com.trnka.backend.dto.course.CourseSelectDto;
 import com.trnka.backend.repository.CourseRepository;
@@ -21,16 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CourseService {
 
-    private TeacherService teacherService;
-    private CourseRepository courseRepository;
-
-    public CourseService(final TeacherService teacherService,
-                         final CourseRepository courseRepository) {
-        this.teacherService = teacherService;
-        this.courseRepository = courseRepository;
-    }
+    private final TeacherService teacherService;
+    private final CourseRepository courseRepository;
 
     public ModelAndView getMyCoursesList() {
         ModelAndView mv = new ModelAndView(Templates.COURSES_PAGE.getTemplateName());
@@ -44,15 +40,10 @@ public class CourseService {
             return Collections.EMPTY_LIST;
         }
         List<Course> courses = currentTeacher.get().getCourseList();
-        return courses.stream()
-                .map(c -> new CourseSelectDto(c.getName(),
-                                              c.getId(),
-                                              c.getStudents().size()))
-                .collect(Collectors.toList());
+        return courses.stream().map(c -> new CourseSelectDto(c.getName(), c.getId(), c.getStudents().size())).collect(Collectors.toList());
     }
 
-    @Transactional
-    public ModelAndView create(CourseModel dto) {
+    @Transactional public ModelAndView create(CourseModel dto) {
         Optional<Teacher> currentTeacher = teacherService.getCurrentTeacher();
         if (!currentTeacher.isPresent()) {
             log.error("Non teacher cannot create a courseDto !");
@@ -64,8 +55,7 @@ public class CourseService {
         if (courseDto.getId() == null) {
             currentTeacher.get().getCourseList().add(courseDto);
             courseEntity = courseRepository.save(courseDto);
-        }
-        else {
+        } else {
             courseEntity = updateCourse(courseDto);
         }
 
@@ -76,7 +66,7 @@ public class CourseService {
         return getMyCoursesList();
     }
 
-    private Course updateCourse(Course dto){
+    private Course updateCourse(Course dto) {
         Course course = courseRepository.findById(dto.getId()).get();
         course.setName(dto.getName());
         return course;
@@ -112,4 +102,5 @@ public class CourseService {
         course.setName("");
         return course;
     }
+
 }
