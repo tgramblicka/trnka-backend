@@ -1,5 +1,6 @@
 package com.trnka.backend.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -20,7 +21,7 @@ import lombok.Setter;
 public class ExaminationStep extends BaseEntity {
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "brail_character_id", referencedColumnName = "id", nullable = false)
     @NotNull
     private BrailCharacter brailCharacter;

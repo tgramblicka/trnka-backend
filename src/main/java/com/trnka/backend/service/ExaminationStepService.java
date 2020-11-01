@@ -3,9 +3,7 @@ package com.trnka.backend.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
-import com.trnka.backend.domain.ExaminationStep;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.trnka.backend.config.Templates;
 import com.trnka.backend.domain.Examination;
+import com.trnka.backend.domain.ExaminationStep;
 import com.trnka.backend.dto.course.ExaminationStepReorderDto;
 import com.trnka.backend.repository.ExaminationRepository;
+import com.trnka.backend.repository.ExaminationStepRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ExaminationStepService {
 
     private final ExaminationRepository examinationRepository;
+    private final ExaminationStepRepository examinationStepRepository;
 
     public ModelAndView moveExaminationStepDownAndGetTemplate(final ExaminationStepReorderDto dto) {
         return moveExaminationStepAndGetTemplate(dto, this::moveDown);
@@ -54,6 +55,9 @@ public class ExaminationStepService {
             return;
         }
         ExaminationStep step1 = examination.getExaminationSteps().stream().filter(s -> s.getId().equals(examinationStepId)).findFirst().get();
+        if (step1.getDisplayOrder() <=1){
+            return;
+        }
         int step1DisplayOrder = step1.getDisplayOrder();
         int step2DisplayOrder = step1.getDisplayOrder() - 1 > 0 ? step1.getDisplayOrder() - 1
                                                                 : examination.getExaminationSteps().size();
@@ -61,6 +65,9 @@ public class ExaminationStepService {
 
         step1.setDisplayOrder(step2DisplayOrder);
         step2.setDisplayOrder(step1DisplayOrder);
+        examinationStepRepository.save(step1);
+        examinationStepRepository.save(step2);
+
     }
 
     @Transactional
@@ -70,6 +77,10 @@ public class ExaminationStepService {
             return;
         }
         ExaminationStep step1 = examination.getExaminationSteps().stream().filter(s -> s.getId().equals(examinationStepId)).findFirst().get();
+        if ( step1.getDisplayOrder() == examination.getExaminationSteps().size()){
+            return;
+        }
+
         int step1DisplayOrder = step1.getDisplayOrder();
         int step2DisplayOrder = step1.getDisplayOrder() + 1 > examination.getExaminationSteps().size() ? step1.getDisplayOrder() + 1
                                                                                                        : examination.getExaminationSteps().size();
@@ -77,6 +88,8 @@ public class ExaminationStepService {
 
         step1.setDisplayOrder(step2DisplayOrder);
         step2.setDisplayOrder(step1DisplayOrder);
+        examinationStepRepository.save(step1);
+        examinationStepRepository.save(step2);
     }
 
     private void switchOrder(ExaminationStep step1,
