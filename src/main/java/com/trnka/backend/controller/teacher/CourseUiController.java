@@ -45,12 +45,12 @@ public class CourseUiController {
         return courseService.create(dto);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = PATH_BRAIL_UP)
+    @RequestMapping(method = RequestMethod.POST, path = PATH_BRAIL_UP)
     public ModelAndView moveBrailUp(@ModelAttribute ExaminationStepReorderDto dto) {
         return examinationStepService.moveExaminationStepUpAndGetTemplate(dto);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = PATH_BRAIL_DOWN)
+    @RequestMapping(method = RequestMethod.POST, path = PATH_BRAIL_DOWN)
     public ModelAndView moveBrailDown(@ModelAttribute ExaminationStepReorderDto dto) {
         return examinationStepService.moveExaminationStepDownAndGetTemplate(dto);
     }

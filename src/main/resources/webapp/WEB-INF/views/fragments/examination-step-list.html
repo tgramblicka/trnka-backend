@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    
+   
 </head>
 <body>
 <div id="examination-step-list" class="examination-list container-fluid border my-2 py-2" th:fragment="setData(examinationSteps)">
@@ -23,7 +25,7 @@
                 <input type="checkbox" th:checked="${step.preserveOrder}">
             </td>
             <td>
-                <button type="button" class="btn btn-secondary my-2 my-sm-0">Up</button>
+                <button type="button" class="btn btn-secondary my-2 my-sm-0" onclick="moveBrailUp()">Up</button>
                 <button type="button" class="btn btn-secondary my-2 my-sm-0">Down</button>
             </td>
         </tr>

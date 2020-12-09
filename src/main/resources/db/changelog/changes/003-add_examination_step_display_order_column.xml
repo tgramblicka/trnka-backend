@@ -7,7 +7,7 @@
         <addColumn tableName="examination_step">
             <column name="display_order" type="INT"/>
         </addColumn>
-        <addNotNullConstraint tableName="examination_step" columnName="display_order" columnDataType="datetime"/>
+        <addNotNullConstraint tableName="examination_step" columnName="display_order" columnDataType="INT"/>
 
 
         <rollback>

@@ -3,6 +3,27 @@
 <head>
     <script th:src="@{/jquery/jquery-3.4.1.min.js}" src="../jquery/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
+
+        var examinationId = /*[[${model.examination.id}]]*/ 0;
+
+        function moveBrailUp(examinationStepId) {
+            $.post('/vst/course/brail/up', {
+                examinationId: examinationId,
+                examinationStepId: examinationStepId
+            }, function (fragment) {
+                $("#examination-step-list").replaceWith(fragment);
+            })
+        }
+
+        function moveBrailDown(examinationStepId) {
+            $.post('/vst/course/brail/down', {
+                examinationId: examinationId,
+                examinationStepId: examinationStepId
+            }, function (fragment) {
+                $("#examination-step-list").replaceWith(fragment);
+            })
+        }
+
         $(document).ready(function () {
         });
     </script>
