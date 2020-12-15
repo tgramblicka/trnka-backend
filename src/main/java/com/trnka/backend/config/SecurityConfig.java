@@ -19,7 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private void configureWrapper(final HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf()
+                .disable()
+                .authorizeRequests()
                 .antMatchers("/vst/ui/teacher/**", "/vst/ui/admin/**")
                 .hasAnyRole("TEACHER", "ADMIN")
                 .and()
@@ -38,8 +40,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication().withUser("user").password("{noop}0000").roles(UserRole.TEACHER.name());
         auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles(UserRole.ADMIN.name());
     }
-
-
-
 
 }
