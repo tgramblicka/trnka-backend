@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,11 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.trnka.backend.config.Templates;
 import com.trnka.backend.domain.Course;
 import com.trnka.backend.domain.Teacher;
-import com.trnka.backend.dto.course.ExaminationStepReorderDto;
 import com.trnka.backend.dto.course.CourseModel;
 import com.trnka.backend.dto.course.CourseSelectDto;
 import com.trnka.backend.repository.CourseRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service

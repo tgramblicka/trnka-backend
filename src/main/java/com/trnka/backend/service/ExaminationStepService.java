@@ -43,8 +43,10 @@ public class ExaminationStepService {
         Examination examination = foundExamination.get();
         moveConsumer.accept(examination, dto.getExaminationStepId());
 
-        ModelAndView mv = new ModelAndView(Templates.EXAMINATION_STEP_LIST.getTemplateName());
+        ModelAndView mv = new ModelAndView(Templates.EXAMINATION_STEP_LIST.getTemplateName() +  " :: #examination-step-list");
         mv.addObject("examinationSteps", examination.getExaminationSteps());
+
+
         return mv;
     }
 

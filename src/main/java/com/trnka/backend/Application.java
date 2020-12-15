@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @EnableJpaRepositories("com.trnka.backend.repository")
 @EntityScan(basePackages = {"com.trnka.backend.domain" })
-
 public class Application {
 
     public static void main(String[] args) {

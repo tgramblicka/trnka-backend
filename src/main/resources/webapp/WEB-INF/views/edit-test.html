@@ -2,27 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <script th:src="@{/jquery/jquery-3.4.1.min.js}" src="../jquery/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript">
+    <script th:inline="javascript" type="text/javascript">
 
         var examinationId = /*[[${model.examination.id}]]*/ 0;
 
         function moveBrailUp(examinationStepId) {
-            $.post('/vst/course/brail/up', {
-                examinationId: examinationId,
-                examinationStepId: examinationStepId
-            }, function (fragment) {
-                $("#examination-step-list").replaceWith(fragment);
-            })
+            jQuery.ajax({
+                url: '/vst/ui/course/brail/up',
+                type: "POST",
+                data: JSON.stringify({examinationId: examinationId, examinationStepId: examinationStepId}),
+                dataType: "html",
+                contentType: "application/json; charset=utf-8",
+                success: function(response) {
+                    $("#examination-step-list").replaceWith(response);
+                },
+                error: function () {
+                    alert("Error occurred");
+                }
+                
+            });
         }
 
         function moveBrailDown(examinationStepId) {
-            $.post('/vst/course/brail/down', {
-                examinationId: examinationId,
-                examinationStepId: examinationStepId
-            }, function (fragment) {
-                $("#examination-step-list").replaceWith(fragment);
-            })
+            jQuery.ajax({
+                url: '/vst/ui/course/brail/down',
+                type: "POST",
+                data: JSON.stringify({examinationId: examinationId, examinationStepId: examinationStepId}),
+                dataType: "html",
+                contentType: "application/json; charset=utf-8",
+                success: function(response) {
+                    $("#examination-step-list").replaceWith(response);
+                },
+                error: function () {
+                    alert("Error occurred");
+                }
+
+            });
         }
+
+
+
+        // function moveBrailUp(examinationStepId) {
+        //     $.post('/vst/ui/course/brail/up', {
+        //         examinationId: examinationId,
+        //         examinationStepId: examinationStepId
+        //     }, function (fragment) {
+        //         $("#examination-step-list").replaceWith(fragment);
+        //     })
+        // }
+        //
+        // function moveBrailDown(examinationStepId) {
+        //     $.post('/vst/ui/course/brail/down', {
+        //         examinationId: examinationId,
+        //         examinationStepId: examinationStepId
+        //     }, function (fragment) {
+        //         $("#examination-step-list").replaceWith(fragment);
+        //     })
+        // }
 
         $(document).ready(function () {
         });

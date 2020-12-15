@@ -9,7 +9,7 @@ public enum Templates {
     COURSES_PAGE("teacher-class"),
     STUDENTS_LIST("students-list"),
     STUDENT_EDIT_PAGE("student-edit"),
-    EXAMINATION_STEP_LIST("examination-step-list");
+    EXAMINATION_STEP_LIST("fragments/examination-step-list");
 
 
 

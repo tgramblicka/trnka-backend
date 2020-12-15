@@ -25,8 +25,8 @@
                 <input type="checkbox" th:checked="${step.preserveOrder}">
             </td>
             <td>
-                <button type="button" class="btn btn-secondary my-2 my-sm-0" onclick="moveBrailUp()">Up</button>
-                <button type="button" class="btn btn-secondary my-2 my-sm-0">Down</button>
+                <button type="button" class="btn btn-secondary my-2 my-sm-0" th:attr="onclick=|moveBrailUp(${step.id})|">Up</button>
+                <button type="button" class="btn btn-secondary my-2 my-sm-0" th:attr="onclick=|moveBrailDown(${step.id})|">Down</button>
             </td>
         </tr>
         </tbody>
