@@ -7,6 +7,7 @@
         var examinationId = /*[[${model.examination.id}]]*/ 0;
 
         function moveBrailUp(examinationStepId) {
+            console.log("up " + examinationStepId);
             jQuery.ajax({
                 url: '/vst/ui/course/brail/up',
                 type: "POST",
@@ -24,6 +25,7 @@
         }
 
         function moveBrailDown(examinationStepId) {
+            console.log("down " + examinationStepId);
             jQuery.ajax({
                 url: '/vst/ui/course/brail/down',
                 type: "POST",
