@@ -33,7 +33,7 @@ public class Examination extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "examination_id")
-    @OrderBy(clause = "display_order DESC")
+    @OrderBy(clause = "display_order ASC")
     private List<ExaminationStep> examinationSteps = new ArrayList<>();
 
     @ManyToOne
