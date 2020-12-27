@@ -114,10 +114,4 @@ public class ExaminationStepService {
                                               "Examination not found by provided ID!");
         }
     }
-
-    private ModelAndView getExaminationStepListFragment(List<Examination> examinationList) {
-        ModelAndView mv = new ModelAndView(Templates.EXAMINATION_STEP_LIST.getTemplateName());
-        mv.addObject("examinationSteps", examinationList);
-        return mv;
-    }
 }
