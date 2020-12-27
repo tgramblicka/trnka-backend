@@ -97,8 +97,8 @@ public class ExaminationStepService {
         }
 
         int step1DisplayOrder = step1.getDisplayOrder();
-        int step2DisplayOrder = step1.getDisplayOrder() + 1 > examination.getExaminationSteps().size() ? step1.getDisplayOrder() + 1
-                                                                                                       : examination.getExaminationSteps().size();
+        int step2DisplayOrder = step1.getDisplayOrder() + 1 > examination.getExaminationSteps().size() ? examination.getExaminationSteps().size()
+                                                                                                       : step1.getDisplayOrder() + 1;
         ExaminationStep step2 = examination.getExaminationSteps().stream().filter(s -> s.getDisplayOrder().equals(step2DisplayOrder)).findFirst().get();
 
         step1.setDisplayOrder(step2DisplayOrder);
