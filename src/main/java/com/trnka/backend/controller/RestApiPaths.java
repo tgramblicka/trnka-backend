@@ -5,6 +5,7 @@ public class RestApiPaths {
     public static final String PATH_MONITORING = PATH + "monitoring/";
     public static final String PATH_UI = PATH + "ui/";
     public static final String PATH_UI_TEACHER = PATH_UI + "teacher/";
+    public static final String PATH_UI_EXAMINATION = PATH_UI + "examination/";
     public static final String PATH_UI_COURSE = PATH_UI + "course";
     public static final String PATH_UI_STUDENT = PATH_UI + "student";
 

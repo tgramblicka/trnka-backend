@@ -1,17 +1,13 @@
 package com.trnka.backend.controller.teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.trnka.backend.controller.RestApiPaths;
-import com.trnka.backend.dto.TestModel;
-import com.trnka.backend.service.testing.TestingListService;
-import com.trnka.backend.service.testing.TestingUiService;
+import com.trnka.backend.service.testing.ExaminationListService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,19 +17,13 @@ import lombok.extern.slf4j.Slf4j;
 public class TeacherUiController {
     public static final String HOME_PATH = "home";
     public static final String TESTING_PATH = "testing";
-    public static final String CREATE_TEST = "testing/create";
-    public static final String EDIT_TEST = "testing/edit";
-    public static final String DELETE_TEST = "testing/delete";
-    public static final String CREATE_EXAMINATION_STEP = "testing/examination-step";
-
     public static final String LEARNING_PATH = "learning";
     public static final String RESULTS_PATH = "results";
     public static final String DICTIONARY_PATH = "dictionary";
 
+
     @Autowired
-    private TestingUiService testingUiService;
-    @Autowired
-    private TestingListService testingListService;
+    private ExaminationListService examinationListService;
 
     @RequestMapping(method = RequestMethod.GET, path = HOME_PATH)
     public ModelAndView home() {
@@ -49,33 +39,10 @@ public class TeacherUiController {
 
     @RequestMapping(method = RequestMethod.GET, path = TESTING_PATH)
     public ModelAndView testManagement() {
-        return testingListService.getExaminationsForCurrentTeacher();
+        return examinationListService.getExaminationsForCurrentTeacher();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = CREATE_TEST)
-    public ModelAndView getCreateTest() {
-        return testingUiService.getCreateTestUiModel();
-    }
 
-    @RequestMapping(method = RequestMethod.POST, path = CREATE_EXAMINATION_STEP)
-    public ModelAndView createExaminationModel(@ModelAttribute TestModel dto) {
-        return testingUiService.createExaminationStep(dto.getExaminationStepCreateDto());
-    }
-
-    @RequestMapping(method = RequestMethod.POST, path = EDIT_TEST)
-    public ModelAndView createTest(@ModelAttribute TestModel dto) {
-        return testingUiService.createOrEditTest(dto);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, path = EDIT_TEST)
-    public ModelAndView getEditTest(@RequestParam Long id) {
-        return testingUiService.getEditTestUiModel(id);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, path = DELETE_TEST)
-    public ModelAndView deleteTest(@RequestParam Long id) {
-        return testingUiService.deleteTest(id);
-    }
 
     @RequestMapping(method = RequestMethod.GET, path = LEARNING_PATH)
     public ModelAndView learningManagement() {

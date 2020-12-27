@@ -2,7 +2,6 @@ package com.trnka.backend.service.testing;
 
 import java.util.Optional;
 
-import com.trnka.restapi.dto.ExaminationType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,30 +18,21 @@ import com.trnka.backend.repository.CourseRepository;
 import com.trnka.backend.repository.ExaminationRepository;
 import com.trnka.backend.service.CourseService;
 import com.trnka.backend.service.ErrorPage;
+import com.trnka.restapi.dto.ExaminationType;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class TestingUiService {
+@RequiredArgsConstructor
+public class ExaminationService {
 
-    private ExaminationRepository examinationRepository;
-    private BrailRepository brailRepository;
-    private CourseRepository courseRepository;
-    private CourseService courseService;
-    private TestingListService testingListService;
-
-    public TestingUiService(final ExaminationRepository examinationRepository,
-                            final BrailRepository brailRepository,
-                            final CourseRepository courseRepository,
-                            final CourseService courseService,
-                            final TestingListService testingListService) {
-        this.examinationRepository = examinationRepository;
-        this.brailRepository = brailRepository;
-        this.courseRepository = courseRepository;
-        this.courseService = courseService;
-        this.testingListService = testingListService;
-    }
+    private final ExaminationRepository examinationRepository;
+    private final BrailRepository brailRepository;
+    private final CourseRepository courseRepository;
+    private final CourseService courseService;
+    private final ExaminationListService examinationListService;
 
     public ModelAndView getTestingListUi() {
         ModelAndView mv = new ModelAndView(Templates.TESTING_PAGE.getTemplateName());
@@ -147,6 +137,6 @@ public class TestingUiService {
 
     public ModelAndView deleteTest(final Long id) {
         examinationRepository.deleteById(id);
-        return testingListService.getExaminationsForCurrentTeacher();
+        return examinationListService.getExaminationsForCurrentTeacher();
     }
 }

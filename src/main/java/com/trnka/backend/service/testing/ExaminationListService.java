@@ -11,23 +11,17 @@ import com.trnka.backend.config.Templates;
 import com.trnka.backend.domain.Examination;
 import com.trnka.backend.domain.Teacher;
 import com.trnka.backend.dto.TestingPageModel;
-import com.trnka.backend.repository.ExaminationRepository;
 import com.trnka.backend.service.TeacherService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class TestingListService {
+@RequiredArgsConstructor
+public class ExaminationListService {
 
-    private ExaminationRepository examinationRepository;
-    private TeacherService teacherRepository;
-
-    public TestingListService(final ExaminationRepository examinationRepository,
-                              final TeacherService teacherRepository) {
-        this.examinationRepository = examinationRepository;
-        this.teacherRepository = teacherRepository;
-    }
+    private final TeacherService teacherRepository;
 
     public ModelAndView getExaminationsForCurrentTeacher() {
         Optional<Teacher> teacher = teacherRepository.getCurrentTeacher();

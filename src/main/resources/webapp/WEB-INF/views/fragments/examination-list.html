@@ -22,13 +22,13 @@
             <td th:text="${exam.name}">1</td>
             <td th:text="${exam.complexity}">1</td>
             <td>
-                <form method="get" th:action="@{/vst/ui/teacher/testing/edit}" th:object="${exam}">
+                <form method="get" th:action="@{/vst/ui/examination/edit}" th:object="${exam}">
                     <input type="hidden" th:value="*{id}" name="id"/>
                     <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
                 </form>
             </td>
             <td>
-                <form method="get" th:action="@{/vst/ui/teacher/testing/delete}" th:object="${exam}">
+                <form method="get" th:action="@{/vst/ui/examination/delete}" th:object="${exam}">
                     <input type="hidden" th:value="*{id}" name="id"/>
                     <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat</button>
                 </form>

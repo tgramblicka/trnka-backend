@@ -9,7 +9,7 @@
 <div id="create-step-form" class="container-fluid border my-2 py-2" th:fragment="setData(model)">
     
     
-    <form class="form-group my-2 my-lg-0" method="post" th:action="@{/vst/ui/teacher/testing/examination-step}" th:object="${model.examinationStepCreateDto}">
+    <form class="form-group my-2 my-lg-0" method="post" th:action="@{/vst/ui/examination/examination-step}" th:object="${model.examinationStepCreateDto}">
         <input type="hidden" th:field="*{examinationId}" th:value="*{examinationId}">
     
         <div class="form-group row">
