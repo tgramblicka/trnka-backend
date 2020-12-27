@@ -53,8 +53,8 @@ public class ThymeLeafConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/bootstrap/**", "/jquery/**")
-                .addResourceLocations("classpath:/webapp/WEB-INF/bootstrap/", "classpath:/webapp/WEB-INF/jquery/");
+        registry.addResourceHandler("/bootstrap/**", "/jquery/**", "/img/**")
+                .addResourceLocations("classpath:/webapp/WEB-INF/bootstrap/", "classpath:/webapp/WEB-INF/jquery/", "classpath:/webapp/WEB-INF/img/");
     }
 
 
