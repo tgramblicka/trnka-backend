@@ -1,8 +1,10 @@
 package com.trnka.backend.service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,6 @@ import com.trnka.backend.repository.ExaminationStepRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 @Service
 @RequiredArgsConstructor
