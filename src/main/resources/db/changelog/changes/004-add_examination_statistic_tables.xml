@@ -1,0 +1,64 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="004-add_examination_statistic_tables" author="tomas.gramblicka">
+
+        <createTable tableName="examination_statistic">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_on" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="examination_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_examination_statistic_examination" references="examination(id)"/>
+            </column>
+
+            <column name="student_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_examination_statistic_student" references="student(id)"/>
+            </column>
+
+            <column name="passed" type="BOOLEAN" />
+        </createTable>
+
+        <createTable tableName="examination_step_statistic">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_on" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="step_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_examination_step_statistic_examination_step" references="examination_step(id)"/>
+            </column>
+
+            <column name="examination_statistic_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_examination_step_statistic_examination_statistic" references="examination_statistic(id)"/>
+            </column>
+
+            <column name="retries" type="INT" />
+            <column name="took" type="BIGINT" />
+            <column name="correct" type="BOOLEAN" />
+        </createTable>
+
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="examination_statistic" constraintName="fk_examination_statistic_examination"/>
+            <dropForeignKeyConstraint baseTableName="examination_statistic" constraintName="fk_examination_statistic_student"/>
+            <dropTable tableName="examination_statistic" />
+
+            <dropForeignKeyConstraint baseTableName="examination_steo_statistic" constraintName="fk_examination_step_statistic_examination_step"/>
+            <dropForeignKeyConstraint baseTableName="examination_steo_statistic" constraintName="fk_examination_step_statistic_examination_statistic"/>
+            <dropTable tableName="examination_step_statistic" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

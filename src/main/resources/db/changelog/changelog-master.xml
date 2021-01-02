@@ -20,27 +20,9 @@
                  splitStatements="true"
                  stripComments="true"/>
     </changeSet>
-
-<!--    <changeSet author="tomas.gramblicka" id="002-add-audit-data.sql">-->
-<!--        <sqlFile encoding="utf8"-->
-<!--                 path="changes/002-add-audit-data.sql"-->
-<!--                 relativeToChangelogFile="true"-->
-<!--                 splitStatements="true"-->
-<!--                 stripComments="true"/>-->
-<!--    </changeSet>-->
     <include file="changes/002-add-audit-data.xml" relativeToChangelogFile="true"/>
     <include file="changes/003-add_examination_step_display_order_column.xml" relativeToChangelogFile="true"/>
-
-
-<!--    <changeSet author="tomas.gramblicka" id="003-add_examination_step_display_order_column.xml">-->
-<!--        <sqlFile encoding="utf8"-->
-<!--                 path="changes/003-add_examination_step_display_order_column.xml"-->
-<!--                 relativeToChangelogFile="true"-->
-<!--                 splitStatements="true"-->
-<!--                 stripComments="true"-->
-<!--        />-->
-<!--    </changeSet>-->
-
+    <include file="changes/004-add_examination_statistic_tables.xml" relativeToChangelogFile="true"/>
 
 
 
