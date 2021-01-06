@@ -1,6 +1,8 @@
 package com.trnka.backend.controller.teacher;
 
+import com.trnka.backend.service.results.StudentExamStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,9 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 public class StudentUiController {
     public static final String PATH_MY_COURSES = "/list";
     public static final String PATH_DELETE = "/delete";
+    public static final String PATH_STATISTICS = "/{id}/statistics";
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private StudentExamStatisticService studentExamStatisticService;
 
     @RequestMapping(method = RequestMethod.GET, path = PATH_MY_COURSES)
     public ModelAndView courseStudents(@RequestParam(name = "courseId") Long courseId) {
@@ -43,6 +48,11 @@ public class StudentUiController {
     public ModelAndView delete(@RequestParam(name = "courseId") Long courseId,
                                @RequestParam(name = "studentId") Long studentId) {
         return studentService.delete(courseId, studentId);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = PATH_STATISTICS)
+    public ModelAndView studentStatistics(@PathVariable Long id) {
+        return studentExamStatisticService.getStudentStatistic(id);
     }
 
 }

@@ -1,9 +1,11 @@
 package com.trnka.backend.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -41,6 +43,9 @@ public class ExaminationStatistic extends BaseEntity {
     private List<ExaminationStepStatistic> examinationStepStatistics = new ArrayList<>();
 
     private Boolean passed;
+
+    @Column(name = "finished_on")
+    private LocalDateTime finishedOn;
 
     public static ExaminationStatistic create(final Examination examination,
                                               final Student student) {

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="text/javascript">
+    </script>
+    <title>Teacher Results</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}"/>
+</head>
+<body>
+
+
+<main class="jumbotron">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='results')">
+    </nav>
+    
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Sekvencia znakov</th>
+            <th scope="col">Trvanie mili-sekund</th>
+            <th scope="col">Uspesne absolvoval</th>
+            <th scope="col">Datum a cas ukoncenia</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        <th:block th:each="examStat : ${model.statistics}">
+            <tr>
+                <td th:text="${examStat.examinationId}">1</td>
+                <td th:text="${examStat.letterSequence}">1</td>
+                <td th:text="${examStat.totalTimeInMs}">1</td>
+                <td th:text="${examStat.passed}">1</td>
+            </tr>
+            <tr>
+                <table class="table-plain">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Znak</th>
+                        <th scope="col">Trvanie mili-sekund</th>
+                        <th scope="col">Pokusov</th>
+                        <th scope="col">Spravne</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="stepStat : ${examStat.stepStatistics}">
+                        <td th:text="${stepStat.letter}">1</td>
+                        <td th:text="${examStat.durationInMs}">1</td>
+                        <td th:text="${examStat.retries}">1</td>
+                        <td th:text="${examStat.correct}">1</td>
+                    <tr>
+                    </tbody>
+                </table>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+
+</main>
+</body>
+</html>
+
+

@@ -48,6 +48,12 @@
                     <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat</button>
                 </form>
             </td>
+            <td>
+                <form method="get" th:action="@{/vst/ui/student/results}">
+                    <input type="hidden" th:value="${student.id}" name="studentId"/>
+                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vysledky</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

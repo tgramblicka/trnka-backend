@@ -1,8 +1,7 @@
 package com.trnka.backend.domain;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "examination_step_statistic")
 @EqualsAndHashCode
@@ -28,7 +26,7 @@ public class ExaminationStepStatistic extends BaseEntity {
     private Integer retries;
 
     @Column(name = "correct")
-    private boolean correct;
+    private Boolean correct;
 
     private Long took;
 }
