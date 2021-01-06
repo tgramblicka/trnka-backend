@@ -25,3 +25,4 @@ public class StudentSyncController implements StudentSyncEndpoint {
         return studentSyncService.getSyncDto();
     }
 }
+

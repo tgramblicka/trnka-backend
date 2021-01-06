@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
+import com.trnka.restapi.dto.statistics.ExaminationStatisticDto;
+import com.trnka.restapi.dto.statistics.ExaminationStepStatisticDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,8 +19,6 @@ import com.trnka.backend.dao.ExaminationStatisticDao;
 import com.trnka.backend.domain.ExaminationStatistic;
 import com.trnka.backend.domain.ExaminationStepStatistic;
 import com.trnka.backend.domain.Student;
-import com.trnka.backend.dto.results.ExaminationStatisticDto;
-import com.trnka.backend.dto.results.ExaminationStepStatisticDto;
 import com.trnka.backend.dto.results.StudentStatisticListDto;
 import com.trnka.backend.repository.StudentRepository;
 
