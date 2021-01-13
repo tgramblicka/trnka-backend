@@ -8,6 +8,18 @@
             <column name="id" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="dtype" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sequence_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="letter_sequence" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="total_time_in_ms" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
             <column name="created_on" type="datetime">
                 <constraints nullable="false"/>
             </column>
@@ -27,6 +39,9 @@
             </column>
 
             <column name="passed" type="BOOLEAN" />
+
+
+
 
         </createTable>
 
