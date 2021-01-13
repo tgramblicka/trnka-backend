@@ -28,7 +28,9 @@
             <li class="nav-item">
                 <a th:class="${currentPage} == 'dictionary' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/dictionary}">Slovnik</a>
             </li>
-        
+        <div>
+            <img src="/img/ministerstvo.PNG" class="img-fluid" alt="mvsr">
+        </div>
         </ul>
         
         <form class="form-inline my-2 my-lg-0 float-right" action="#" th:action="@{/vst/ui/logout}" method="POST" >
