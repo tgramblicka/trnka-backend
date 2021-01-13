@@ -1,6 +1,5 @@
 package com.trnka.backend;
 
-import com.trnka.restapi.dto.ExaminationType;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -8,6 +7,7 @@ import com.trnka.backend.domain.Examination;
 import com.trnka.backend.domain.ExaminationStep;
 import com.trnka.backend.repository.BrailRepository;
 import com.trnka.backend.repository.ExaminationRepository;
+import com.trnka.restapi.dto.SequenceType;
 
 public class ExaminationCrudTest extends BaseTest {
 
@@ -30,7 +30,7 @@ public class ExaminationCrudTest extends BaseTest {
 
     private void createExaminationTest(String testName) {
         Examination examination = new Examination();
-        examination.setType(ExaminationType.TESTING);
+        examination.setType(SequenceType.TESTING);
         examination.setTimeout(1000L);
         examination.setComplexity(1L);
         examination.setAudio("none");

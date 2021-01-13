@@ -2,6 +2,7 @@ package com.trnka.backend.service.testing;
 
 import java.util.Optional;
 
+import com.trnka.restapi.dto.SequenceType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,7 +19,6 @@ import com.trnka.backend.repository.CourseRepository;
 import com.trnka.backend.repository.ExaminationRepository;
 import com.trnka.backend.service.CourseService;
 import com.trnka.backend.service.ErrorPage;
-import com.trnka.restapi.dto.ExaminationType;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -84,7 +84,7 @@ public class ExaminationService {
         examination.setAudio(null);
         examination.setComplexity(1L);
         examination.setTimeout(100L);
-        examination.setType(ExaminationType.TESTING);
+        examination.setType(SequenceType.TESTING);
         return examination;
     }
 

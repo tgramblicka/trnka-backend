@@ -1,5 +1,6 @@
 package com.trnka.backend.controller;
 
+import com.trnka.backend.service.sync.ExaminationStatisticSyncService;
 import com.trnka.backend.service.sync.StudentSyncService;
 import com.trnka.restapi.dto.StudentDTO;
 import com.trnka.restapi.dto.SyncDto;
@@ -15,6 +16,8 @@ public class StudentSyncController implements SyncEndpoint {
 
     @Autowired
     private StudentSyncService studentSyncService;
+    @Autowired
+    private ExaminationStatisticSyncService examinationStatisticSyncService;
 
     @Override
     public StudentDTO getStudent(final String s) {
@@ -27,8 +30,7 @@ public class StudentSyncController implements SyncEndpoint {
     }
 
     @Override
-    public Void updateExaminationStatisticsToAllStudents(final DeviceStatisticsSyncDto deviceStatisticsSyncDto) {
-        // todo implement
-        return null;
+    public Boolean updateExaminationStatisticsToAllStudents(final DeviceStatisticsSyncDto deviceStatisticsSyncDto) {
+        return examinationStatisticSyncService.updateSequenceStatisticsToAllStudents(deviceStatisticsSyncDto);
     }
 }

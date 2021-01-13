@@ -20,22 +20,26 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">ID</th>
+            <th scope="col">Typ sekvencie</th>
             <th scope="col">Sekvencia znakov</th>
             <th scope="col">Trvanie mili-sekund</th>
             <th scope="col">Uspesne absolvoval</th>
             <th scope="col">Datum a cas ukoncenia</th>
+        
         </tr>
         </thead>
-        <tbody>
         
         <th:block th:each="examStat : ${model.statistics}">
             <tr>
                 <td th:text="${examStat.examinationId}">1</td>
+                <td th:text="${examStat.sequenceType}">1</td>
                 <td th:text="${examStat.letterSequence}">1</td>
                 <td th:text="${examStat.totalTimeInMs}">1</td>
                 <td th:text="${examStat.passed}">1</td>
+                <td th:text="${examStat.finishedOn}">1</td>
             </tr>
             <tr>
+                <td colspan="6">
                 <table class="table-plain">
                     <thead class="thead-dark">
                     <tr>
@@ -48,15 +52,16 @@
                     <tbody>
                     <tr th:each="stepStat : ${examStat.stepStatistics}">
                         <td th:text="${stepStat.letter}">1</td>
-                        <td th:text="${examStat.durationInMs}">1</td>
-                        <td th:text="${examStat.retries}">1</td>
-                        <td th:text="${examStat.correct}">1</td>
-                    <tr>
+                        <td th:text="${stepStat.durationInMs}">1</td>
+                        <td th:text="${stepStat.retries}">1</td>
+                        <td th:text="${stepStat.correct}">1</td>
+                    </tr>
                     </tbody>
                 </table>
+                </td>
             </tr>
         </th:block>
-        </tbody>
+        
     </table>
 
 

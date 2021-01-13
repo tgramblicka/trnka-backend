@@ -1,11 +1,16 @@
-package com.trnka.backend.domain;
+package com.trnka.backend.domain.statistic;
 
+import com.trnka.backend.domain.BaseEntity;
+import com.trnka.backend.domain.Examination;
+import com.trnka.backend.domain.ExaminationStep;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -21,6 +26,12 @@ public class ExaminationStepStatistic extends BaseEntity {
     @JoinColumn(name = "step_id", referencedColumnName = "id", nullable = false)
     @NotNull
     private ExaminationStep step;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", name = "examination_statistic_id", nullable = false)
+    private ExaminationStatistic examinationStatistic;
+
 
     @Column(name = "retries")
     private Integer retries;

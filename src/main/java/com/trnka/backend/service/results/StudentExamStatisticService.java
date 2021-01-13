@@ -9,15 +9,17 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
-import com.trnka.restapi.dto.statistics.ExaminationStatisticDto;
+import com.trnka.backend.domain.statistic.MethodicalLearningStatistic;
+import com.trnka.backend.domain.statistic.SequeceStatistic;
+import com.trnka.backend.dto.results.StudentStatisticListItemDto;
 import com.trnka.restapi.dto.statistics.ExaminationStepStatisticDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.trnka.backend.config.Templates;
 import com.trnka.backend.dao.ExaminationStatisticDao;
-import com.trnka.backend.domain.ExaminationStatistic;
-import com.trnka.backend.domain.ExaminationStepStatistic;
+import com.trnka.backend.domain.statistic.ExaminationStatistic;
+import com.trnka.backend.domain.statistic.ExaminationStepStatistic;
 import com.trnka.backend.domain.Student;
 import com.trnka.backend.dto.results.StudentStatisticListDto;
 import com.trnka.backend.repository.StudentRepository;
@@ -41,32 +43,44 @@ public class StudentExamStatisticService {
             mv.addObject("errorMessage", "Student not found!");
             return mv;
         }
-        StudentStatisticListDto modelDto = mapToUiModel(student.get().getExaminationStatistics());
+        StudentStatisticListDto modelDto = mapToUiModel(student.get().getSequenceStatistics());
         return new ModelAndView(Templates.STUDENT_EXAM_STATISTICS.getTemplateName()).addObject("model", modelDto);
     }
 
-    private StudentStatisticListDto mapToUiModel(List<ExaminationStatistic> statistics) {
+    private StudentStatisticListDto mapToUiModel(List<SequeceStatistic> statistics) {
 
-        List<ExaminationStatisticDto> examStatsList = new ArrayList<>();
-        for (ExaminationStatistic examinationStatistic : statistics) {
-            ExaminationStatisticDto examStatsDto = new ExaminationStatisticDto();
+        List<StudentStatisticListItemDto> listRows = new ArrayList<>();
+        for (SequeceStatistic sequenceStatistic : statistics) {
+            StudentStatisticListItemDto examStatsDto = new StudentStatisticListItemDto();
 
-            examStatsDto.setFinishedOn(examinationStatistic.getFinishedOn());
-            examStatsDto.setExaminationId(examinationStatistic.getExamination().getId());
-            examStatsDto.setPassed(examinationStatistic.getPassed());
-            examStatsDto.setTotalTimeInMs(examinationStatisticDao.getTotalExaminationDurationInMs(examinationStatistic));
+            examStatsDto.setFinishedOn(sequenceStatistic.getFinishedOn());
+            examStatsDto.setPassed(sequenceStatistic.getPassed());
+            examStatsDto.setSequenceType(sequenceStatistic.getSequenceType());
 
-            List<ExaminationStepStatisticDto> stepStatsList = mapStepStatsToDtos(examinationStatistic.getExaminationStepStatistics());
+            switch (sequenceStatistic.getSequenceType()) {
+            case LEARNING:
+            case TESTING:
+                ExaminationStatistic examStats = (ExaminationStatistic) sequenceStatistic;
+                examStatsDto.setExaminationId(examStats.getExamination().getId());
+                examStatsDto.setTotalTimeInMs(examinationStatisticDao.getTotalExaminationDurationInMs(examStats));
+                List<ExaminationStepStatisticDto> stepStatsList = mapStepStatsToDtos(examStats.getExaminationStepStatistics());
+                examStatsDto.setStepStatistics(stepStatsList);
+                examStatsDto.setLetterSequence(extractLettersSerquence(stepStatsList));
+                break;
+            case METHODICAL:
+                MethodicalLearningStatistic methodicalLearningStats = (MethodicalLearningStatistic) sequenceStatistic;
+                examStatsDto.setLetterSequence(methodicalLearningStats.getLetterSequence());
+                examStatsDto.setTotalTimeInMs(methodicalLearningStats.getTotalTimeInMs());
 
-            examStatsDto.setLetterSequence(extractLettersSerquence(stepStatsList));
-            examStatsDto.setStepStatistics(stepStatsList);
-
-            examStatsList.add(examStatsDto);
+                break;
+            default:
+            }
+            listRows.add(examStatsDto);
         }
 
-        StudentStatisticListDto studentStatsListDto = new StudentStatisticListDto();
-        studentStatsListDto.setStatistics(examStatsList);
-        return studentStatsListDto;
+        StudentStatisticListDto listDto = new StudentStatisticListDto();
+        listDto.setStatistics(listRows);
+        return listDto;
     }
 
     private List<ExaminationStepStatisticDto> mapStepStatsToDtos(List<ExaminationStepStatistic> list) {
@@ -78,16 +92,14 @@ public class StudentExamStatisticService {
             stepStatDto.setRetries(stepStatistic.getRetries());
             stepStatDto.setDurationInMs(stepStatistic.getTook());
             stepStatDto.setDisplayOrder(stepStatistic.getStep().getDisplayOrder());
+            stepStatsList.add(stepStatDto);
         }
         Collections.sort(stepStatsList, Comparator.comparing(ExaminationStepStatisticDto::getDisplayOrder));
         return stepStatsList;
     }
 
     public String extractLettersSerquence(List<ExaminationStepStatisticDto> list) {
-        return list.stream()
-                .map(entry -> entry.getLetter())
-                .collect(Collectors.joining(","));
+        return list.stream().map(entry -> entry.getLetter()).collect(Collectors.joining(","));
     }
-
 
 }

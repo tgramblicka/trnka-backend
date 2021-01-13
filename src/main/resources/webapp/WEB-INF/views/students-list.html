@@ -28,6 +28,7 @@
             <th scope="col">Prihlasovaci kod</th>
             <th scope="col">Upravit</th>
             <th scope="col">Vymazat</th>
+            <th scope="col">Vysledky</th>
         </tr>
         </thead>
         <tbody>
@@ -49,8 +50,7 @@
                 </form>
             </td>
             <td>
-                <form method="get" th:action="@{/vst/ui/student/results}">
-                    <input type="hidden" th:value="${student.id}" name="studentId"/>
+                <form method="get" th:action="@{/vst/ui/student/__${student.id}__/statistics}">
                     <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vysledky</button>
                 </form>
             </td>

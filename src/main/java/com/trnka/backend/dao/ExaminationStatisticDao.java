@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.trnka.backend.domain.ExaminationStatistic;
-import com.trnka.backend.domain.ExaminationStepStatistic;
+import com.trnka.backend.domain.statistic.ExaminationStatistic;
+import com.trnka.backend.domain.statistic.ExaminationStepStatistic;
 
 @Service
 public class ExaminationStatisticDao {

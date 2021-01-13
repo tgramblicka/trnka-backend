@@ -1,0 +1,145 @@
+{
+  "statistics": [
+    {
+      "studentCode": "0000",
+      "loginCount": 1,
+      "statistics": [
+        {
+          "examinationId": 103,
+          "sequenceType": "TESTING",
+          "finishedOn": "2021-01-01 10:00:00",
+          "totalTimeInMs": "1000",
+          "passed": true,
+          "stepStatistics": [
+            {
+              "examinationStepId": 104,
+              "letter": "a",
+              "durationInMs": 0,
+              "retries": 1,
+              "correct": true,
+              "displayOrder": 0
+            },
+            {
+              "examinationStepId": 105,
+              "letter": "b",
+              "durationInMs": 0,
+              "retries": 1,
+              "correct": true,
+              "displayOrder": 0
+            },
+            {
+              "examinationStepId": 106,
+              "letter": "c",
+              "durationInMs": 0,
+              "retries": 1,
+              "correct": true,
+              "displayOrder": 0
+            },
+            {
+              "examinationStepId": 107,
+              "letter": "d",
+              "durationInMs": 0,
+              "retries": 1,
+              "correct": true,
+              "displayOrder": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "studentCode": "0000",
+      "loginCount": 1,
+      "statistics": [
+        {
+          "examinationId": 103,
+          "sequenceType": "TESTING",
+          "finishedOn": "2021-01-01 10:00:20",
+          "totalTimeInMs": "1000",
+          "passed": false,
+          "stepStatistics": [
+            {
+              "examinationStepId": 104,
+              "letter": "a",
+              "durationInMs": 0,
+              "retries": 1,
+              "correct": false,
+              "displayOrder": 0
+            },
+            {
+              "examinationStepId": 105,
+              "letter": "b",
+              "durationInMs": 0,
+              "retries": 1,
+              "correct": false,
+              "displayOrder": 0
+            },
+            {
+              "examinationStepId": 106,
+              "letter": "c",
+              "durationInMs": 0,
+              "retries": 1,
+              "correct": false,
+              "displayOrder": 0
+            },
+            {
+              "examinationStepId": 107,
+              "letter": "d",
+              "durationInMs": 0,
+              "retries": 1,
+              "correct": false,
+              "displayOrder": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "studentCode": "1111",
+      "loginCount": 2,
+      "statistics": [
+        {
+          "examinationId": 103,
+          "sequenceType": "TESTING",
+          "finishedOn": "2021-01-01 10:00:00",
+          "totalTimeInMs": "1000",
+          "passed": false,
+          "stepStatistics": [
+            {
+              "examinationStepId": 104,
+              "letter": "a",
+              "durationInMs": 0,
+              "retries": 2,
+              "correct": false,
+              "displayOrder": 0
+            },
+            {
+              "examinationStepId": 105,
+              "letter": "b",
+              "durationInMs": 0,
+              "retries": 1,
+              "correct": true,
+              "displayOrder": 0
+            },
+            {
+              "examinationStepId": 106,
+              "letter": "c",
+              "durationInMs": 0,
+              "retries": 2,
+              "correct": false,
+              "displayOrder": 0
+            },
+            {
+              "examinationStepId": 107,
+              "letter": "d",
+              "durationInMs": 0,
+              "retries": 1,
+              "correct": false,
+              "displayOrder": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

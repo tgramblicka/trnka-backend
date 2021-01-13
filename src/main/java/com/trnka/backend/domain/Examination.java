@@ -9,8 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.trnka.restapi.dto.ExaminationType;
 
+import com.trnka.restapi.dto.SequenceType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +28,7 @@ public class Examination extends BaseEntity {
     private String audio;
     private Long timeout;
     private Long complexity;
-    private ExaminationType type;
+    private SequenceType type;
     private Integer allowedRetries;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

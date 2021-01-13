@@ -1,63 +1,56 @@
-package com.trnka.backend.domain;
+package com.trnka.backend.domain.statistic;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
-import com.trnka.backend.dto.api.Evaluate;
+import com.trnka.backend.domain.Examination;
+import com.trnka.backend.domain.ExaminationStep;
+import com.trnka.backend.domain.Student;
+import com.trnka.restapi.dto.SequenceType;
+import com.trnka.restapi.dto.statistics.Evaluate;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "examination_statistic")
 @Getter
 @Setter
 @EqualsAndHashCode
-public class ExaminationStatistic extends BaseEntity {
+@DiscriminatorValue(value = "EX")
+public class ExaminationStatistic extends SequeceStatistic {
 
     // unidirectional !
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", name = "examination_id", nullable = false)
     private Examination examination;
 
-    // bidirectional
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id", name = "student_id", nullable = false)
-    @NotNull
-    private Student student;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "id", name = "examination_statistic_id", nullable = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "examinationStatistic")
     private List<ExaminationStepStatistic> examinationStepStatistics = new ArrayList<>();
 
-    private Boolean passed;
-
-    @Column(name = "finished_on")
-    private LocalDateTime finishedOn;
-
     public static ExaminationStatistic create(final Examination examination,
-                                              final Student student) {
+                                              final Student student,
+                                              final SequenceType sequenceType,
+                                              final LocalDateTime finishedOn) {
         ExaminationStatistic stats = new ExaminationStatistic();
         stats.setExamination(examination);
-        student.getExaminationStatistics().add(stats);
+        student.getSequenceStatistics().add(stats);
         stats.setStudent(student);
+        stats.setSequenceType(sequenceType);
+        stats.setFinishedOn(finishedOn);
         return stats;
     }
 
-    public ExaminationStepStatistic addStepStatistic(final ExaminationStatistic examinationStats,
-                                                     final ExaminationStep step,
+    public ExaminationStepStatistic addStepStatistic(final ExaminationStep step,
                                                      final long took,
                                                      final Evaluate evaluationOfSequence) {
         ExaminationStepStatistic stepStats = new ExaminationStepStatistic();
@@ -65,7 +58,8 @@ public class ExaminationStatistic extends BaseEntity {
         stepStats.setTook(took);
         stepStats.setCorrect(evaluationOfSequence.getCorrect());
         stepStats.setRetries(evaluationOfSequence.getNegativeTries());
-        examinationStats.getExaminationStepStatistics().add(stepStats);
+        stepStats.setExaminationStatistic(this);
+        this.getExaminationStepStatistics().add(stepStats);
         return stepStats;
     }
 
