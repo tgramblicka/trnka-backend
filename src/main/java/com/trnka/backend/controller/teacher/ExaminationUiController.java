@@ -1,7 +1,7 @@
 package com.trnka.backend.controller.teacher;
 
 import com.trnka.backend.controller.RestApiPaths;
-import com.trnka.backend.dto.TestModel;
+import com.trnka.backend.dto.ExaminationModel;
 import com.trnka.backend.service.testing.ExaminationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +30,12 @@ public class ExaminationUiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = CREATE_EXAMINATION_STEP)
-    public ModelAndView createExaminationModel(@ModelAttribute TestModel dto) {
+    public ModelAndView createExaminationModel(@ModelAttribute ExaminationModel dto) {
         return examinationService.createExaminationStep(dto.getExaminationStepCreateDto());
     }
 
     @RequestMapping(method = RequestMethod.POST, path = EDIT_TEST)
-    public ModelAndView createTest(@ModelAttribute TestModel dto) {
+    public ModelAndView createTest(@ModelAttribute ExaminationModel dto) {
         return examinationService.createOrEditTest(dto);
     }
 

@@ -25,6 +25,7 @@
                 <th scope="col">Nazov triedy</th>
                 <th scope="col">Pocet ziakov</th>
                 <th scope="col">Uprava</th>
+                <th scope="col">Správa študentov</th>
             </tr>
             </thead>
             <tbody>
@@ -35,6 +36,12 @@
                     <form method="get" th:action="@{/vst/ui/course}" >
                         <input type="hidden" name="id" th:value="${course.id}">
                         <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="get" th:action="@{/vst/ui/student/list}" >
+                        <input type="hidden" name="courseId" th:value="${course.id}">
+                        <button type="submit" class="btn btn-secondary my-2 my-sm-0">Spravovať študentov</button>
                     </form>
                 </td>
             </tr>

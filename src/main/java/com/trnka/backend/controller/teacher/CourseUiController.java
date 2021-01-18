@@ -38,12 +38,12 @@ public class CourseUiController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView editTestOpen(@RequestParam(required = false) Long id) {
+    public ModelAndView getCreateOrEditUi(@RequestParam(required = false) Long id) {
         return courseService.getCreateOrEditUi(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView createTest(@ModelAttribute CourseModel dto) {
+    public ModelAndView createCourse(@ModelAttribute CourseModel dto) {
         return courseService.create(dto);
     }
 

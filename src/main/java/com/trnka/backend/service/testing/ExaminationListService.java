@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.trnka.backend.config.Templates;
 import com.trnka.backend.domain.Examination;
 import com.trnka.backend.domain.Teacher;
-import com.trnka.backend.dto.TestingPageModel;
+import com.trnka.backend.dto.ExaminationsPageModel;
 import com.trnka.backend.service.TeacherService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,9 +30,9 @@ public class ExaminationListService {
             return null;
         }
         List<Examination> examinations = teacher.get().getCourseList().stream().flatMap(c -> c.getExaminations().stream()).collect(Collectors.toList());
-        TestingPageModel model = new TestingPageModel();
+        ExaminationsPageModel model = new ExaminationsPageModel();
         model.setExams(examinations);
-        ModelAndView mav = new ModelAndView(Templates.TESTING_PAGE.getTemplateName());
+        ModelAndView mav = new ModelAndView(Templates.EXAMINATIONS_PAGE.getTemplateName());
         return mav.addObject("model", model);
     }
 }

@@ -7,6 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class TestingPageModel {
+public class ExaminationsPageModel {
     private List<Examination> exams = new ArrayList<>();
 }

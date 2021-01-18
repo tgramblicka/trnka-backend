@@ -17,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 public class TeacherUiController {
     public static final String HOME_PATH = "home";
     public static final String TESTING_PATH = "testing";
-    public static final String LEARNING_PATH = "learning";
     public static final String RESULTS_PATH = "results";
     public static final String DICTIONARY_PATH = "dictionary";
 
@@ -40,14 +39,6 @@ public class TeacherUiController {
     @RequestMapping(method = RequestMethod.GET, path = TESTING_PATH)
     public ModelAndView testManagement() {
         return examinationListService.getExaminationsForCurrentTeacher();
-    }
-
-
-
-    @RequestMapping(method = RequestMethod.GET, path = LEARNING_PATH)
-    public ModelAndView learningManagement() {
-        ModelAndView mv = new ModelAndView("teacher-learning");
-        return mv.addObject("teacherName", "Jan Testovaci");
     }
 
     @RequestMapping(method = RequestMethod.GET, path = RESULTS_PATH)

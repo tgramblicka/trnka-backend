@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TestModel {
+public class ExaminationModel {
     private Examination examination;
     private ExaminationStepCreateDto examinationStepCreateDto;
     private List<CourseSelectDto> courses;

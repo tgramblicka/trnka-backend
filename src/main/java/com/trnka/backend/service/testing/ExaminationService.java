@@ -12,8 +12,8 @@ import com.trnka.backend.domain.Course;
 import com.trnka.backend.domain.Examination;
 import com.trnka.backend.domain.ExaminationStep;
 import com.trnka.backend.dto.ExaminationStepCreateDto;
-import com.trnka.backend.dto.TestModel;
-import com.trnka.backend.dto.TestingPageModel;
+import com.trnka.backend.dto.ExaminationModel;
+import com.trnka.backend.dto.ExaminationsPageModel;
 import com.trnka.backend.repository.BrailRepository;
 import com.trnka.backend.repository.CourseRepository;
 import com.trnka.backend.repository.ExaminationRepository;
@@ -35,12 +35,12 @@ public class ExaminationService {
     private final ExaminationListService examinationListService;
 
     public ModelAndView getTestingListUi() {
-        ModelAndView mv = new ModelAndView(Templates.TESTING_PAGE.getTemplateName());
-        return mv.addObject("model", new TestingPageModel());
+        ModelAndView mv = new ModelAndView(Templates.EXAMINATIONS_PAGE.getTemplateName());
+        return mv.addObject("model", new ExaminationsPageModel());
     }
 
     @Transactional
-    public ModelAndView createOrEditTest(TestModel dto) {
+    public ModelAndView createOrEditTest(ExaminationModel dto) {
         if (dto.getExamination().getId() == null) {
             return createTest(dto.getExamination(), dto.getSelectedCourseId());
         }
@@ -94,7 +94,7 @@ public class ExaminationService {
 
     private ModelAndView getEditTestUiModel(Examination examination) {
         ModelAndView mv = new ModelAndView(Templates.EDIT_TEST.getTemplateName());
-        TestModel model = new TestModel();
+        ExaminationModel model = new ExaminationModel();
         model.setExamination(examination);
         model.setExaminationStepCreateDto(getExaminationStepCreateDto(examination));
         model.setSelectedCourseId(examination.getCourse().getId());
@@ -111,7 +111,7 @@ public class ExaminationService {
 
     public ModelAndView getCreateTestUiModel() {
         ModelAndView mv = new ModelAndView(Templates.CREATE_TEST.getTemplateName());
-        TestModel model = new TestModel();
+        ExaminationModel model = new ExaminationModel();
         model.setExamination(createInitialExamination());
         model.setCourses(courseService.getMyCoursesSelection());
         return mv.addObject("model", model);
