@@ -26,7 +26,7 @@ public class ExaminationUiController {
 
     @RequestMapping(method = RequestMethod.GET, path = CREATE_TEST)
     public ModelAndView getCreateTest() {
-        return examinationService.getCreateTestUiModel();
+        return examinationService.getCreateExaminationUiModel();
     }
 
     @RequestMapping(method = RequestMethod.POST, path = CREATE_EXAMINATION_STEP)
@@ -41,7 +41,7 @@ public class ExaminationUiController {
 
     @RequestMapping(method = RequestMethod.GET, path = EDIT_TEST)
     public ModelAndView getEditTest(@RequestParam Long id) {
-        return examinationService.getEditTestUiModel(id);
+        return examinationService.getEditExaminationUiModel(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = DELETE_TEST)

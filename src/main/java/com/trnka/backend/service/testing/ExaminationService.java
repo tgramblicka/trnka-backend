@@ -53,7 +53,7 @@ public class ExaminationService {
             Examination entity = found.get();
             updateExamination(model, entity);
             examinationRepository.save(entity);
-            return getEditTestUiModel(entity);
+            return getEditExaminationUiModel(entity);
         }
         String msg = String.format("Test with id %s not found!", model.getId());
         log.error(msg);
@@ -64,7 +64,7 @@ public class ExaminationService {
                                     final Long selectedCourseId) {
         addExaminationToCourse(examination, selectedCourseId);
         Examination saved = examinationRepository.save(examination);
-        return getEditTestUiModel(saved);
+        return getEditExaminationUiModel(saved);
     }
 
     private void addExaminationToCourse(final Examination examination,
@@ -88,12 +88,12 @@ public class ExaminationService {
         return examination;
     }
 
-    public ModelAndView getEditTestUiModel(Long examinationId) {
-        return getEditTestUiModel(examinationRepository.findById(examinationId).get());
+    public ModelAndView getEditExaminationUiModel(Long examinationId) {
+        return getEditExaminationUiModel(examinationRepository.findById(examinationId).get());
     }
 
-    private ModelAndView getEditTestUiModel(Examination examination) {
-        ModelAndView mv = new ModelAndView(Templates.EDIT_TEST.getTemplateName());
+    private ModelAndView getEditExaminationUiModel(Examination examination) {
+        ModelAndView mv = new ModelAndView(Templates.EDIT_EXAMINATION.getTemplateName());
         ExaminationModel model = new ExaminationModel();
         model.setExamination(examination);
         model.setExaminationStepCreateDto(getExaminationStepCreateDto(examination));
@@ -109,8 +109,8 @@ public class ExaminationService {
         return dto;
     }
 
-    public ModelAndView getCreateTestUiModel() {
-        ModelAndView mv = new ModelAndView(Templates.CREATE_TEST.getTemplateName());
+    public ModelAndView getCreateExaminationUiModel() {
+        ModelAndView mv = new ModelAndView(Templates.CREATE_EXAMINATION.getTemplateName());
         ExaminationModel model = new ExaminationModel();
         model.setExamination(createInitialExamination());
         model.setCourses(courseService.getMyCoursesSelection());
@@ -132,7 +132,7 @@ public class ExaminationService {
         Examination realExamination = examination.get();
         realExamination.addExaminationStep(step);
 
-        return getEditTestUiModel(realExamination);
+        return getEditExaminationUiModel(realExamination);
     }
 
     public ModelAndView deleteTest(final Long id) {

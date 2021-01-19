@@ -1,8 +1,8 @@
 package com.trnka.backend.config;
 
 public enum Templates {
-    CREATE_TEST("create-test"),
-    EDIT_TEST("edit-test"),
+    CREATE_EXAMINATION("create-examination"),
+    EDIT_EXAMINATION("edit-examination"),
     ERROR_PAGE("error"),
     EXAMINATIONS_PAGE("teacher-examinations"),
     COURSE_EDIT_PAGE("course-edit"),
