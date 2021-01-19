@@ -23,8 +23,9 @@
             <label for="allowedRetries" class="col-sm-2 col-form-label">Typ sekvencie: </label>
             <div class="col-sm-10">
                 <select th:field="*{examination.type}" id="examination.type" class="custom-select mr-sm-2">
-                    <option th:each="sequenceType : ${T(com.trnka.restapi.dto.SequenceType).values()}"
-                            th:value="${sequenceType}" th:text="${sequenceType}"></option>
+                    <th:block th:each="sequenceType : ${T(com.trnka.restapi.dto.SequenceType).values()}">
+                        <option th:if="${sequenceType.name() == 'TESTING' OR sequenceType.name() == 'LEARNING'}" th:value="${sequenceType}" th:text="${sequenceType}"></option>
+                    </th:block>
                 </select>
             </div>
         </div>
