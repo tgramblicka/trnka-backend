@@ -25,8 +25,8 @@
             <td th:text="${exam.type}">1</td>
             <td th:text="${exam.name}">1</td>
             <td th:text="${exam.complexity}">1</td>
-            <td th:text="${#temporals.format(exam.createdOn, 'yyyy-MM-dd HH:mm::ss')}">1</td>
-            <td th:text="${#temporals.format(exam.updatedOn, 'yyyy-MM-dd HH:mm::ss')}">1</td>
+            <td th:text="${#temporals.format(exam.createdOn, 'yyyy-MM-dd HH:mm:ss')}">1</td>
+            <td th:text="${#temporals.format(exam.updatedOn, 'yyyy-MM-dd HH:mm:ss')}">1</td>
             <td>
                 <form method="get" th:action="@{/vst/ui/examination/edit}" th:object="${exam}">
                     <input type="hidden" th:value="*{id}" name="id"/>
