@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="text/javascript">
+    </script>
+    <title>Admin Teacher management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}"/>
+</head>
+<body>
+
+
+<main class="jumbotron">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='admin-teacher-list')">
+    </nav>
+    <p class="lead my-4">Zoznam pouzivatelov:</p>
+    
+    <div class="container-fluid border my-2 py-2">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id pouzivatela</th>
+                <th scope="col">Username</th>
+                <th scope="col">Typ pouzivatela</th>
+                <th scope="col">Cas vytvorenia</th>
+                <th scope="col">Cas upravy</th>
+                <th scope="col">Uprava</th>
+                <th scope="col">Vymazat ucitela, jeho triedy aj ziakov</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${model.users}">
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.username}">1</td>
+                <td th:text="${user.type}">1</td>
+                <td th:text="${user.createdOn}">1</td>
+                <td th:text="${user.updatedOn}">1</td>
+                <td>
+                    <form method="get" th:action="@{/vst/ui/admin/users/} + ${user.id}">
+<!--                        <input type="hidden" name="id" th:value="${teacher.id}">-->
+                        <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="delete" th:action="@{/vst/ui/admin/users/} + ${user.id}" >
+<!--                        /<input type="hidden" name="id" th:value="${teacher.id}">-->
+                        <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat pouzivatela, jeho triedy a ziakov</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form class="form-inline my-2 my-lg-0">
+        <a th:href="@{/vst/ui/admin/teacher}">
+            <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor ucitela</button>
+        </a>
+    </form>
+
+</main>
+</body>
+</html>
