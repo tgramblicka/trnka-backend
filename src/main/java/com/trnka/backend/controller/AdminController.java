@@ -1,5 +1,6 @@
 package com.trnka.backend.controller;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,5 +23,18 @@ public class AdminController {
     public ModelAndView getUsersList() {
         return adminService.getUsersList();
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = RestApiPaths.PATH_UI_ADMIN_USER_MNGMT_EDIT)
+    public ModelAndView getUserEdit(@PathVariable Long id){
+        return adminService.getUserEditUI(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = RestApiPaths.PATH_UI_ADMIN_USER_MNGMT_CREATE)
+    public ModelAndView getUserCreate(){
+        return adminService.getUserCreateUI();
+    }
+
+
+
 
 }

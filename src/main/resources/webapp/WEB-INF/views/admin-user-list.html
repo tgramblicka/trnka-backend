@@ -14,7 +14,7 @@
 
 
 <main class="jumbotron">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='admin-teacher-list')">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='user-management')">
     </nav>
     <p class="lead my-4">Zoznam pouzivatelov:</p>
     
@@ -39,14 +39,14 @@
                 <td th:text="${user.createdOn}">1</td>
                 <td th:text="${user.updatedOn}">1</td>
                 <td>
-                    <form method="get" th:action="@{/vst/ui/admin/users/} + ${user.id}">
+                    <form method="get" th:action="@{/vst/ui/admin/users/edit/} + ${user.id}">
 <!--                        <input type="hidden" name="id" th:value="${teacher.id}">-->
                         <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
                     </form>
                 </td>
                 <td>
-                    <form method="delete" th:action="@{/vst/ui/admin/users/} + ${user.id}" >
-<!--                        /<input type="hidden" name="id" th:value="${teacher.id}">-->
+                    <form method="delete" th:action="@{/vst/ui/admin/users/delete/} + ${user.id}" >
+<!--                        /<input type="hidden" name="id" th:value="${teache0r.id}">-->
                         <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat pouzivatela, jeho triedy a ziakov</button>
                     </form>
                 </td>
@@ -55,8 +55,8 @@
         </table>
     </div>
     <form class="form-inline my-2 my-lg-0">
-        <a th:href="@{/vst/ui/admin/teacher}">
-            <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor ucitela</button>
+        <a th:href="@{/vst/ui/admin/users/create}">
+            <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor pouzivatela</button>
         </a>
     </form>
 

@@ -11,7 +11,9 @@ public enum Templates {
     STUDENT_EDIT_PAGE("student-edit"),
     EXAMINATION_STEP_LIST("fragments/examination-step-list"),
     STUDENT_EXAM_STATISTICS("student-examination-statistics"),
-    ADMIN_USER_LIST("admin-user-list");
+    ADMIN_USER_LIST("admin-user-list"),
+    ADMIN_USER_EDIT("admin-edit-user"),
+    ADMIN_USER_CREATE("admin-create-user");
 
 
 
