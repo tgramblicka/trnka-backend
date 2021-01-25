@@ -7,7 +7,7 @@ public enum Templates {
     EXAMINATIONS_PAGE("teacher-examinations"),
     COURSE_EDIT_PAGE("course-edit"),
     COURSES_PAGE("teacher-courses"),
-    STUDENTS_LIST("students-list"),
+    STUDENTS_LIST("course-students-list"),
     STUDENT_EDIT_PAGE("student-edit"),
     EXAMINATION_STEP_LIST("fragments/examination-step-list"),
     STUDENT_EXAM_STATISTICS("student-examination-statistics"),
