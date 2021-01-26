@@ -23,7 +23,6 @@
     
     <form class="form-group my-2 my-lg-0" method="post" th:action="@{/vst/ui/student}" th:object="${model.student}">
         <input type="hidden" th:field="*{id}" th:value="*{id}">
-        <input type="hidden" th:field="*{course}" th:value="*{course}">
         
         <div class="form-group row">
             <label for="deviceIdentificationCode" class="col-sm-2 col-form-label">Prihlasovaci kod: </label>
@@ -32,12 +31,25 @@
                        class="form-control">
             </div>
         </div>
+    
+        <div class="form-group row">
+            <label for="course.id" class="col-sm-2 col-form-label">Vyber triedy: </label>
+            <div class="col-sm-10">
+                <select th:field="*{course.id}" id="course.id" class="custom-select mr-sm-2">
+                    <option th:each="crs : ${model.coursesToSelect}" th:value="${crs.id}" th:text="${crs.name}"
+                            th:selected="${model.student.course!=null && model.student.course.id==crs.id}"></option>
+                </select>
+            </div>
+        </div>
+        
+        
+        
         <div class="row">
             <div class="col">
                 <button type="submit" class="btn btn-primary my-2 my-sm-0">Potvrd</button>
             </div>
             <div class="col">
-                <a th:href="@{/vst/ui/student/list(courseId=${model.student.course.id})}">
+                <a th:href="@{/vst/ui/student/list/all}">
                     <button type="button" class="btn btn-primary my-2 my-sm-0">Zrus</button>
                 </a>
             </div>

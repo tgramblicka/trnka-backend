@@ -13,26 +13,29 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Prihlasovaci kod</th>
+            <th scope="col">ID triedy</th>
+            <th scope="col">Nazov triedy</th>
             <th scope="col">Upravit</th>
             <th scope="col">Vymazat</th>
             <th scope="col">Vysledky</th>
+            
         </tr>
         </thead>
         <tbody>
-        <tr th:each="student : ${model.students}">
+        <tr th:each="student : ${model}">
             <td th:text="${student.id}">1</td>
             <td th:text="${student.deviceIdentificationCode}">1</td>
+            <td><span th:if="${student.course!=null}" th:text="${student.course.id}"></span></td>
+            <td><span th:if="${student.course!=null}" th:text="${student.course.name}"></span></td>
             <td>
                 <form method="get" th:action="@{/vst/ui/student}">
-                    <input type="hidden" th:value="${model.courseId}" name="courseId"/>
-                    <input type="hidden" th:value="${student.id}" name="studentId"/>
+                    <input type="hidden" th:value="${student.id}" name="id"/>
                     <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
                 </form>
             </td>
             <td>
                 <form method="get" th:action="@{/vst/ui/student/delete}">
-                    <input type="hidden" th:value="${model.courseId}" name="courseId"/>
-                    <input type="hidden" th:value="${student.id}" name="studentId"/>
+                    <input type="hidden" th:value="${student.id}" name="id"/>
                     <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat</button>
                 </form>
             </td>

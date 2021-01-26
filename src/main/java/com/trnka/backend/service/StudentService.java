@@ -21,6 +21,8 @@ import com.trnka.backend.repository.StudentRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Service
 @Slf4j
@@ -30,6 +32,10 @@ public class StudentService {
     private final CourseRepository courseRepository;
     private final StudentRepository studentRepository;
     private final UserService userService;
+    private final CourseService courseService;
+
+    @PersistenceContext
+    private EntityManager em;
 
     public ModelAndView getAllStudentsUi() {
         User currentUser = userService.getCurrentUser();
@@ -40,12 +46,7 @@ public class StudentService {
         } else {
             students = studentRepository.findAllByCreatedBy(currentUser);
         }
-
-        StudentListModel model = new StudentListModel(students,
-                                                      null,
-                                                      "",
-                                                      null);
-        return new ModelAndView(Templates.STUDENTS_LIST.getTemplateName()).addObject("model", model);
+        return new ModelAndView(Templates.STUDENTS_LIST.getTemplateName()).addObject("model", students);
     }
 
     public ModelAndView getCourseStudentListUi(final Long courseId) {
@@ -67,20 +68,11 @@ public class StudentService {
         return new ModelAndView(Templates.COURSE_STUDENTS_LIST.getTemplateName()).addObject("model", model);
     }
 
-    public ModelAndView getCreateOrEditUi(final Long courseId,
-                                          final Long studentId) {
-        Optional<Course> courseById = courseRepository.findById(courseId);
-        if (!courseById.isPresent()) {
-            log.error(courseNotFoundErrorMsg(courseId));
-            StudentModel model = new StudentModel();
-            model.setErrorMessage(courseNotFoundErrorMsg(courseId));
-            return new ModelAndView(Templates.STUDENT_EDIT_PAGE.getTemplateName()).addObject("model", model);
+    public ModelAndView getCreateOrEditUi(final Long id) {
+        if (id == null) {
+            return initCreateUi();
         }
-
-        if (studentId == null) {
-            return initCreateUi(courseById.get());
-        }
-        return initEditUi(studentId);
+        return initEditUi(id);
     }
 
     private String courseNotFoundErrorMsg(final Long courseId) {
@@ -99,18 +91,16 @@ public class StudentService {
 
         StudentModel model = new StudentModel();
         model.setStudent(studentById.get());
+        model.setCoursesToSelect(courseService.getMyCoursesSelection());
 
         return new ModelAndView(Templates.STUDENT_EDIT_PAGE.getTemplateName()).addObject("model", model);
     }
 
-    private ModelAndView initCreateUi(final Course course) {
-
+    private ModelAndView initCreateUi() {
         Student student = new Student();
-        student.setCourse(course);
-
         StudentModel model = new StudentModel();
         model.setStudent(student);
-
+        model.setCoursesToSelect(courseService.getMyCoursesSelection());
         return new ModelAndView(Templates.STUDENT_EDIT_PAGE.getTemplateName()).addObject("model", model);
     }
 
@@ -126,17 +116,31 @@ public class StudentService {
             studentEntity = studentRepository.save(studentDto);
         } else {
             studentEntity = studentRepository.findById(studentDto.getId()).get();
+            boolean changedCourse = studentEntity.getCourse().getId() != studentDto.getCourse().getId();
+            if (changedCourse){
+                Course oldCourse = courseRepository.findById(studentEntity.getCourse().getId()).get();
+                oldCourse.getStudents().remove(studentDto);
+
+                Course newCourse = courseRepository.findById(studentDto.getCourse().getId()).get();
+                newCourse.getStudents().add(studentEntity);
+                studentEntity.setCourse(newCourse);
+            }
+
             studentEntity.setDeviceIdentificationCode(studentDto.getDeviceIdentificationCode());
         }
 
         model.setStudent(studentEntity);
         model.setInfoMessage("Student bol vytvoreny !");
-        return getCourseStudentListUi(studentDto.getCourse().getId());
+
+
+        // below flush just because the returned UI should be already refreshed
+        em.flush();
+        em.clear();
+        return getAllStudentsUi();
     }
 
-    public ModelAndView delete(final Long courseId,
-                               final Long studentId) {
-        studentRepository.deleteById(studentId);
-        return getCourseStudentListUi(courseId);
+    public ModelAndView delete(final Long id) {
+        studentRepository.deleteById(id);
+        return getAllStudentsUi();
     }
 }

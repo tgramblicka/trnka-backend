@@ -40,9 +40,8 @@ public class StudentUiController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView get(@RequestParam(name = "courseId") Long courseId,
-                            @RequestParam(name = "studentId", required = false) Long studentId) {
-        return studentService.getCreateOrEditUi(courseId, studentId);
+    public ModelAndView get(@RequestParam(name = "id", required = false) Long id) {
+        return studentService.getCreateOrEditUi(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -51,9 +50,8 @@ public class StudentUiController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = PATH_DELETE)
-    public ModelAndView delete(@RequestParam(name = "courseId") Long courseId,
-                               @RequestParam(name = "studentId") Long studentId) {
-        return studentService.delete(courseId, studentId);
+    public ModelAndView delete(@RequestParam(name = "id") Long id) {
+        return studentService.delete(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = PATH_STATISTICS)

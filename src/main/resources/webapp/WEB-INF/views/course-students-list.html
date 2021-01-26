@@ -21,17 +21,11 @@
     <p class="lead my-4" th:text="'Studenti triedy: ' + ${model.courseName}">Studenti triedy</p>
     
     
-    <div id="student-list" class="container-fluid border my-2 py-2" th:replace="fragments/student-list.html :: setData(model=${model})">
+    <div id="student-list" class="container-fluid border my-2 py-2" th:replace="fragments/student-list.html :: setData(model=${model.students})">
     
     </div>
     
     
-    <form class="form-group my-2 my-lg-0" method="get" th:action="@{/vst/ui/student}">
-        <input type="hidden" name="courseId" th:value="${model.courseId}">
-        <button type="submit" class="btn btn-primary my-2 my-sm-0">Pridaj noveho studenta</button>
-    </form>
-
-
 </main>
 </body>
 </html>
