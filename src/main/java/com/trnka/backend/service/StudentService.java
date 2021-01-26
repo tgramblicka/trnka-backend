@@ -1,8 +1,12 @@
 package com.trnka.backend.service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
+import com.trnka.backend.domain.User;
+import com.trnka.backend.domain.UserType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,20 +21,34 @@ import com.trnka.backend.repository.StudentRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
+
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class StudentService {
 
-    private CourseRepository courseRepository;
-    private StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
+    private final StudentRepository studentRepository;
+    private final UserService userService;
 
-    public StudentService(final CourseRepository courseRepository,
-                          final StudentRepository studentRepository) {
-        this.courseRepository = courseRepository;
-        this.studentRepository = studentRepository;
+    public ModelAndView getAllStudentsUi() {
+        User currentUser = userService.getCurrentUser();
+
+        List<Student> students;
+        if (currentUser.getType().equals(UserType.ADMIN)) {
+            students = studentRepository.findAll();
+        } else {
+            students = studentRepository.findAllByCreatedBy(currentUser);
+        }
+
+        StudentListModel model = new StudentListModel(students,
+                                                      null,
+                                                      "",
+                                                      null);
+        return new ModelAndView(Templates.STUDENTS_LIST.getTemplateName()).addObject("model", model);
     }
 
-    public ModelAndView getStudentsListUi(final Long courseId) {
+    public ModelAndView getCourseStudentListUi(final Long courseId) {
         Optional<Course> coursById = courseRepository.findById(courseId);
         if (!coursById.isPresent()) {
             log.error(courseNotFoundErrorMsg(courseId));
@@ -38,7 +56,7 @@ public class StudentService {
                                                           courseId,
                                                           "",
                                                           courseNotFoundErrorMsg(courseId));
-            return new ModelAndView(Templates.STUDENTS_LIST.getTemplateName()).addObject("model", model);
+            return new ModelAndView(Templates.COURSE_STUDENTS_LIST.getTemplateName()).addObject("model", model);
         }
         Course course = coursById.get();
         StudentListModel model = new StudentListModel(course.getStudents(),
@@ -46,7 +64,7 @@ public class StudentService {
                                                       course.getName(),
                                                       null);
 
-        return new ModelAndView(Templates.STUDENTS_LIST.getTemplateName()).addObject("model", model);
+        return new ModelAndView(Templates.COURSE_STUDENTS_LIST.getTemplateName()).addObject("model", model);
     }
 
     public ModelAndView getCreateOrEditUi(final Long courseId,
@@ -96,12 +114,14 @@ public class StudentService {
         return new ModelAndView(Templates.STUDENT_EDIT_PAGE.getTemplateName()).addObject("model", model);
     }
 
+
     @Transactional
     public ModelAndView createStudent(final StudentModel model) {
         Student studentDto = model.getStudent();
 
         Student studentEntity;
         if (studentDto.getId() == null) {
+            studentDto.setCreatedBy(userService.getCurrentUser());
             studentDto.getCourse().getStudents().add(studentDto);
             studentEntity = studentRepository.save(studentDto);
         } else {
@@ -111,12 +131,12 @@ public class StudentService {
 
         model.setStudent(studentEntity);
         model.setInfoMessage("Student bol vytvoreny !");
-        return getStudentsListUi(studentDto.getCourse().getId());
+        return getCourseStudentListUi(studentDto.getCourse().getId());
     }
 
     public ModelAndView delete(final Long courseId,
                                final Long studentId) {
         studentRepository.deleteById(studentId);
-        return getStudentsListUi(courseId);
+        return getCourseStudentListUi(courseId);
     }
 }
