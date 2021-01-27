@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script type="text/javascript">
+    <script th:src="@{/jquery/jquery-3.4.1.min.js}" src="../jquery/jquery-3.4.1.min.js"></script>
+    <script th:inline="javascript" type="text/javascript">
+        $(document).ready(function () {
+            var courseId = /*[[${model.course.id}]]*/ 0;
+            $('#manage-students').click(function () {
+                window.location.href = '/vst/ui/student/all/course/' + courseId;
+            });
+        });
     </script>
     <title>Course Edit</title>
     <meta charset="UTF-8">
@@ -27,16 +34,11 @@
             </div>
         </div>
         <div class="form-group row">
-            <button type="submit" class="btn btn-primary my-2 my-sm-0">Potvrd</button>
+            <button type="submit" class="btn btn-primary m-2 my-sm-0">Potvrd</button>
+            <button type="button" id="manage-students" class="btn btn-primary m-2 my-sm-0">Spravovať študentov triedy</button>
         </div>
     </form>
     
-    <form method="get" class="form-inline my-2 my-lg-0" th:action="@{/vst/ui/student/list}">
-        <input type="hidden" name="courseId" th:value="${model.course.id}">
-        <button type="submit" class="btn btn-primary my-2 my-sm-0">Spravovať študentov triedy</button>
-    </form>
-
-
 </main>
 </body>
 </html>

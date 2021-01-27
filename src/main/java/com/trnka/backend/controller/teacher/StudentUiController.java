@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(RestApiPaths.PATH_UI_STUDENT)
 public class StudentUiController {
     public static final String PATH_ALL = "/all"; // todo rename
-    public static final String PATH_MY_COURSES = "/list"; // todo rename
+    public static final String PATH_MY_COURSES = "/all/course/{courseId}";
     public static final String PATH_DELETE = "/delete";
     public static final String PATH_STATISTICS = "/{id}/statistics";
 
@@ -30,7 +30,7 @@ public class StudentUiController {
     private StudentExamStatisticService studentExamStatisticService;
 
     @RequestMapping(method = RequestMethod.GET, path = PATH_MY_COURSES)
-    public ModelAndView courseStudents(@RequestParam(name = "courseId") Long courseId) {
+    public ModelAndView courseStudents(@PathVariable Long courseId) {
         return studentService.getCourseStudentListUi(courseId);
     }
 

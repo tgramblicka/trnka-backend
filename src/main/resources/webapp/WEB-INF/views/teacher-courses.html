@@ -39,8 +39,7 @@
                     </form>
                 </td>
                 <td>
-                    <form method="get" th:action="@{/vst/ui/student/list}" >
-                        <input type="hidden" name="courseId" th:value="${course.id}">
+                    <form method="get" th:action="@{/vst/ui/student/all/course/__${course.id}__}" >
                         <button type="submit" class="btn btn-secondary my-2 my-sm-0">Spravovať študentov</button>
                     </form>
                 </td>
