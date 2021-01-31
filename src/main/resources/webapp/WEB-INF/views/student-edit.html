@@ -2,8 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <script th:src="@{/jquery/jquery-3.4.1.min.js}" src="../jquery/jquery-3.4.1.min.js"></script>
+    <script th:src="@{/jquery/jquery-input-filter.js}" src="../jquery/jquery-input-filter.js"></script>
+    
     <script type="text/javascript">
         $(document).ready(function () {
+            let regexp = /^(\d{0,4})$/; // Allow 4 digits only
+            $("#deviceIdentificationCode").inputFilter(function(value) {
+                return regexp.test(value);
+            });
         });
     </script>
     <title>Student detail</title>
@@ -21,6 +27,14 @@
     </nav>
     <h2 class="lead my-4">Student detail: </h2>
     
+    
+    
+    <div th:if="${!model.errors.isEmpty()}" class="alert alert-danger" role="alert">
+        <th:block th:each="error : ${model.errors}">
+            <span th:text="*{error}"></span>
+        </th:block>
+    </div>
+    
     <form class="form-group my-2 my-lg-0" method="post" th:action="@{/vst/ui/student}" th:object="${model.student}">
         <input type="hidden" th:field="*{id}" th:value="*{id}">
         
@@ -33,7 +47,7 @@
         </div>
     
         <div class="form-group row">
-            <label for="course.id" class="col-sm-2 col-form-label">Vyber triedy: </label>
+            <label for="course.id" class="col-sm-2 col-form-label">Vyber triedu: </label>
             <div class="col-sm-10">
                 <select th:field="*{course.id}" id="course.id" class="custom-select mr-sm-2">
                     <option th:each="crs : ${model.coursesToSelect}" th:value="${crs.id}" th:text="${crs.name}"

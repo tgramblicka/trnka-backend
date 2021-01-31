@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Pattern;
 
 import com.trnka.backend.domain.statistic.SequeceStatistic;
 
@@ -16,6 +17,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
@@ -24,6 +26,8 @@ import lombok.Setter;
 @Entity
 public class Student extends BaseEntity {
 
+    @Pattern(regexp="[0-9]+", message = "Prihlasovaci kod musi obsahovat iba cislice 0-9")
+    @Length(min = 4, max = 4, message = "Prihlasovaci kod musi obsahovat presne 4 cislice!")
     private String deviceIdentificationCode;
     private Integer deviceLoginCount;
 

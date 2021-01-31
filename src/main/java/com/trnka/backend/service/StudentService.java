@@ -4,25 +4,28 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import com.trnka.backend.domain.User;
-import com.trnka.backend.domain.UserType;
-import lombok.RequiredArgsConstructor;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.trnka.backend.config.Templates;
 import com.trnka.backend.domain.Course;
 import com.trnka.backend.domain.Student;
+import com.trnka.backend.domain.User;
+import com.trnka.backend.domain.UserType;
 import com.trnka.backend.dto.student.StudentListModel;
 import com.trnka.backend.dto.student.StudentModel;
 import com.trnka.backend.repository.CourseRepository;
 import com.trnka.backend.repository.StudentRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 @Service
 @Slf4j
@@ -85,7 +88,7 @@ public class StudentService {
             String msg = String.format("Student with id: %s not found", studentId);
             log.error(msg);
             StudentModel model = new StudentModel();
-            model.setErrorMessage(msg);
+            model.getErrors().add(msg);
             return new ModelAndView().addObject("model", model);
         }
 
@@ -105,9 +108,32 @@ public class StudentService {
     }
 
 
+
+    private boolean existsAnotherStudentWithSameIdentificationCode(final Student dto){
+        Optional<Student> optionalStudent = studentRepository.findByDeviceIdentificationCode(dto.getDeviceIdentificationCode());
+        if (optionalStudent.isPresent()){
+            return !optionalStudent.get().getId().equals(dto.getId());
+        }
+        return false;
+    }
+
     @Transactional
-    public ModelAndView createStudent(final StudentModel model) {
+    public ModelAndView createOrUpdateStudent(final StudentModel model) {
         Student studentDto = model.getStudent();
+        model.getErrors().clear();
+
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        validator.validate(model.getStudent()).forEach(v -> model.getErrors().add(v.getMessage()));
+        if (!CollectionUtils.isEmpty(model.getErrors())){
+            return new ModelAndView(Templates.STUDENT_EDIT_PAGE.getTemplateName()).addObject("model", model);
+        }
+
+
+        if (existsAnotherStudentWithSameIdentificationCode(model.getStudent())) {
+            model.getErrors().add("Student s rovnakym prihlasovacím kodom uz existuje !");
+            return new ModelAndView(Templates.STUDENT_EDIT_PAGE.getTemplateName()).addObject("model", model);
+        }
+
 
         Student studentEntity;
         if (studentDto.getId() == null) {

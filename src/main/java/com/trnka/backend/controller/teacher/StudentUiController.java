@@ -46,7 +46,7 @@ public class StudentUiController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(StudentModel model) {
-        return studentService.createStudent(model);
+        return studentService.createOrUpdateStudent(model);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = PATH_DELETE)
