@@ -32,7 +32,7 @@ public class TeacherUiController {
 
     @RequestMapping(method = RequestMethod.GET, path = DICTIONARY_PATH)
     public ModelAndView dictionary() {
-        ModelAndView mv = new ModelAndView("teacher-dictionary");
+        ModelAndView mv = new ModelAndView("dictionary");
         return mv.addObject("teacherName", "Jan Testovaci");
     }
 
