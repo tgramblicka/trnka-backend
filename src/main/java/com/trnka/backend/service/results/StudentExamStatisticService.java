@@ -43,14 +43,13 @@ public class StudentExamStatisticService {
             mv.addObject("errorMessage", "Student not found!");
             return mv;
         }
-        StudentStatisticListDto modelDto = mapToUiModel(student.get().getSequenceStatistics());
+        StudentStatisticListDto modelDto = mapToUiModel(student.get());
         return new ModelAndView(Templates.STUDENT_EXAM_STATISTICS.getTemplateName()).addObject("model", modelDto);
     }
 
-    private StudentStatisticListDto mapToUiModel(List<SequeceStatistic> statistics) {
-
+    private StudentStatisticListDto mapToUiModel(Student student) {
         List<StudentStatisticListItemDto> listRows = new ArrayList<>();
-        for (SequeceStatistic sequenceStatistic : statistics) {
+        for (SequeceStatistic sequenceStatistic : student.getSequenceStatistics()) {
             StudentStatisticListItemDto examStatsDto = new StudentStatisticListItemDto();
 
             examStatsDto.setFinishedOn(sequenceStatistic.getFinishedOn());
@@ -79,7 +78,10 @@ public class StudentExamStatisticService {
         }
 
         StudentStatisticListDto listDto = new StudentStatisticListDto();
+        listDto.setStudentId(student.getId());
+        listDto.setDeviceIdentificationCode(student.getDeviceIdentificationCode());
         listDto.setStatistics(listRows);
+
         return listDto;
     }
 
