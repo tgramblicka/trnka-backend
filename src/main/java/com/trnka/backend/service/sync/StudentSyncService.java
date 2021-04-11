@@ -1,7 +1,9 @@
 package com.trnka.backend.service.sync;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -32,16 +34,17 @@ public class StudentSyncService {
         List<StudentDTO> studentDtos = new ArrayList<>();
 
         courses.forEach(course -> {
-            List<StudentDTO> dtos = mapToStudents(course.getExaminations(), course.getStudents());
+            List<StudentDTO> dtos = mapToStudents(course.getExaminations().stream().map(Examination::getId).collect(Collectors.toSet()), course.getStudents());
             studentDtos.addAll(dtos);
         });
-        return new SyncDto(studentDtos);
+        // todo fix examinations sync
+        return new SyncDto(studentDtos,
+                           Collections.emptyList());
     }
 
-    private List<StudentDTO> mapToStudents(List<Examination> examinations,
+    private List<StudentDTO> mapToStudents(Set<Long> examinationIds,
                                            List<Student> students) {
-        List<ExaminationDto> examinationDtos = examinations.stream().map(this::mapExamination).collect(Collectors.toList());
-        List<StudentDTO> studentDtos = students.stream().map(s -> mapStudent(s, examinationDtos)).collect(Collectors.toList());
+        List<StudentDTO> studentDtos = students.stream().map(s -> mapStudent(s, examinationIds)).collect(Collectors.toList());
         return studentDtos;
     }
 
@@ -68,11 +71,11 @@ public class StudentSyncService {
     }
 
     private StudentDTO mapStudent(Student student,
-                                  List<ExaminationDto> examinationDtos) {
+                                  Set<Long> examinationIds) {
         StudentDTO dto = new StudentDTO();
         dto.setId(student.getId());
         dto.setCode(student.getDeviceIdentificationCode());
-        dto.setExaminations(examinationDtos);
+        dto.setExaminationIds(examinationIds);
         return dto;
     }
 }
