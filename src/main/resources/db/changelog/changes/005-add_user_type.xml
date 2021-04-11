@@ -12,7 +12,7 @@
 
 
         <sql>INSERT INTO user (id, password, username, created_on, updated_on, type)
-            select next value for vst.vst_seq, 'admin', 'admin', now(), now(), 'ADMIN';
+            select next value for vst_seq, 'admin', 'admin', now(), now(), 'ADMIN';
         </sql>
 
 
