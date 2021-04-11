@@ -36,8 +36,9 @@
                 <td th:text="${user.id}">1</td>
                 <td th:text="${user.username}">1</td>
                 <td th:text="${user.type}">1</td>
-                <td th:text="${user.createdOn}">1</td>
-                <td th:text="${user.updatedOn}">1</td>
+    
+                <td th:text="${#temporals.format(user.createdOn, 'yyyy-MM-dd HH:mm:ss')}">1</td>
+                <td th:text="${#temporals.format(user.updatedOn, 'yyyy-MM-dd HH:mm:ss')}">1</td>
                 <td>
                     <form method="get" th:action="@{/vst/ui/admin/users/edit/} + ${user.id}">
 <!--                        <input type="hidden" name="id" th:value="${teacher.id}">-->
