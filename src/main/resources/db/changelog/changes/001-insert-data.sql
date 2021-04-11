@@ -57,7 +57,7 @@ INSERT INTO `brail_character` (`id`, `audio_id`, `brail_representation`, `letter
 INSERT INTO `brail_character` (`id`, `audio_id`, `brail_representation`, `letter`) VALUES (42, NULL, '[1,2,3,4,6]', 'ý');
 INSERT INTO `brail_character` (`id`, `audio_id`, `brail_representation`, `letter`) VALUES (43, NULL, '[2,3,4,6]', 'ž');
 
-INSERT INTO `brail_character` (`id`, `audio_id`, `brail_representation`, `letter`) VALUES (44, NULL, '[3,4,5,6]', '??'); -- čiselny znak
+INSERT INTO `brail_character` (`id`, `audio_id`, `brail_representation`, `letter`) VALUES (44, NULL, '[3,4,5,6]', 'čz'); -- čiselny znak
 INSERT INTO `brail_character` (`id`, `audio_id`, `brail_representation`, `letter`) VALUES (45, NULL, '[1,2,3,4,5,6]', 'pz');  -- plny znak
 INSERT INTO `brail_character` (`id`, `audio_id`, `brail_representation`, `letter`) VALUES (46, NULL, '[6]', 'vp');  -- znak velke pismeno
 INSERT INTO `brail_character` (`id`, `audio_id`, `brail_representation`, `letter`) VALUES (47, NULL, '[2]', ',');
