@@ -25,7 +25,7 @@ public class StudentSyncController implements SyncEndpoint {
     }
 
     @Override
-    public SyncDto syncAll() {
+    public SyncDto getSyncDto() {
         return studentSyncService.getSyncDto();
     }
 
