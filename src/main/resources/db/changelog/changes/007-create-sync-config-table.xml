@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="007-create-sync-config-table.xml" author="tomas.gramblicka">
+
+        <createTable tableName="sync_config">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="enable_download_from_server_to_device" type="BOOL" defaultValue="NULL"></column>
+            <column name="enable_upload_from_device_to_server" type="BOOL" defaultValue="NULL"></column>
+            <column name="created_on" type="datetime"/>
+            <column name="updated_on" type="datetime"/>
+        </createTable>
+
+        <insert tableName="sync_config">
+            <column name="id" value="1" />
+            <column name="enable_download_from_server_to_device" value="0" />
+            <column name="enable_upload_from_device_to_server" value="0" />
+            <column name="created_on" value="NOW()" />
+            <column name="updated_on" value="NOW()" />
+        </insert>
+
+        <rollback>
+            <dropTable tableName="student_config" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
