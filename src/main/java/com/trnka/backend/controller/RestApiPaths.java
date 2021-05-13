@@ -12,6 +12,7 @@ public class RestApiPaths {
     public static final String PATH_UI_ADMIN_USER_MNGMT_CREATE = "/create";
     public static final String PATH_UI_ADMIN_USER_MNGMT_EDIT = "/edit/{id}";
     public static final String PATH_UI_STUDENT = PATH_UI + "student";  // todo rename to students
+    public static final String PATH_UI_SYNC = PATH + "sync/";
 
     private RestApiPaths() {
         super();
