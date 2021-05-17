@@ -3,43 +3,45 @@
 <head>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:fragment="setData(currentPage)">
-    
-    <img th:src="@{/img/trnka-logo-small.PNG}" class="img-fluid" alt="logo">
-    
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-padding:none" id="navigation" th:fragment="setData(currentPage)">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a th:class="${currentPage} == 'home'? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/home}">Home</a>
+            <!--<ul class="navbar-nav mr-auto">-->
+            <li role="presentation" class="nav-item">
+                <a th:class="${currentPage} == 'home'? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
+                   th:href="@{/vst/ui/teacher/home}">Domov</a>
             </li>
-            <li class="nav-item">
-                <a th:class="${currentPage} == 'class'? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/course/all}">Trieda</a>
+            <li role="presentation" class="nav-item">
+                <a th:class="${currentPage} == 'class'? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
+                   th:href="@{/vst/ui/course/all}">Trieda</a>
             </li>
-            <li class="nav-item">
-                <a th:class="${currentPage} == 'students'? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/student/all}">Studenti</a>
+            <li role="presentation" class="nav-item">
+                <a th:class="${currentPage} == 'students'? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
+                   th:href="@{/vst/ui/student/all}">Študenti</a>
             </li>
-            <li class="nav-item">
-                <a th:class="${currentPage} == 'testing' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/testing}">Testovanie</a>
+            <li role="presentation" class="nav-item">
+                <a th:class="${currentPage} == 'testing' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
+                   th:href="@{/vst/ui/teacher/testing}">Testovanie</a>
             </li>
-            <li class="nav-item">
-                <a th:class="${currentPage} == 'results' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/results}">Vysledky</a>
+            <li role="presentation" class="nav-item">
+                <a th:class="${currentPage} == 'results' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
+                   th:href="@{/vst/ui/teacher/results}">Výsledky</a>
             </li>
-            <li class="nav-item">
-                <a th:class="${currentPage} == 'user-management' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/admin/users}">Používatelia</a>
+            <li role="presentation" class="nav-item">
+                <a th:class="${currentPage} == 'user-management' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
+                   th:href="@{/vst/ui/admin/users}">Používatelia</a>
             </li>
-            <li class="nav-item">
-                <a th:class="${currentPage} == 'dictionary' ? 'nav-link active' : 'nav-link inactive'" href="#" th:href="@{/vst/ui/teacher/dictionary}">Slovnik</a>
+            <li role="presentation" class="nav-item">
+                <a th:class="${currentPage} == 'dictionary' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
+                   th:href="@{/vst/ui/teacher/dictionary}">Slovník</a>
             </li>
-        <div>
-            <img src="/img/ministerstvo.PNG" class="img-fluid" alt="mvsr">
-        </div>
         </ul>
-        
-        <form class="form-inline my-2 my-lg-0 float-right" action="#" th:action="@{/vst/ui/logout}" method="POST" >
-            <p  class="navbar-brand mb-0 h2"><span th:inline="text">Pouzivatel: [[${#httpServletRequest.remoteUser}]]!</span></p>
-            
-            <input type="submit" class="btn btn-secondary my-2 my-sm-0 float-right" value="Odhlasit" />
+
+        <form class="form-inline my-2 my-lg-0 float-right" action="#" th:action="@{/vst/ui/logout}" method="POST">
+            <p class="navbar-brand mb-0 h2"><span
+                    th:inline="text">Používateľ: [[${#httpServletRequest.remoteUser}]]</span></p>
+
+            <input type="submit" class="btn btn-secondary my-2 my-sm-0 float-right" value="Odhlasit"/>
         </form>
     </div>
 </nav>

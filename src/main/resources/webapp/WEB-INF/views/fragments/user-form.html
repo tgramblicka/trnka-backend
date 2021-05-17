@@ -13,7 +13,7 @@
         <input type="hidden" th:field="*{id}" th:value="*{id}">
         
         <div class="form-group row">
-            <label for="user.username" class="col-sm-2 col-form-label">Username: </label>
+            <label for="user.username" class="col-sm-2 col-form-label">Používateľské meno: </label>
             <div class="col-sm-10">
                 <input type="text" id="user.username" th:field="*{username}" class="form-control">
             </div>
@@ -21,11 +21,11 @@
         
         
         <div class="form-group row">
-            <label for="user.type" class="col-sm-2 col-form-label">Typ pouzivatela: </label>
+            <label for="user.type" class="col-sm-2 col-form-label">Typ používateľa: </label>
             <div class="col-sm-10">
                 <select th:field="*{type}" id="user.type" class="custom-select mr-sm-2">
                     <th:block th:each="userType : ${T(com.trnka.backend.domain.UserType).values()}">
-                        <option th:value="${userType}" th:text="${userType}"></option>
+                        <option th:value="${userType}" th:text="${userType.translation}"></option>
                     </th:block>
                 </select>
             </div>
@@ -45,4 +45,11 @@
     </form>
 </div>
 </body>
+<footer>
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        <img th:src="@{/img/ministerstvo.PNG}" class="img-fluid" alt="logo">
+    </div>
+    <!-- Copyright -->
+</footer>
 </html>

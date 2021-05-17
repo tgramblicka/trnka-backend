@@ -14,20 +14,28 @@
 
 
 <main class="jumbotron">
+    <header>
+        <div>
+            <img th:src="@{/img/trnka-logo-small.PNG}" class="img-fluid" alt="logo">
+        </div>
+    </header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='testing')">
     </nav>
     <h1 class="bg-secondary text-white px-2 py-2">Správa testov</h1>
-    
-    
+
+    <!--<p class="lead my-4">Zoznam testov:</p>-->
+    <div id="examination-list" class="examination-list container-fluid border my-2 py-2" th:replace="fragments/examination-list.html :: setData(exams=${model.exams})"></div>
+
     <form class="form-inline my-2 ml-0" method="get" th:action="@{/vst/ui/examination/create}">
         <button type="submit" class="btn btn-primary my-2 my-sm-0">Vytvor novy test</button>
     </form>
-    
-    
-    <p class="lead my-4">Zoznam testov:</p>
-    <div id="examination-list" class="examination-list container-fluid border my-2 py-2" th:replace="fragments/examination-list.html :: setData(exams=${model.exams})"></div>
-    
-    
 </main>
 </body>
+<footer>
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        <img th:src="@{/img/ministerstvo.PNG}" class="img-fluid" alt="logo">
+    </div>
+    <!-- Copyright -->
+</footer>
 </html>
