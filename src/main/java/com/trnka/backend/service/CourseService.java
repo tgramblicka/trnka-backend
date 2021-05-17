@@ -29,7 +29,8 @@ public class CourseService {
 
     public ModelAndView getMyCoursesList() {
         ModelAndView mv = new ModelAndView(Templates.COURSES_PAGE.getTemplateName());
-        return mv.addObject("teacherName", "Jan Testovaci").addObject("courses", getMyCoursesSelection());
+        return mv.addObject("teacherName", "Jan Testovaci")
+                 .addObject("courses", getMyCoursesSelection());
     }
 
     public List<CourseSelectDto> getMyCoursesSelection() {
@@ -42,15 +43,24 @@ public class CourseService {
         return courses.stream().map(c -> new CourseSelectDto(c.getName(), c.getId(), c.getStudents().size())).collect(Collectors.toList());
     }
 
-    @Transactional public ModelAndView create(CourseModel dto) {
+    @Transactional
+    public ModelAndView create(CourseModel dto) {
         Optional<Teacher> currentTeacher = teacherService.getCurrentTeacher();
         if (!currentTeacher.isPresent()) {
             log.error("Non teacher cannot create a courseDto !");
             return new ModelAndView(Templates.ERROR_PAGE.getTemplateName());
         }
         Course courseDto = dto.getCourse();
-
         Course courseEntity;
+
+        if (courseRepository.findByName(courseDto.getName()) != null) {
+            CourseModel courseModel = new CourseModel();
+            courseModel.setErrorMessage("Trieda už existuje !");
+            log.error("Course already exists !");
+
+            return getMyCoursesList();
+        }
+
         if (courseDto.getId() == null) {
             currentTeacher.get().getCourseList().add(courseDto);
             courseEntity = courseRepository.save(courseDto);
@@ -60,7 +70,7 @@ public class CourseService {
 
         CourseModel courseModel = new CourseModel();
         courseModel.setCourse(courseEntity);
-        courseModel.setInfoMessage("Kurz bol uspesne ulozeny.");
+        courseModel.setInfoMessage("Kurz bol úspešne uložený.");
 
         return getMyCoursesList();
     }
