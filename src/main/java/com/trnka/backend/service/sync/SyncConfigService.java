@@ -20,13 +20,13 @@ public class SyncConfigService {
     public ModelAndView getConfigForUi() {
         SyncConfigDto dto = getConfig();
         ModelAndView mv = new ModelAndView(Templates.SYNC_MANAGEMENT.getTemplateName());
-        return mv.addObject("syncConfig", dto);
+        return mv.addObject("model", dto);
     }
 
     public ModelAndView updateConfigFromUi(SyncConfigDto dto) {
         SyncConfigDto updatedDto = updateConfig(dto);
         ModelAndView mv = new ModelAndView(Templates.SYNC_MANAGEMENT.getTemplateName());
-        return mv.addObject("syncConfig", updatedDto);
+        return mv.addObject("model", updatedDto);
     }
 
     public SyncConfigDto getConfig() {

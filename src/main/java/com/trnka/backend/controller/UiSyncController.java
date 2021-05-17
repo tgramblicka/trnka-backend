@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.trnka.restapi.dto.SyncConfigDto;
 
 @RestController
-@RequestMapping(RestApiPaths.PATH_UI_SYNC)
+@RequestMapping(RestApiPaths.PATH_UI_SYNC_MANAGEMENT)
 @RequiredArgsConstructor
 public class UiSyncController {
 

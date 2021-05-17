@@ -8,22 +8,22 @@
             <column name="id" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="enable_download_from_server_to_device" type="BOOL" defaultValue="NULL"></column>
-            <column name="enable_upload_from_device_to_server" type="BOOL" defaultValue="NULL"></column>
+            <column name="enable_download_from_server_to_device" type="BOOLEAN" defaultValueBoolean="false"></column>
+            <column name="enable_upload_from_device_to_server" type="BOOLEAN" defaultValueBoolean="false"></column>
             <column name="created_on" type="datetime"/>
             <column name="updated_on" type="datetime"/>
         </createTable>
 
         <insert tableName="sync_config">
             <column name="id" value="1" />
-            <column name="enable_download_from_server_to_device" value="0" />
-            <column name="enable_upload_from_device_to_server" value="0" />
+            <column name="enable_download_from_server_to_device" valueBoolean="false" />
+            <column name="enable_upload_from_device_to_server" valueBoolean="false" />
             <column name="created_on" value="NOW()" />
             <column name="updated_on" value="NOW()" />
         </insert>
 
         <rollback>
-            <dropTable tableName="student_config" />
+            <dropTable tableName="sync_config" />
         </rollback>
     </changeSet>
 </databaseChangeLog>

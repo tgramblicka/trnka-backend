@@ -19,7 +19,6 @@ public class TeacherUiController {
     public static final String TESTING_PATH = "testing";
     public static final String RESULTS_PATH = "results";
     public static final String DICTIONARY_PATH = "dictionary";
-    public static final String SYNC_PATH = "sync-management";
 
 
     @Autowired
@@ -34,12 +33,6 @@ public class TeacherUiController {
     @RequestMapping(method = RequestMethod.GET, path = DICTIONARY_PATH)
     public ModelAndView dictionary() {
         ModelAndView mv = new ModelAndView("dictionary");
-        return mv.addObject("teacherName", "Jan Testovaci");
-    }
-
-    @RequestMapping(method = RequestMethod.GET, path = SYNC_PATH)
-    public ModelAndView syncManagement() {
-        ModelAndView mv = new ModelAndView("sync-management");
         return mv.addObject("teacherName", "Jan Testovaci");
     }
 
