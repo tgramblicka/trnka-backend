@@ -6,26 +6,38 @@
     <title>Teacher Home</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
+
     <!-- Bootstrap core CSS -->
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}"/>
 </head>
 <body>
-
-
 <main class="jumbotron">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='home')">
+    <header>
+        <div>
+            <img th:src="@{/img/trnka-logo-small.PNG}" class="img-fluid" alt="logo">
+        </div>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation"
+         th:replace="fragments/navigation.html :: setData(currentPage='home')">
     </nav>
-    
-    <h1 class="display-4">Vitaj: [[${#httpServletRequest.remoteUser}]]!</h1>
-    <p class="lead">Nástroj na management správy tried, testov, vysledkov, studentov.</p>
-    
-    <br />
-    <p class="font-weight-light">Projekt TRNKA - zariadenie na výučbu reliéfno-bodového písma (Braillovho písma) pre ťažko
+
+    <h1 class="display-4">Vitaj [[${#httpServletRequest.remoteUser}]]</h1>
+    <p class="lead">Nástroj na management správy tried, testov, výsledkov, študentov.</p>
+
+    <br/>
+    <p class="font-weight-light">Projekt TRNKA - zariadenie na výučbu reliéfno-bodového písma (Braillovho písma) pre
+        ťažko
         zrakovo postihnutých, projekt - KÓD ITMS: 312041P021
     </p>
     <hr class="my-4">
-    <p>Pomocou navigacie zvolte pozadovanu sekciu.</p>
+    <p>Pomocou navigácie zvoľte požadovanú sekciu.</p>
 </main>
 </body>
+<footer>
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        <img th:src="@{/img/ministerstvo.PNG}" class="img-fluid" alt="logo">
+    </div>
+    <!-- Copyright -->
+</footer>
 </html>
