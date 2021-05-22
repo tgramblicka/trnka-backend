@@ -12,7 +12,7 @@
             <th scope="col">ID testu</th>
             <th scope="col">Typ testu</th>
             <th scope="col">Nazov testu</th>
-            <th scope="col">Uroven testu</th>
+            <th scope="col">% na úspeš. absolvovanie</th>
             <th scope="col">Cas vytvorenia</th>
             <th scope="col">Cas upravy</th>
             <th scope="col">Uprava</th>
@@ -24,7 +24,7 @@
             <td th:text="${exam.id}">1</td>
             <td th:text="${exam.type}">1</td>
             <td th:text="${exam.name}">1</td>
-            <td th:text="${exam.complexity}">1</td>
+            <td th:text="${exam.passingRate}">1</td>
             <td th:text="${#temporals.format(exam.createdOn, 'yyyy-MM-dd HH:mm:ss')}">1</td>
             <td th:text="${#temporals.format(exam.updatedOn, 'yyyy-MM-dd HH:mm:ss')}">1</td>
             <td>
