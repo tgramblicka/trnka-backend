@@ -23,6 +23,7 @@ public class StudentSyncController implements SyncEndpoint {
     private final ExaminationStatisticSyncService examinationStatisticSyncService;
     private final SyncConfigService syncConfigService;
 
+    //TODO delete
     @Override
     public StudentDTO getStudent(final String s) {
         return null;

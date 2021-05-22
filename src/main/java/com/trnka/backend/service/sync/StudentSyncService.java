@@ -1,7 +1,6 @@
 package com.trnka.backend.service.sync;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,14 +31,20 @@ public class StudentSyncService {
         List<Course> courses = courseRepository.findAll();
 
         List<StudentDTO> studentDtos = new ArrayList<>();
+        ArrayList<ExaminationDto> examinationDtos = new ArrayList<>();
 
         courses.forEach(course -> {
-            List<StudentDTO> dtos = mapToStudents(course.getExaminations().stream().map(Examination::getId).collect(Collectors.toSet()), course.getStudents());
+            // prepare examinations
+            List<Examination> courseExaminations = course.getExaminations();
+            courseExaminations.stream().forEach(examination -> examinationDtos.add(mapExamination(examination)));
+
+            // prepare students
+            List<StudentDTO> dtos = mapToStudents(courseExaminations.stream().map(Examination::getId).collect(Collectors.toSet()), course.getStudents());
             studentDtos.addAll(dtos);
+
         });
-        // todo fix examinations sync
         return new SyncDto(studentDtos,
-                           Collections.emptyList());
+                           examinationDtos);
     }
 
     private List<StudentDTO> mapToStudents(Set<Long> examinationIds,
@@ -56,7 +61,7 @@ public class StudentSyncService {
         dto.setName(examination.getName());
         dto.setTimeout(examination.getTimeout());
         dto.setType(examination.getType());
-        dto.setComplexity(examination.getComplexity());
+        dto.setPassingRate(examination.getPassingRate());
         dto.setSteps(examination.getExaminationSteps().stream().map(this::mapExaminationStep).collect(Collectors.toList()));
         return dto;
     }
@@ -65,6 +70,7 @@ public class StudentSyncService {
         ExaminationStepDto dto = new ExaminationStepDto();
         BrailCharacterDto bc = new BrailCharacterDto(step.getBrailCharacter().getLetter());
         bc.setId(step.getBrailCharacter().getId());
+        dto.setId(step.getId());
         dto.setBrailCharacter(bc);
         dto.setPreserveOrder(step.getPreserveOrder());
         return dto;
