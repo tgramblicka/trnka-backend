@@ -1,5 +1,6 @@
 package com.trnka.backend.service.testing;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import com.trnka.restapi.dto.SequenceType;
@@ -82,7 +83,7 @@ public class ExaminationService {
     private Examination createInitialExamination() {
         Examination examination = new Examination();
         examination.setAudio(null);
-        examination.setComplexity(1L);
+        examination.setPassingRate(BigDecimal.valueOf(80));
         examination.setTimeout(100L);
         examination.setType(SequenceType.TESTING);
         return examination;

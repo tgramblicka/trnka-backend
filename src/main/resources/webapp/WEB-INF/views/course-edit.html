@@ -40,7 +40,7 @@
         </div>
         <div class="form-group row">
             <button type="submit" class="btn btn-primary m-2 my-sm-0">Potvrď</button>
-            <button type="button" id="manage-students" class="btn btn-primary m-2 my-sm-0">Spravovať študentov triedy</button>
+            <button th:if="${model.course.id != null}" type="button" id="manage-students" class="btn btn-primary m-2 my-sm-0">Spravovať študentov triedy</button>
         </div>
     </form>
     

@@ -9,6 +9,8 @@ import com.trnka.backend.repository.BrailRepository;
 import com.trnka.backend.repository.ExaminationRepository;
 import com.trnka.restapi.dto.SequenceType;
 
+import java.math.BigDecimal;
+
 public class ExaminationCrudTest extends BaseTest {
 
     @Autowired
@@ -32,7 +34,7 @@ public class ExaminationCrudTest extends BaseTest {
         Examination examination = new Examination();
         examination.setType(SequenceType.TESTING);
         examination.setTimeout(1000L);
-        examination.setComplexity(1L);
+        examination.setPassingRate(BigDecimal.valueOf(80));
         examination.setAudio("none");
         examination.setName(testName);
         examination.getExaminationSteps().add(step("a"));
