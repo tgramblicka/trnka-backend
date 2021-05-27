@@ -23,9 +23,8 @@
     <include file="changes/002-add-audit-data.xml" relativeToChangelogFile="true"/>
     <include file="changes/003-add_examination_step_display_order_column.xml" relativeToChangelogFile="true"/>
     <include file="changes/004-add_examination_statistic_tables.xml" relativeToChangelogFile="true"/>
-    <include file="changes/005-add_user_type.xml" relativeToChangelogFile="true"/>
-    <include file="changes/006-add_student_created_by_column.xml" relativeToChangelogFile="true"/>
-    <include file="changes/007-create-sync-config-table.xml" relativeToChangelogFile="true"/>
+    <include file="changes/005-add_student_created_by_column.xml" relativeToChangelogFile="true"/>
+    <include file="changes/006-create-sync-config-table.xml" relativeToChangelogFile="true"/>
 
 
 
