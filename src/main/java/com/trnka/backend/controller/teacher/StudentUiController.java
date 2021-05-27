@@ -1,7 +1,7 @@
 package com.trnka.backend.controller.teacher;
 
-import com.trnka.backend.service.results.StudentExamStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.trnka.backend.controller.RestApiPaths;
 import com.trnka.backend.dto.student.StudentModel;
 import com.trnka.backend.service.StudentService;
+import com.trnka.backend.service.results.StudentExamStatisticService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +46,7 @@ public class StudentUiController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(StudentModel model) {
+    public ModelAndView save(@ModelAttribute StudentModel model) {
         return studentService.createOrUpdateStudent(model);
     }
 
