@@ -1,6 +1,10 @@
 package com.trnka.backend.controller;
 
+import com.trnka.backend.dto.user.PasswordModel;
+import com.trnka.backend.dto.user.UserModel;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,20 +23,31 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, path = "/all")
     public ModelAndView getUsersList() {
         return adminService.getUsersList();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = RestApiPaths.PATH_UI_ADMIN_USER_MNGMT_EDIT)
-    public ModelAndView getUserEdit(@PathVariable Long id){
-        return adminService.getUserEditUI(id);
+    @RequestMapping(method = RequestMethod.GET, path = "/edit/{id}")
+    public ModelAndView getUpdateUi(@PathVariable Long id){
+        return adminService.getCreateOrUpdateUI(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = RestApiPaths.PATH_UI_ADMIN_USER_MNGMT_CREATE)
-    public ModelAndView getUserCreate(){
-        return adminService.getUserCreateUI();
+    @RequestMapping(method = RequestMethod.GET, path = "/create")
+    public ModelAndView getCreateUi(){
+        return adminService.getCreateOrUpdateUI(null);
     }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/edit")
+    public ModelAndView createOrUpdateUser(@ModelAttribute UserModel model) {
+        return adminService.createOrUpdateUser(model);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/pwd")
+    public ModelAndView updateUserPwd(@ModelAttribute PasswordModel model) {
+        return adminService.updatePassword(model);
+    }
+
 
 
 
