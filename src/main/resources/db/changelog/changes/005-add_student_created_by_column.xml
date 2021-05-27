@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    <changeSet id="006-add_student_created_by_column" author="tomas.gramblicka">
+    <changeSet id="005-add_student_created_by_column" author="tomas.gramblicka">
 
         <addColumn tableName="student">
             <column name="created_by" type="BIGINT" defaultValue="4">
