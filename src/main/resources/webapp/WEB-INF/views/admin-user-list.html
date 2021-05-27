@@ -45,13 +45,13 @@
                 <td th:text="${#temporals.format(user.createdOn, 'yyyy-MM-dd HH:mm:ss')}">1</td>
                 <td th:text="${#temporals.format(user.updatedOn, 'yyyy-MM-dd HH:mm:ss')}">1</td>
                 <td>
-                    <form method="get" th:action="@{/vst/ui/admin/users/edit/} + ${user.id}">
+                    <form method="get" th:action="@{/vst/ui/admin/user-management/edit/} + ${user.id}">
 <!--                        <input type="hidden" name="id" th:value="${teacher.id}">-->
                         <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
                     </form>
                 </td>
                 <td>
-                    <form method="delete" th:action="@{/vst/ui/admin/users/delete/} + ${user.id}" >
+                    <form method="delete" th:action="@{/vst/ui/admin/user-management/delete/} + ${user.id}" >
 <!--                        /<input type="hidden" name="id" th:value="${teache0r.id}">-->
                         <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat pouzivatela, jeho triedy a ziakov</button>
                     </form>
@@ -61,7 +61,7 @@
         </table>
     </div>
     <form class="form-inline my-2 my-lg-0">
-        <a th:href="@{/vst/ui/admin/users/create}">
+        <a th:href="@{/vst/ui/admin/user-management/create}">
             <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor pouzivatela</button>
         </a>
     </form>
