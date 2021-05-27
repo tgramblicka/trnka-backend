@@ -13,11 +13,15 @@ CREATE TABLE student (id BIGINT NOT NULL, device_identification_code VARCHAR(255
 
 CREATE TABLE teacher (id BIGINT NOT NULL, user_id BIGINT DEFAULT NULL NULL, CONSTRAINT PK_TEACHER PRIMARY KEY (id));
 
-CREATE TABLE user (id BIGINT NOT NULL, password VARCHAR(255) NULL, username VARCHAR(255) NULL, CONSTRAINT PK_USER PRIMARY KEY (id));
+CREATE TABLE user (id BIGINT NOT NULL, password VARCHAR(255) NULL, username VARCHAR(50) NOT NULL, type VARCHAR(50) NOT NULL, CONSTRAINT PK_USER PRIMARY KEY (id));
+
+CREATE TABLE authorities (
+  user_id BIGINT NOT NULL,
+  authority VARCHAR(50) NOT NULL
+);
 
 create sequence vst_seq start with 100 minvalue 100 maxvalue 9223372036854775806 increment by 1 cache 20
             nocycle;
-
 
 
 ALTER TABLE brail_character ADD CONSTRAINT FK_brail_character_audio_id FOREIGN KEY (audio_id) REFERENCES audio (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
@@ -27,4 +31,8 @@ ALTER TABLE examination_step ADD CONSTRAINT FK_examination_step_examination_id F
 ALTER TABLE course ADD CONSTRAINT FK_course_teacher_id FOREIGN KEY (teacher_id) REFERENCES teacher (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE examination ADD CONSTRAINT FK_examination_course_id FOREIGN KEY (course_id) REFERENCES course (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE student ADD CONSTRAINT FK_student_course_id FOREIGN KEY (course_id) REFERENCES course (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+ALTER TABLE user ADD CONSTRAINT UQ_user_username UNIQUE (username);
+ALTER TABLE authorities ADD CONSTRAINT FK_authorities_user FOREIGN KEY (user_id) REFERENCES user (id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
 

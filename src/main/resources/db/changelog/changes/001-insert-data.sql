@@ -1,12 +1,16 @@
 SET FOREIGN_KEY_CHECKS=0; --
 
-insert into user (id, username, password) values (1, 'admin', '0000');
-insert into user (id, username, password) values (2, 'user', '0000');
-insert into user (id, username, password) values (3, 'teacher2', '0000');
-insert into user (id, username, password) values (4, 'a', 'a');
+insert into user (id, username, password, type) values (1, 'admin', '0000', 'ADMIN');
+insert into user (id, username, password, type) values (2, 'ucitel1', '0000', 'TEACHER');
+insert into user (id, username, password, type) values (3, 'a', 'a', 'TEACHER');
 
 
-insert into teacher (id, user_id) values (1, 4);
+insert into authorities (user_id, authority) values (1, 'ADMIN');
+insert into authorities (user_id, authority) values (1, 'TEACHER');
+insert into authorities (user_id, authority) values (2, 'TEACHER');
+insert into authorities (user_id, authority) values (3, 'TEACHER');
+
+insert into teacher (id, user_id) values (1, 3);
 insert into teacher (id, user_id) values (2, 2);
 
 
