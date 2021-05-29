@@ -44,7 +44,7 @@ public class CourseUiController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView createCourse(@ModelAttribute CourseModel dto) {
-        return courseService.create(dto);
+        return courseService.createOrEdit(dto);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, path = PATH_BRAIL_UP)

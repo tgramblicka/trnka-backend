@@ -16,6 +16,7 @@ import com.trnka.backend.dto.course.CourseModel;
 import com.trnka.backend.dto.course.CourseSelectDto;
 import com.trnka.backend.repository.CourseRepository;
 
+import liquibase.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,13 +25,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class CourseService {
 
+    private static final String MSG_COURSE_CREATER = "Kurz bol úspešne vytvorený.";
+    private static final String MSG_COURSE_UPDATED = "Kurz bol úspešne upravený.";
+    private static final String MSG_COURSE_DOES_NOT_EXIST = "Trieda s tymto ID neexistuje!";
+    private static final String MSG_COURSE_EXISTS = "Trieda s tymto nazvoms uz existuje!";
+    private static final String MSG_COURSE_NAME_WRONG = "Nazov triedy musi mat aspon 4 znaky a najviac 50 znakov!";
+
     private final TeacherService teacherService;
     private final CourseRepository courseRepository;
 
     public ModelAndView getMyCoursesList() {
         ModelAndView mv = new ModelAndView(Templates.COURSES_PAGE.getTemplateName());
-        return mv.addObject("teacherName", "Jan Testovaci")
-                 .addObject("courses", getMyCoursesSelection());
+        return mv.addObject("teacherName", "Jan Testovaci").addObject("courses", getMyCoursesSelection());
     }
 
     public List<CourseSelectDto> getMyCoursesSelection() {
@@ -40,70 +46,97 @@ public class CourseService {
             return Collections.EMPTY_LIST;
         }
         List<Course> courses = currentTeacher.get().getCourseList();
-        return courses.stream().map(c -> new CourseSelectDto(c.getName(), c.getId(), c.getStudents().size())).collect(Collectors.toList());
+        return courses.stream()
+                .map(c -> new CourseSelectDto(c.getName(),
+                                              c.getId(),
+                                              c.getStudents().size()))
+                .collect(Collectors.toList());
     }
 
     @Transactional
-    public ModelAndView create(CourseModel dto) {
+    public ModelAndView createOrEdit(CourseModel dto) {
         Optional<Teacher> currentTeacher = teacherService.getCurrentTeacher();
         if (!currentTeacher.isPresent()) {
             log.error("Non teacher cannot create a courseDto !");
             return new ModelAndView(Templates.ERROR_PAGE.getTemplateName());
         }
         Course courseDto = dto.getCourse();
-        Course courseEntity;
-
-        if (courseRepository.findByName(courseDto.getName()) != null) {
-            CourseModel courseModel = new CourseModel();
-            courseModel.setErrorMessage("Trieda už existuje !");
-            log.error("Course already exists !");
-
-            return getMyCoursesList();
-        }
-
+        // creation
         if (courseDto.getId() == null) {
-            currentTeacher.get().getCourseList().add(courseDto);
-            courseEntity = courseRepository.save(courseDto);
+            return createCourse(currentTeacher, courseDto);
+            // update
         } else {
-            courseEntity = updateCourse(courseDto);
+            return editCourse(courseDto);
         }
-
-        CourseModel courseModel = new CourseModel();
-        courseModel.setCourse(courseEntity);
-        courseModel.setInfoMessage("Kurz bol úspešne uložený.");
-
-        return getMyCoursesList();
     }
 
-    private Course updateCourse(Course dto) {
-        Course course = courseRepository.findById(dto.getId()).get();
-        course.setName(dto.getName());
-        return course;
+    private ModelAndView editCourse(final Course courseDto) {
+        Course course = courseRepository.findById(courseDto.getId()).get();
+        if (course == null) {
+            log.error("Course with {} does not exits!", courseDto.getId());
+            return initUi(initModel(createInitialCourse(), null, MSG_COURSE_DOES_NOT_EXIST));
+        }
+        String errorMsg = validateCourseName(courseDto.getName(), null);
+        if (errorMsg != null) {
+            return initUi(initModel(course, null, errorMsg));
+        }
+        return initUi(initModel(course, MSG_COURSE_UPDATED, null));
+    }
+
+    private ModelAndView createCourse(final Optional<Teacher> currentTeacher,
+                                      final Course courseDto) {
+        Course courseEntity;
+        String errorMsg = validateCourseName(courseDto.getName(), null);
+        if (errorMsg != null) {
+            return initUi(initModel(createInitialCourse(), null, errorMsg));
+        }
+        currentTeacher.get().getCourseList().add(courseDto);
+        courseEntity = courseRepository.save(courseDto);
+        return initUi(initModel(courseEntity, MSG_COURSE_CREATER, null));
     }
 
     public ModelAndView getCreateOrEditUi(final Long id) {
         if (id == null) {
-            return initCreateUi();
+            return initUi(initModel(createInitialCourse(), null, null));
         }
-        return initEditUi(id);
+        Course course = courseRepository.findById(id).get();
+        return initUi(initModel(course, null, null));
     }
 
-    private ModelAndView initEditUi(Long id) {
-        Course course = courseRepository.findById(id).get();
+    private String validateCourseName(String newCourseName,
+                                      String oldCourseName) {
 
+        if (StringUtils.isEmpty(newCourseName)) {
+            return MSG_COURSE_NAME_WRONG;
+        }
+        if (newCourseName.length() < 4 || newCourseName.length() > 50) {
+            return MSG_COURSE_NAME_WRONG;
+        }
+
+        // when username changed - check whether does not exist user with same username
+        if (!newCourseName.equals(oldCourseName)) {
+            Course foundByNewCourseName = courseRepository.findByName(newCourseName);
+            if (foundByNewCourseName != null) {
+                return MSG_COURSE_EXISTS;
+            }
+        }
+        return null;
+    }
+
+    private ModelAndView initUi(CourseModel courseModel) {
+        ModelAndView mv = new ModelAndView(Templates.COURSE_EDIT_PAGE.getTemplateName());
+        mv.addObject("model", courseModel);
+        return mv;
+    }
+
+    private CourseModel initModel(Course course,
+                                  String infoMessage,
+                                  String errorMessage) {
         CourseModel courseModel = new CourseModel();
         courseModel.setCourse(course);
-        ModelAndView model = new ModelAndView(Templates.COURSE_EDIT_PAGE.getTemplateName());
-        model.addObject("model", courseModel);
-        return model;
-    }
-
-    private ModelAndView initCreateUi() {
-        CourseModel courseModel = new CourseModel();
-        courseModel.setCourse(createInitialCourse());
-        ModelAndView model = new ModelAndView(Templates.COURSE_EDIT_PAGE.getTemplateName());
-        model.addObject("model", courseModel);
-        return model;
+        courseModel.setErrorMessage(errorMessage);
+        courseModel.setInfoMessage(infoMessage);
+        return courseModel;
     }
 
     private Course createInitialCourse() {
