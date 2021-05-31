@@ -11,12 +11,12 @@
         <tr>
             <th scope="col">ID testu</th>
             <th scope="col">Typ testu</th>
-            <th scope="col">Nazov testu</th>
+            <th scope="col">Názov testu</th>
             <th scope="col">% na úspeš. absolvovanie</th>
-            <th scope="col">Cas vytvorenia</th>
-            <th scope="col">Cas upravy</th>
-            <th scope="col">Uprava</th>
-            <th scope="col">Vymazat</th>
+            <th scope="col">Čas vytvorenia</th>
+            <th scope="col">Čas upravy</th>
+            <th scope="col">Úprava</th>
+            <th scope="col">Vymazať</th>
         </tr>
         </thead>
         <tbody>
@@ -30,13 +30,13 @@
             <td>
                 <form method="get" th:action="@{/vst/ui/examination/edit}" th:object="${exam}">
                     <input type="hidden" th:value="*{id}" name="id"/>
-                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
+                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upraviť</button>
                 </form>
             </td>
             <td>
                 <form method="get" th:action="@{/vst/ui/examination/delete}" th:object="${exam}">
                     <input type="hidden" th:value="*{id}" name="id"/>
-                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat</button>
+                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazať</button>
                 </form>
             </td>
         </tr>
@@ -45,10 +45,8 @@
 </div>
 </body>
 <footer>
-    <!-- Copyright -->
     <div class="text-center p-3">
         <img th:src="@{/img/ministerstvo.PNG}" class="img-fluid" alt="logo">
     </div>
-    <!-- Copyright -->
 </footer>
 </html>

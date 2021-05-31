@@ -12,12 +12,12 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Prihlasovaci kod</th>
+            <th scope="col">Prihlasovací kód</th>
             <th scope="col">ID triedy</th>
-            <th scope="col">Nazov triedy</th>
-            <th scope="col">Upravit</th>
-            <th scope="col">Vymazat</th>
-            <th scope="col">Vysledky</th>
+            <th scope="col">Názov triedy</th>
+            <th scope="col">Upraviť</th>
+            <th scope="col">Vymazať</th>
+            <th scope="col">Výsledky</th>
             
         </tr>
         </thead>
@@ -30,18 +30,18 @@
             <td>
                 <form method="get" th:action="@{/vst/ui/student}">
                     <input type="hidden" th:value="${student.id}" name="id"/>
-                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upravit</button>
+                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Upraviť</button>
                 </form>
             </td>
             <td>
                 <form method="get" th:action="@{/vst/ui/student/delete}">
                     <input type="hidden" th:value="${student.id}" name="id"/>
-                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat</button>
+                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazať</button>
                 </form>
             </td>
             <td>
                 <form method="get" th:action="@{/vst/ui/student/__${student.id}__/statistics}">
-                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Vysledky</button>
+                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Výsledky</button>
                 </form>
             </td>
         </tr>
@@ -51,10 +51,8 @@
 </div>
 </body>
 <footer>
-    <!-- Copyright -->
     <div class="text-center p-3">
         <img th:src="@{/img/ministerstvo.PNG}" class="img-fluid" alt="logo">
     </div>
-    <!-- Copyright -->
 </footer>
 </html>
