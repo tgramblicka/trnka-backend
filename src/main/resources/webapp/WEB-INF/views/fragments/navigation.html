@@ -35,8 +35,8 @@
                 <a th:class="${currentPage} == 'dictionary' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
                    th:href="@{/vst/ui/teacher/dictionary}">Slovník</a>
             </li>
-            <li class="nav-item">
-                <a th:class="${currentPage} == 'sync-management' ? 'nav-link active' : 'nav-link inactive'" href="#"
+            <li role="presentation" class="nav-item">
+                <a th:class="${currentPage} == 'sync-management' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
                    th:href="@{/vst/ui/sync-management}">Synchronizácia</a>
             </li>
         </ul>
