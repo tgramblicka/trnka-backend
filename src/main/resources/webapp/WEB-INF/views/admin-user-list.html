@@ -27,13 +27,13 @@
         <table class="table table-hover">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">Id pouzivatela</th>
-                <th scope="col">Username</th>
-                <th scope="col">Typ pouzivatela</th>
-                <th scope="col">Cas vytvorenia</th>
-                <th scope="col">Cas upravy</th>
-                <th scope="col">Uprava</th>
-                <th scope="col">Vymazat ucitela, jeho triedy aj ziakov</th>
+                <th scope="col">Id používateľa</th>
+                <th scope="col">Meno používateľa</th>
+                <th scope="col">Typ používateľa</th>
+                <th scope="col">Čas vytvorenia</th>
+                <th scope="col">Čas úpravy</th>
+                <th scope="col">Úprava</th>
+                <th scope="col">Vymazať učiteľa, jeho triedy aj žiakov</th>
             </tr>
             </thead>
             <tbody>
@@ -53,7 +53,7 @@
                 <td>
                     <form method="delete" th:action="@{/vst/ui/admin/user-management/delete/} + ${user.id}" >
 <!--                        /<input type="hidden" name="id" th:value="${teache0r.id}">-->
-                        <button disabled type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat pouzivatela, jeho triedy a ziakov</button>
+                        <button disabled type="submit" class="btn btn-secondary my-2 my-sm-0">Vymazat používateľa, jeho triedy a žiakov</button>
                     </form>
                 </td>
             </tr>
@@ -62,17 +62,15 @@
     </div>
     <form class="form-inline my-2 my-lg-0">
         <a th:href="@{/vst/ui/admin/user-management/create}">
-            <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor pouzivatela</button>
+            <button type="button" class="btn btn-primary my-2 my-sm-0">Vytvor používateľa</button>
         </a>
     </form>
 
 </main>
 </body>
 <footer>
-    <!-- Copyright -->
     <div class="text-center p-3">
         <img th:src="@{/img/ministerstvo.PNG}" class="img-fluid" alt="logo">
     </div>
-    <!-- Copyright -->
 </footer>
 </html>
