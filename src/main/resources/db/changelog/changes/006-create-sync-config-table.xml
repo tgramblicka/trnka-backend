@@ -5,7 +5,7 @@
     <changeSet id="006-create-sync-config-table.xml" author="tomas.gramblicka">
 
         <createTable tableName="sync_config">
-            <column name="id" type="BIGINT">
+            <column name="id" type="BIGINT" autoIncrement="true" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="enable_download_from_server_to_device" type="BOOLEAN" defaultValueBoolean="false"></column>
