@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,8 +22,7 @@ import lombok.Setter;
 @EqualsAndHashCode
 public abstract class BaseEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vst_seq")
-    @SequenceGenerator(name = "vst_seq", sequenceName = "vst_seq", allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     @CreationTimestamp
