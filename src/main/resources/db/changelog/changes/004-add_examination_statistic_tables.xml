@@ -5,7 +5,7 @@
     <changeSet id="004-add_examination_statistic_tables" author="tomas.gramblicka">
 
         <createTable tableName="examination_statistic">
-            <column name="id" type="BIGINT">
+            <column name="id" type="BIGINT" autoIncrement="true" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="dtype" type="VARCHAR(2)">
@@ -46,7 +46,7 @@
         </createTable>
 
         <createTable tableName="examination_step_statistic">
-            <column name="id" type="BIGINT">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="created_on" type="datetime">
