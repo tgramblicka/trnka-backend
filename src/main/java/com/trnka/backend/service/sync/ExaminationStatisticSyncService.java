@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.trnka.backend.domain.sync.DeviceToServerSyncLog;
+import com.trnka.backend.domain.sync.DeviceToServerSyncStatus;
+import com.trnka.backend.repository.DeviceToServerSyncLogRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,20 +36,32 @@ public class ExaminationStatisticSyncService {
     private final ExaminationRepository examinationRepository;
     private final ExaminationStepRepository examinationStepRepository;
     private final StudentRepository studentRepository;
+    private final DeviceToServerSyncLogRepository deviceToServerSyncLogRepository;
 
-    public Boolean updateSequenceStatisticsToAllStudents(final DeviceStatisticsSyncDto deviceStatisticsSyncDto) {
-        for (StudentDeviceStatisticsDto studentSatDto : deviceStatisticsSyncDto.getStatistics()) {
-            Optional<Student> foundStudent = studentRepository.findByDeviceIdentificationCode(studentSatDto.getStudentCode());
-            if (!foundStudent.isPresent()) {
-                log.error("Student with code: {} does not exist. Will ignore the examination statistics update!", studentSatDto.getStudentCode());
-                break;
+    public Boolean updateSequenceStatisticsToAllStudents(final DeviceStatisticsSyncDto dto) {
+        try {
+            for (StudentDeviceStatisticsDto studentSatDto : dto.getStatistics()) {
+                Optional<Student> foundStudent = studentRepository.findByDeviceIdentificationCode(studentSatDto.getStudentCode());
+                if (!foundStudent.isPresent()) {
+                    log.error("Student with code: {} does not exist. Will ignore the examination statistics update!", studentSatDto.getStudentCode());
+                    break;
+                }
+                Student student = foundStudent.get();
+                student.setDeviceLoginCount(studentSatDto.getLoginCount());
+                updateStudentStats(student, studentSatDto.getStatistics());
             }
-            Student student = foundStudent.get();
-            student.setDeviceLoginCount(studentSatDto.getLoginCount());
-            updateStudentStats(student, studentSatDto.getStatistics());
+            deviceToServerSyncLogRepository.save(new DeviceToServerSyncLog(dto.getDeviceId(), DeviceToServerSyncStatus.SUCCESS));
+            return true;
+        } catch (Exception e) {
+            log.error("Exception occurred during syncing");
+            deviceToServerSyncLogRepository.save(new DeviceToServerSyncLog(dto.getDeviceId(), DeviceToServerSyncStatus.FAILED));
+            return false;
         }
-        return true;
     }
+
+
+
+
 
     private void updateStudentStats(Student student,
                                     List<ExaminationStatisticDto> newStats) {
