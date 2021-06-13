@@ -33,4 +33,9 @@ public class DeviceToServerSyncLog extends BaseEntity {
     @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
     private DeviceToServerSyncStatus status;
+
+    @NotNull
+    @Column(name = "type")
+    @Enumerated(value = EnumType.STRING)
+    private DeviceToServerSyncType type;
 }

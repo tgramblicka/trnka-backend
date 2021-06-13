@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.trnka.backend.domain.sync.DeviceToServerSyncLog;
 import com.trnka.backend.domain.sync.DeviceToServerSyncStatus;
+import com.trnka.backend.domain.sync.DeviceToServerSyncType;
 import com.trnka.backend.repository.DeviceToServerSyncLogRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,11 +42,11 @@ public class ExaminationStatisticSyncService {
     public Boolean uploadStatsFromDeviceToServer(final DeviceStatisticsSyncDto dto) {
         try {
             updateSequenceStatisticsToAllStudents(dto);
-            deviceToServerSyncLogRepository.save(new DeviceToServerSyncLog(dto.getDeviceId(), DeviceToServerSyncStatus.SUCCESS));
+            deviceToServerSyncLogRepository.save(new DeviceToServerSyncLog(dto.getDeviceId(), DeviceToServerSyncStatus.SUCCESS, DeviceToServerSyncType.DEVICE_UPLOAD_TO_SERVER));
             return true;
         } catch (Exception e) {
-            log.error("Exception occurred during syncing");
-            deviceToServerSyncLogRepository.save(new DeviceToServerSyncLog(dto.getDeviceId(), DeviceToServerSyncStatus.FAILED));
+            log.error("Exception occurred while uploading Student statistics to server for deviceId: {}", dto.getDeviceId());
+            deviceToServerSyncLogRepository.save(new DeviceToServerSyncLog(dto.getDeviceId(), DeviceToServerSyncStatus.FAILED, DeviceToServerSyncType.DEVICE_UPLOAD_TO_SERVER));
             return false;
         }
     }
