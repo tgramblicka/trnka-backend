@@ -54,7 +54,7 @@ public class CourseService {
     }
 
     @Transactional
-    public ModelAndView createOrEdit(CourseModel dto) {
+    public ModelAndView createOrUpdate(CourseModel dto) {
         Optional<Teacher> currentTeacher = teacherService.getCurrentTeacher();
         if (!currentTeacher.isPresent()) {
             log.error("Non teacher cannot create a courseDto !");
@@ -66,11 +66,11 @@ public class CourseService {
             return createCourse(currentTeacher, courseDto);
             // update
         } else {
-            return editCourse(courseDto);
+            return updateCourse(courseDto);
         }
     }
 
-    private ModelAndView editCourse(final Course courseDto) {
+    private ModelAndView updateCourse(final Course courseDto) {
         Course course = courseRepository.findById(courseDto.getId()).get();
         if (course == null) {
             log.error("Course with {} does not exits!", courseDto.getId());
@@ -80,7 +80,9 @@ public class CourseService {
         if (errorMsg != null) {
             return initUi(initModel(course, null, errorMsg));
         }
-        return initUi(initModel(course, MSG_COURSE_UPDATED, null));
+        course.setName(courseDto.getName());
+        Course savedCourse = courseRepository.save(course);
+        return initUi(initModel(savedCourse, MSG_COURSE_UPDATED, null));
     }
 
     private ModelAndView createCourse(final Optional<Teacher> currentTeacher,
