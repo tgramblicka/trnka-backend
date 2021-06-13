@@ -36,7 +36,7 @@ public class StudentSyncController implements SyncEndpoint {
 
     @Override
     public Boolean updateExaminationStatisticsToAllStudents(final DeviceStatisticsSyncDto deviceStatisticsSyncDto) {
-        return examinationStatisticSyncService.updateSequenceStatisticsToAllStudents(deviceStatisticsSyncDto);
+        return examinationStatisticSyncService.uploadStatsFromDeviceToServer(deviceStatisticsSyncDto);
     }
 
     @Override public SyncConfigDto getConfig() {

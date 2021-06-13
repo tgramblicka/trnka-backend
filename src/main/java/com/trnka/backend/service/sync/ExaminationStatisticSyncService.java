@@ -38,18 +38,9 @@ public class ExaminationStatisticSyncService {
     private final StudentRepository studentRepository;
     private final DeviceToServerSyncLogRepository deviceToServerSyncLogRepository;
 
-    public Boolean updateSequenceStatisticsToAllStudents(final DeviceStatisticsSyncDto dto) {
+    public Boolean uploadStatsFromDeviceToServer(final DeviceStatisticsSyncDto dto) {
         try {
-            for (StudentDeviceStatisticsDto studentSatDto : dto.getStatistics()) {
-                Optional<Student> foundStudent = studentRepository.findByDeviceIdentificationCode(studentSatDto.getStudentCode());
-                if (!foundStudent.isPresent()) {
-                    log.error("Student with code: {} does not exist. Will ignore the examination statistics update!", studentSatDto.getStudentCode());
-                    break;
-                }
-                Student student = foundStudent.get();
-                student.setDeviceLoginCount(studentSatDto.getLoginCount());
-                updateStudentStats(student, studentSatDto.getStatistics());
-            }
+            updateSequenceStatisticsToAllStudents(dto);
             deviceToServerSyncLogRepository.save(new DeviceToServerSyncLog(dto.getDeviceId(), DeviceToServerSyncStatus.SUCCESS));
             return true;
         } catch (Exception e) {
@@ -59,8 +50,18 @@ public class ExaminationStatisticSyncService {
         }
     }
 
-
-
+    private void updateSequenceStatisticsToAllStudents(final DeviceStatisticsSyncDto dto){
+        for (StudentDeviceStatisticsDto studentSatDto : dto.getStatistics()) {
+            Optional<Student> foundStudent = studentRepository.findByDeviceIdentificationCode(studentSatDto.getStudentCode());
+            if (!foundStudent.isPresent()) {
+                log.error("Student with code: {} does not exist. Will ignore the examination statistics update!", studentSatDto.getStudentCode());
+                break;
+            }
+            Student student = foundStudent.get();
+            student.setDeviceLoginCount(studentSatDto.getLoginCount());
+            updateStudentStats(student, studentSatDto.getStatistics());
+        }
+    }
 
 
     private void updateStudentStats(Student student,
