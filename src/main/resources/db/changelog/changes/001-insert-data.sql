@@ -12,8 +12,9 @@ insert into authorities (user_id, authority) values (2, 'TEACHER');
 insert into authorities (user_id, authority) values (3, 'TEACHER');
 insert into authorities (user_id, authority) values (4, 'ADMIN');
 
-insert into teacher (id, user_id) values (1, 3);
-insert into teacher (id, user_id) values (2, 2);
+insert into teacher (id, user_id) values (1, 1);
+insert into teacher (id, user_id) values (3, 2);
+insert into teacher (id, user_id) values (2, 3);
 
 
 
