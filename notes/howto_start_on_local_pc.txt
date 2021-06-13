@@ -1,0 +1,11 @@
+
+Download restapi
+mvn clean install
+
+Download trnka-backend
+mvn clean package
+
+Start local MariaDB instance
+
+Start with active profile dev
+java -jar -Dspring.profiles.active=dev trnka-backend.jar
