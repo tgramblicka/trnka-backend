@@ -28,7 +28,6 @@ public final class UserAuthorityId implements Serializable {
 
     @NotNull
     @Column(name = "authority")
-    @Enumerated(value = EnumType.STRING)
-    private UserType authority;
+    private String authority;
 
 }

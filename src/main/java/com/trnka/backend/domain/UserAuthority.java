@@ -20,6 +20,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "authorities")
 public class UserAuthority implements Serializable {
+    private static final String ROLE_PREFIX = "ROLE_";
 
     @EmbeddedId
     private UserAuthorityId id;
@@ -27,7 +28,7 @@ public class UserAuthority implements Serializable {
     public UserAuthority(Long userId,
                          UserType authority) {
         this.id = new UserAuthorityId(userId,
-                                 authority);
+                                      ROLE_PREFIX + authority);
     }
 
 }

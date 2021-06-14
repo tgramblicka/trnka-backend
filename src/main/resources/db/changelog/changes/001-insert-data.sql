@@ -6,11 +6,11 @@ insert into user (id, username, password, type, enabled) values (3, 'ucitel2', '
 insert into user (id, username, password, type, enabled) values (4, 'device', '$2a$10$WzrAFeOouXHCWjbTHdGxWO4nVkO0sPTPw/Omm5Y6p03uD6cgT2PeW', 'TEACHER', true);
 
 
-insert into authorities (user_id, authority) values (1, 'ADMIN');
-insert into authorities (user_id, authority) values (1, 'TEACHER');
-insert into authorities (user_id, authority) values (2, 'TEACHER');
-insert into authorities (user_id, authority) values (3, 'TEACHER');
-insert into authorities (user_id, authority) values (4, 'ADMIN');
+insert into authorities (user_id, authority) values (1, 'ROLE_ADMIN');
+insert into authorities (user_id, authority) values (1, 'ROLE_TEACHER');
+insert into authorities (user_id, authority) values (2, 'ROLE_TEACHER');
+insert into authorities (user_id, authority) values (3, 'ROLE_TEACHER');
+insert into authorities (user_id, authority) values (4, 'ROLE_ADMIN');
 
 insert into teacher (id, user_id) values (1, 1);
 insert into teacher (id, user_id) values (3, 2);
