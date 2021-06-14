@@ -2,8 +2,8 @@ SET FOREIGN_KEY_CHECKS=0; --
 
 insert into user (id, username, password, type, enabled) values (1, 'admin', '$2a$10$L/jQ4yPglCSben3bFcONROnJfkxq2wL9NKfgo2lsG3p82QjdxT8SO', 'ADMIN', true);
 insert into user (id, username, password, type, enabled) values (2, 'ucitel1', '$2a$10$LLa/kCmqV1cBUZdzK5YJte8c.VPWuXXgFeLvGVIdyE./TftILS2ai', 'TEACHER', true);
-insert into user (id, username, password, type, enabled) values (3, 'a', '$2a$10$k8/N3u01.Fv8ft0Kj9TMXOottY0zbWQf12MtcCKIQW9Cl8h1IYKiW', 'TEACHER', true);
-insert into user (id, username, password, type, enabled) values (4, 'device', '$2a$10$k8/N3u01.Fv8ft0Kj9TMXOottY0zbWQf12MtcCKIQW9Cl8h1IYKiW', 'TEACHER', true);
+insert into user (id, username, password, type, enabled) values (3, 'ucitel2', '$2a$10$k8/N3u01.Fv8ft0Kj9TMXOottY0zbWQf12MtcCKIQW9Cl8h1IYKiW', 'TEACHER', true);
+insert into user (id, username, password, type, enabled) values (4, 'device', '$2a$10$WzrAFeOouXHCWjbTHdGxWO4nVkO0sPTPw/Omm5Y6p03uD6cgT2PeW', 'TEACHER', true);
 
 
 insert into authorities (user_id, authority) values (1, 'ADMIN');
