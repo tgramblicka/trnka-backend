@@ -14,6 +14,7 @@
  GRANT ALL PRIVILEGES ON `vst`.* TO 'vst'@'localhost'; (not needed)
 ```
 * copy the liquibase-run-on-server-mysql.sh to server using copy.sh (not mandatory)
+* copy all the changelog files to the server using copy.sh
 * run liquibase from location "/home/projekttrnka/vst/liquibase" with command: 
 ```
 ./liquibase-run-on-server-mysql.sh
