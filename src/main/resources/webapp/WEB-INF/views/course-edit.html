@@ -6,7 +6,7 @@
         $(document).ready(function () {
             var courseId = /*[[${model.course.id}]]*/ 0;
             $('#manage-students').click(function () {
-                window.location.href = '/vst/ui/student/all/course/' + courseId;
+                window.location.href = '/vst/ui/student/all';
             });
         });
     </script>
@@ -54,7 +54,7 @@
         </div>
         <div class="form-group row">
             <button type="submit" class="btn btn-primary m-2 my-sm-0">Potvrď</button>
-            <button th:if="${model.course.id != null}" type="button" id="manage-students" class="btn btn-primary m-2 my-sm-0">Spravovať študentov triedy</button>
+            <button th:if="${model.course.id != null}" type="button" id="manage-students" class="btn btn-primary m-2 my-sm-0">Spravovať študentov</button>
         </div>
     </form>
     
