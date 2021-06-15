@@ -25,10 +25,15 @@ mvn clean package -Dmaven.test.skip=true
 ```
 * copy the jar file to server using copy.sh script
 * copy the run.sh script using the copy.sh (not mandatory)
+* empty the log with command ```> output.log``` in location /home/projekttrnka/vst/logs 
 * run the run.sh script from location /home/projekttrnka/vst
 ```
 sh run.sh &
 ``` 
+* read the log file via command
+```
+tail -f -n 200 logs/output.log
+```
 
  
 
