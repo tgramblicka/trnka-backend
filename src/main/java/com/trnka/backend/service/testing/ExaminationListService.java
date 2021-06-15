@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.trnka.backend.domain.UserType;
+import com.trnka.backend.repository.ExaminationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,14 +24,21 @@ import lombok.extern.slf4j.Slf4j;
 public class ExaminationListService {
 
     private final TeacherService teacherRepository;
+    private final ExaminationRepository examinationRepository;
 
     public ModelAndView getExaminationsForCurrentTeacher() {
-        Optional<Teacher> teacher = teacherRepository.getCurrentTeacher();
-        if (!teacher.isPresent()) {
-            log.error("None teacher cannot see courses!");
+        Optional<Teacher> teacherOptional = teacherRepository.getCurrentTeacher();
+        if (!teacherOptional.isPresent()) {
+            log.error("None teacherOptional cannot see courses!");
             return null;
         }
-        List<Examination> examinations = teacher.get().getCourseList().stream().flatMap(c -> c.getExaminations().stream()).collect(Collectors.toList());
+        Teacher teacher = teacherOptional.get();
+        List<Examination> examinations;
+        if (teacher.getUser().getType().equals(UserType.ADMIN)) {
+            examinations = examinationRepository.findAll();
+        } else {
+            examinations = teacher.getCourseList().stream().flatMap(c -> c.getExaminations().stream()).collect(Collectors.toList());
+        }
         ExaminationsPageModel model = new ExaminationsPageModel();
         model.setExams(examinations);
         ModelAndView mav = new ModelAndView(Templates.EXAMINATIONS_PAGE.getTemplateName());

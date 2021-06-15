@@ -35,11 +35,6 @@ public class ExaminationService {
     private final CourseService courseService;
     private final ExaminationListService examinationListService;
 
-    public ModelAndView getTestingListUi() {
-        ModelAndView mv = new ModelAndView(Templates.EXAMINATIONS_PAGE.getTemplateName());
-        return mv.addObject("model", new ExaminationsPageModel());
-    }
-
     @Transactional
     public ModelAndView createOrEditTest(ExaminationModel dto) {
         if (dto.getExamination().getId() == null) {
