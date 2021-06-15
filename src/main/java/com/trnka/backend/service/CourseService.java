@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.trnka.backend.config.Templates;
 import com.trnka.backend.domain.Course;
 import com.trnka.backend.domain.Teacher;
+import com.trnka.backend.domain.UserType;
 import com.trnka.backend.dto.course.CourseModel;
 import com.trnka.backend.dto.course.CourseSelectDto;
 import com.trnka.backend.repository.CourseRepository;
@@ -45,7 +46,15 @@ public class CourseService {
             log.error("Non teacher cannot create a course !");
             return Collections.EMPTY_LIST;
         }
-        List<Course> courses = currentTeacher.get().getCourseList();
+
+
+        List<Course> courses;
+        if (currentTeacher.get().getUser().getType().equals(UserType.ADMIN)) {
+            courses = courseRepository.findAll();
+        }
+        else {
+            courses = currentTeacher.get().getCourseList();
+        }
         return courses.stream()
                 .map(c -> new CourseSelectDto(c.getName(),
                                               c.getId(),
