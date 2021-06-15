@@ -1,0 +1,132 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="008-create-initial-course-student-test.xml" author="tomas.gramblicka">
+
+        <insert tableName="course">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="modelovaTrieda"/>
+            <column name="teacher_id" valueNumeric="2"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="id" valueNumeric="1"/>
+            <column name="device_identification_code" value="1111"/>
+            <column name="device_login_count" valueNumeric="0"/>
+            <column name="course_id" valueNumeric="1"/>
+            <column name="created_by" valueNumeric="2"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+
+        <!-- TEST 1 -->
+        <insert tableName="examination">
+            <column name="id" valueNumeric="1"/>
+            <column name="course_id" valueNumeric="1"/>
+            <column name="allowed_retries" valueNumeric="1"/>
+            <column name="audio" value="null"/>
+            <column name="passing_rate_percentage" valueNumeric="80"/>
+            <column name="name" value="modelovyTest"/>
+            <column name="timeout" valueNumeric="0"/>
+            <column name="type" value="TESTING"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+
+        <!-- ABCD TESTING -->
+        <insert tableName="examination_step">
+            <column name="id" valueNumeric="1"/>
+            <column name="preserve_order" valueBoolean="false"/>
+            <column name="brail_character_id" valueNumeric="1"/>
+            <column name="examination_id" valueNumeric="1"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+        <insert tableName="examination_step">
+            <column name="id" valueNumeric="2"/>
+            <column name="preserve_order" valueBoolean="false"/>
+            <column name="brail_character_id" valueNumeric="2"/>
+            <column name="examination_id" valueNumeric="1"/>
+            <column name="display_order" valueNumeric="2"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+        <insert tableName="examination_step">
+            <column name="id" valueNumeric="3"/>
+            <column name="preserve_order" valueBoolean="false"/>
+            <column name="brail_character_id" valueNumeric="3"/>
+            <column name="examination_id" valueNumeric="1"/>
+            <column name="display_order" valueNumeric="3"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+        <insert tableName="examination_step">
+            <column name="id" valueNumeric="4"/>
+            <column name="preserve_order" valueBoolean="false"/>
+            <column name="brail_character_id" valueNumeric="4"/>
+            <column name="examination_id" valueNumeric="1"/>
+            <column name="display_order" valueNumeric="4"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+
+
+
+        <!-- LEARNING 1 -->
+        <insert tableName="examination">
+            <column name="id" valueNumeric="2"/>
+            <column name="course_id" valueNumeric="1"/>
+            <column name="allowed_retries" valueNumeric="1"/>
+            <column name="audio" value="null"/>
+            <column name="passing_rate_percentage" valueNumeric="80"/>
+            <column name="name" value="modelovaVyucba"/>
+            <column name="timeout" valueNumeric="0"/>
+            <column name="type" value="LEARNING"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+
+        <!-- ABCD LEARNING -->
+        <insert tableName="examination_step">
+            <column name="id" valueNumeric="5"/>
+            <column name="preserve_order" valueBoolean="false"/>
+            <column name="brail_character_id" valueNumeric="1"/>
+            <column name="examination_id" valueNumeric="2"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+        <insert tableName="examination_step">
+            <column name="id" valueNumeric="6"/>
+            <column name="preserve_order" valueBoolean="false"/>
+            <column name="brail_character_id" valueNumeric="2"/>
+            <column name="examination_id" valueNumeric="2"/>
+            <column name="display_order" valueNumeric="2"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+        <insert tableName="examination_step">
+            <column name="id" valueNumeric="7"/>
+            <column name="preserve_order" valueBoolean="false"/>
+            <column name="brail_character_id" valueNumeric="3"/>
+            <column name="examination_id" valueNumeric="2"/>
+            <column name="display_order" valueNumeric="3"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+        <insert tableName="examination_step">
+            <column name="id" valueNumeric="8"/>
+            <column name="preserve_order" valueBoolean="false"/>
+            <column name="brail_character_id" valueNumeric="4"/>
+            <column name="examination_id" valueNumeric="2"/>
+            <column name="display_order" valueNumeric="4"/>
+            <column name="created_on" valueDate="2021-06-15 00:00:00"/>
+            <column name="updated_on" valueDate="2021-06-15 00:00:00"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

@@ -13,8 +13,8 @@ insert into authorities (user_id, authority) values (3, 'ROLE_TEACHER');
 insert into authorities (user_id, authority) values (4, 'ROLE_ADMIN');
 
 insert into teacher (id, user_id) values (1, 1);
-insert into teacher (id, user_id) values (3, 2);
-insert into teacher (id, user_id) values (2, 3);
+insert into teacher (id, user_id) values (2, 2);
+insert into teacher (id, user_id) values (3, 3);
 
 
 

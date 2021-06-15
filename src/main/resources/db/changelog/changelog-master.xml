@@ -26,14 +26,6 @@
     <include file="changes/005-add_student_created_by_column.xml" relativeToChangelogFile="true"/>
     <include file="changes/006-create-sync-config-table.xml" relativeToChangelogFile="true"/>
     <include file="changes/007-create-device-to-server-sync-log-table.xml" relativeToChangelogFile="true"/>
-
-
-
-
-
-
-
-
-
+    <include file="changes/008-create-initial-course-student-test.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
