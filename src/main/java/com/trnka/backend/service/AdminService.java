@@ -29,7 +29,7 @@ public class AdminService {
     private static final String MSG_USR_CREATED = "Pouzivatel vytvoreny.";
     private static final String MSG_PWD_CHANGED = "Heslo uspesne zmenene.";
     private static final String MSG_USERNAME_AT_LEAST_N_CHARACTERS = "Pouzivatelske meno musi obsahovat minimalne 6 znakov a maximalne 20 znakov!";
-    private static final String MSG_PWD_AT_LEAST_N_CHARACTERS = "Heslo meno musi obsahovat minimalne 6 znakov a maximalne 20 znakov!";
+    private static final String MSG_PWD_AT_LEAST_N_CHARACTERS = "Heslo musi obsahovat minimalne 6 znakov a maximalne 20 znakov!";
     private static final String MSG_PWD_EMPTY = "Heslo nesmie byt prazdne!";
     public static final String MSG_USER_UPDATED = "Pouzivatel upraveny.";
     public static final String MSG_USERNAME_EMPTY = "Pouzivatelske meno nesmie byt prazdne!";
