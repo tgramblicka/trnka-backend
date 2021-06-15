@@ -14,7 +14,6 @@ import com.trnka.backend.domain.Examination;
 import com.trnka.backend.domain.ExaminationStep;
 import com.trnka.backend.dto.ExaminationStepCreateDto;
 import com.trnka.backend.dto.ExaminationModel;
-import com.trnka.backend.dto.ExaminationsPageModel;
 import com.trnka.backend.repository.BrailRepository;
 import com.trnka.backend.repository.CourseRepository;
 import com.trnka.backend.repository.ExaminationRepository;
@@ -73,6 +72,7 @@ public class ExaminationService {
                                    final Examination examination) {
         examination.setName(model.getName());
         examination.setAllowedRetries(Integer.valueOf(model.getAllowedRetries()));
+        examination.setType(model.getType());
     }
 
     private Examination createInitialExamination() {

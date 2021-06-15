@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -30,7 +32,12 @@ public class Examination extends BaseEntity {
     private String name;
     private String audio;
     private Long timeout = 0L; // default value, currently unused
+
+
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private SequenceType type;
+
     private Integer allowedRetries;
 
     /**
