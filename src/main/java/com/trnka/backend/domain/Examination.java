@@ -12,7 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+import javax.validation.constraints.Pattern;
 
 import com.trnka.restapi.dto.SequenceType;
 import lombok.EqualsAndHashCode;
@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OrderBy;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 @Getter
@@ -29,7 +30,10 @@ import org.hibernate.validator.constraints.Range;
 @Entity
 public class Examination extends BaseEntity {
 
+    @Pattern(regexp="[A-Za-z0-9_-]+", message = "Názov testu moze obsahovat len čislice, pismena bez diakritiky!")
+    @Length(min = 2, max = 50, message = "Názov testu moze obsahovat aspon 2 znaky a najviac 50 znakov!")
     private String name;
+
     private String audio;
     private Long timeout = 0L; // default value, currently unused
 

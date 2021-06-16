@@ -1,5 +1,6 @@
 package com.trnka.backend.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.trnka.backend.domain.Examination;
@@ -15,5 +16,8 @@ public class ExaminationModel {
     private ExaminationStepCreateDto examinationStepCreateDto;
     private List<CourseSelectDto> courses;
     private Long selectedCourseId;
+
+    private String infoMessage;
+    private List<String> errors = new ArrayList<>();
 
 }

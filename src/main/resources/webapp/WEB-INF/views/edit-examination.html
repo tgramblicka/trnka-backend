@@ -14,13 +14,13 @@
                 data: JSON.stringify({examinationId: examinationId, examinationStepId: examinationStepId}),
                 dataType: "html",
                 contentType: "application/json; charset=utf-8",
-                success: function(response) {
+                success: function (response) {
                     $("#examination-step-list").replaceWith(response);
                 },
                 error: function () {
                     alert("Error occurred");
                 }
-                
+
             });
         }
 
@@ -32,7 +32,7 @@
                 data: JSON.stringify({examinationId: examinationId, examinationStepId: examinationStepId}),
                 dataType: "html",
                 contentType: "application/json; charset=utf-8",
-                success: function(response) {
+                success: function (response) {
                     $("#examination-step-list").replaceWith(response);
                 },
                 error: function () {
@@ -41,26 +41,6 @@
 
             });
         }
-
-
-
-        // function moveBrailUp(examinationStepId) {
-        //     $.post('/vst/ui/course/brail/up', {
-        //         examinationId: examinationId,
-        //         examinationStepId: examinationStepId
-        //     }, function (fragment) {
-        //         $("#examination-step-list").replaceWith(fragment);
-        //     })
-        // }
-        //
-        // function moveBrailDown(examinationStepId) {
-        //     $.post('/vst/ui/course/brail/down', {
-        //         examinationId: examinationId,
-        //         examinationStepId: examinationStepId
-        //     }, function (fragment) {
-        //         $("#examination-step-list").replaceWith(fragment);
-        //     })
-        // }
 
         $(document).ready(function () {
         });
@@ -87,10 +67,14 @@
     <div id="examination-form" class="container-fluid border my-2 py-2" th:replace="fragments/examination-form.html :: setData(model=${model})"></div>
     
     
-    <h2 class="lead my-4">Pridanie kroku: </h2>
-    <div id="create-step-form" class="container-fluid border my-2 py-2" th:replace="fragments/create-step-form.html :: setData(model=${model})"></div>
-    <div id="examination-step-list" th:replace="fragments/examination-step-list.html :: setData(examinationSteps=${model.examination.examinationSteps})"></div>
-    
+    <!--    show only when no validation errors-->
+    <div th:if="${model.errors == null || model.errors.isEmpty()}">
+        <h2 class="lead my-4">Pridanie kroku: </h2>
+        <div id="create-step-form" class="container-fluid border my-2 py-2" th:replace="fragments/create-step-form.html :: setData(model=${model})"></div>
+        <div id="examination-step-list"
+             th:replace="fragments/examination-step-list.html :: setData(examinationSteps=${model.examination.examinationSteps})"></div>
+    </div>
+
 </main>
 </body>
 <footer>

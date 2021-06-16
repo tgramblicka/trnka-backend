@@ -1,9 +1,14 @@
 package com.trnka.backend.service.testing;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
-import com.trnka.restapi.dto.SequenceType;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,13 +17,14 @@ import com.trnka.backend.config.Templates;
 import com.trnka.backend.domain.Course;
 import com.trnka.backend.domain.Examination;
 import com.trnka.backend.domain.ExaminationStep;
-import com.trnka.backend.dto.ExaminationStepCreateDto;
 import com.trnka.backend.dto.ExaminationModel;
+import com.trnka.backend.dto.ExaminationStepCreateDto;
 import com.trnka.backend.repository.BrailRepository;
 import com.trnka.backend.repository.CourseRepository;
 import com.trnka.backend.repository.ExaminationRepository;
 import com.trnka.backend.service.CourseService;
 import com.trnka.backend.service.ErrorPage;
+import com.trnka.restapi.dto.SequenceType;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +34,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ExaminationService {
 
+    private static final String TEST_SUCC_CREATED = "Test bol úspešne vytvotený.";
+    private static final String TEST_SUCC_UPDATED = "Test bol úspešne upravený.";
+
     private final ExaminationRepository examinationRepository;
     private final BrailRepository brailRepository;
     private final CourseRepository courseRepository;
@@ -35,31 +44,50 @@ public class ExaminationService {
     private final ExaminationListService examinationListService;
 
     @Transactional
-    public ModelAndView createOrEditTest(ExaminationModel dto) {
-        if (dto.getExamination().getId() == null) {
-            return createTest(dto.getExamination(), dto.getSelectedCourseId());
+    public ModelAndView createOrEditTest(ExaminationModel model) {
+        if (model.getExamination().getId() == null) {
+            return createTest(model);
         }
-        return editTest(dto.getExamination());
+        return editTest(model);
     }
 
-    private ModelAndView editTest(final Examination model) {
-        Optional<Examination> found = examinationRepository.findById(Long.valueOf(model.getId()));
+    private ModelAndView editTest(final ExaminationModel model) {
+        List<String> errors = validate(model);
+
+        Examination detachedEntity = model.getExamination();
+        if (!errors.isEmpty()) {
+            return getEditExaminationUiModel(detachedEntity, null, errors);
+        }
+
+        Optional<Examination> found = examinationRepository.findById(Long.valueOf(detachedEntity.getId()));
         if (found.isPresent()) {
             Examination entity = found.get();
-            updateExamination(model, entity);
+            updateExamination(detachedEntity, entity);
             examinationRepository.save(entity);
-            return getEditExaminationUiModel(entity);
+            return getEditExaminationUiModel(entity, TEST_SUCC_UPDATED, Collections.EMPTY_LIST);
         }
-        String msg = String.format("Test with id %s not found!", model.getId());
+        String msg = String.format("Test with id %s not found!", detachedEntity.getId());
         log.error(msg);
         return ErrorPage.create(msg);
     }
 
-    private ModelAndView createTest(final Examination examination,
-                                    final Long selectedCourseId) {
-        addExaminationToCourse(examination, selectedCourseId);
-        Examination saved = examinationRepository.save(examination);
-        return getEditExaminationUiModel(saved);
+    private List<String> validate(ExaminationModel model) {
+        List<String> errors = new ArrayList<>();
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        validator.validate(model.getExamination()).forEach(v -> errors.add(v.getMessage()));
+        return errors;
+    }
+
+    private ModelAndView createTest(ExaminationModel model) {
+
+        List<String> errors = validate(model);
+        if (!errors.isEmpty()) {
+            return getCreateExaminationUiModel(model, null, errors);
+        }
+
+        addExaminationToCourse(model.getExamination(), model.getSelectedCourseId());
+        Examination saved = examinationRepository.save(model.getExamination());
+        return getEditExaminationUiModel(saved, TEST_SUCC_CREATED, Collections.EMPTY_LIST);
     }
 
     private void addExaminationToCourse(final Examination examination,
@@ -85,16 +113,21 @@ public class ExaminationService {
     }
 
     public ModelAndView getEditExaminationUiModel(Long examinationId) {
-        return getEditExaminationUiModel(examinationRepository.findById(examinationId).get());
+        return getEditExaminationUiModel(examinationRepository.findById(examinationId).get(), null, Collections.EMPTY_LIST);
     }
 
-    private ModelAndView getEditExaminationUiModel(Examination examination) {
+    private ModelAndView getEditExaminationUiModel(Examination examination,
+                                                   String infoMessage,
+                                                   List<String> errors) {
         ModelAndView mv = new ModelAndView(Templates.EDIT_EXAMINATION.getTemplateName());
         ExaminationModel model = new ExaminationModel();
         model.setExamination(examination);
         model.setExaminationStepCreateDto(getExaminationStepCreateDto(examination));
-        model.setSelectedCourseId(examination.getCourse().getId());
+        model.setSelectedCourseId(Optional.ofNullable(examination.getCourse()).map(Course::getId).orElse(null));
         model.setCourses(courseService.getMyCoursesSelection());
+        model.setInfoMessage(infoMessage);
+        model.setErrors(errors);
+
         return mv.addObject("model", model);
     }
 
@@ -105,12 +138,20 @@ public class ExaminationService {
         return dto;
     }
 
-    public ModelAndView getCreateExaminationUiModel() {
+    public ModelAndView getCreateExaminationUiModel(ExaminationModel model,
+                                                    String infoMessage,
+                                                    List<String> errors) {
         ModelAndView mv = new ModelAndView(Templates.CREATE_EXAMINATION.getTemplateName());
-        ExaminationModel model = new ExaminationModel();
         model.setExamination(createInitialExamination());
         model.setCourses(courseService.getMyCoursesSelection());
+        model.setErrors(errors);
+        model.setInfoMessage(infoMessage);
         return mv.addObject("model", model);
+    }
+
+    public ModelAndView getCreateExaminationUiModel() {
+        ExaminationModel model = new ExaminationModel();
+        return getCreateExaminationUiModel(model, null, Collections.EMPTY_LIST);
     }
 
     @Transactional
@@ -128,7 +169,7 @@ public class ExaminationService {
         Examination realExamination = examination.get();
         realExamination.addExaminationStep(step);
 
-        return getEditExaminationUiModel(realExamination);
+        return getEditExaminationUiModel(realExamination, null, Collections.EMPTY_LIST);
     }
 
     public ModelAndView deleteTest(final Long id) {

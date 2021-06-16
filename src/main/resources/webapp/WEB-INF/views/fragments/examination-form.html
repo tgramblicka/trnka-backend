@@ -8,6 +8,15 @@
 
 <div id="examination-form" class="container-fluid border my-2 py-2" th:fragment="setData(model)">
     
+    <div th:if="${model.infoMessage != null}" class="alert alert-success" role="alert">
+        <span th:text="${model.infoMessage}"></span>
+    </div>
+    <div th:if="${model.errors != null && !model.errors.isEmpty()}" class="alert alert-danger" role="alert">
+        <th:block th:each="error : ${model.errors}">
+            <span th:text="*{error}"></span>
+        </th:block>
+    </div>
+    
     
     <form class="form-group my-2 my-lg-0" method="post" th:action="@{/vst/ui/examination/edit}" th:object="${model}">
         <input type="hidden" th:field="*{examination.id}" th:value="*{examination.id}">
@@ -17,14 +26,15 @@
                 <input type="text" id="name" th:field="*{examination.name}" th:value="*{examination.name}" class="form-control">
             </div>
         </div>
-    
-    
+        
+        
         <div class="form-group row">
             <label for="allowedRetries" class="col-sm-2 col-form-label">Typ sekvencie: </label>
             <div class="col-sm-10">
                 <select th:field="*{examination.type}" id="examination.type" class="custom-select mr-sm-2">
                     <th:block th:each="sequenceType : ${T(com.trnka.restapi.dto.SequenceType).values()}">
-                        <option th:if="${sequenceType.name() == 'TESTING' OR sequenceType.name() == 'LEARNING'}" th:value="${sequenceType}" th:text="${sequenceType}"></option>
+                        <option th:if="${sequenceType.name() == 'TESTING' OR sequenceType.name() == 'LEARNING'}" th:value="${sequenceType}"
+                                th:text="${sequenceType}"></option>
                     </th:block>
                 </select>
             </div>
@@ -40,11 +50,11 @@
                 </select>
             </div>
         </div>
-    
+        
         <div class="form-group row">
             <label for="passingRate" class="col-sm-2 col-form-label">% úspešnosť na absolvovanie testu: </label>
             <div class="col-sm-10">
-                    <input type="number" step="any" id="passingRate" class="form-control" th:field="*{examination.passingRate}">
+                <input type="number" step="any" id="passingRate" class="form-control" th:field="*{examination.passingRate}">
             </div>
         </div>
         
@@ -59,10 +69,18 @@
         </div>
         
         
-        
-        <div class="form-group row">
-            <button type="submit" class="btn btn-primary my-2 my-sm-0">Potvrď</button>
+        <div class="row">
+            <div class="form-group row">
+                <button type="submit" class="btn btn-primary my-2 ml-2">Potvrď</button>
+            </div>
+            <div class="col">
+                <a th:href="@{/vst/ui/teacher/testing}">
+                    <button type="button" class="btn btn-primary my-2 ml-2">Späť na zoznam testov</button>
+                </a>
+            </div>
         </div>
+    
+    
     </form>
 </div>
 </body>
