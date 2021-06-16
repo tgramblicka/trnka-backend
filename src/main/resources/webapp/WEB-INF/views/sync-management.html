@@ -25,10 +25,23 @@
     </nav>
     <h1 class="bg-secondary text-white px-2 py-2">Správa Synchronizácie</h1>
     
+    <div>
+        Pred zapnutím synchronizácie sa uistite, či sú zariadenia
+        <ol>
+            <li>zapnuté</li>
+            <li>používateľ na zariadení je odhlásený</li>
+        </ol>
+        
+        Pokiaľ nebude táto podmienka splnená (napr. používateľ je na zariadení prihlásený) zariadenia sa nezačnú synchronizovať.
+        Synchronizácia na zariadení sa spúšťa každé 2 Minúty.
+        Po úspešnej synchronizácii, na ktorú zariadenie upozorní prehraním audio hlášky, treba znovu vypnúť synchronizáciu tlačidlami nižšie.
+        <br /><br /><br />
+    </div>
+    
     <form id="sync-management-form" class="form-group my-2 my-lg-0" method="post" th:object="${model}" enctype="multipart/form-data">
         <!--        <input type="hidden" th:field="*{id}" th:value="*{id}">-->
         
-
+        
         <div class="form-group row">
             <label for="enableDownloadFromServerToDevice" class="col-sm-2 col-form-label">
                 Synchronizácia: VST -> Zariadenie
