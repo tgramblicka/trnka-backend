@@ -3,7 +3,10 @@
 * ssh to server
 * ps -aux | grep java 
 * kill java process with trnka-backend.jar
-* mysql -u tublet -p 
+* connect to mysql 
+```
+mysql -u tublet -p
+``` 
 * drop database with command
 ```
  drop database `vst`;
