@@ -6,7 +6,7 @@
     
     <script type="text/javascript">
         $(document).ready(function () {
-            let regexp = /^(\d{0,4})$/; // Allow 4 digits only
+            let regexp = /^([123456]{0,4})$/; // Allow 4 digits only
             $("#deviceIdentificationCode").inputFilter(function(value) {
                 return regexp.test(value);
             });

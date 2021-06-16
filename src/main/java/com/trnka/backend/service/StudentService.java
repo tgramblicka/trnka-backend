@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+import com.trnka.backend.dto.course.CourseSelectDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -117,6 +118,11 @@ public class StudentService {
         return false;
     }
 
+    private ModelAndView getEditPage(StudentModel model, List<CourseSelectDto> coursesToSelect){
+        model.setCoursesToSelect(coursesToSelect);
+        return new ModelAndView(Templates.STUDENT_EDIT_PAGE.getTemplateName()).addObject("model", model);
+    }
+
     @Transactional
     public ModelAndView createOrUpdateStudent(final StudentModel model) {
         Student studentDto = model.getStudent();
@@ -124,14 +130,14 @@ public class StudentService {
 
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         validator.validate(model.getStudent()).forEach(v -> model.getErrors().add(v.getMessage()));
-        if (!CollectionUtils.isEmpty(model.getErrors())){
-            return new ModelAndView(Templates.STUDENT_EDIT_PAGE.getTemplateName()).addObject("model", model);
+        if (!CollectionUtils.isEmpty(model.getErrors())) {
+            return getEditPage(model, courseService.getMyCoursesSelection());
         }
 
 
         if (existsAnotherStudentWithSameIdentificationCode(model.getStudent())) {
             model.getErrors().add("Student s rovnakym prihlasovacím kodom uz existuje !");
-            return new ModelAndView(Templates.STUDENT_EDIT_PAGE.getTemplateName()).addObject("model", model);
+            return getEditPage(model, courseService.getMyCoursesSelection());
         }
 
 

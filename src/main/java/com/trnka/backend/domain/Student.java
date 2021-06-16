@@ -26,7 +26,7 @@ import org.hibernate.validator.constraints.Length;
 @Entity
 public class Student extends BaseEntity {
 
-    @Pattern(regexp="[0-9]+", message = "Prihlasovaci kod musi obsahovat iba cislice 0-9")
+    @Pattern(regexp="[1-6]+", message = "Prihlasovaci kod musi obsahovat iba cislice 1-6")
     @Length(min = 4, max = 4, message = "Prihlasovaci kod musi obsahovat presne 4 cislice!")
     private String deviceIdentificationCode;
     private Integer deviceLoginCount;
