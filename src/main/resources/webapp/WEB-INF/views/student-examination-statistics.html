@@ -18,7 +18,7 @@
             <img th:src="@{/img/trnka-logo-small.PNG}" class="img-fluid" alt="logo">
         </div>
     </header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='results')">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation" th:replace="fragments/navigation.html :: setData(currentPage='students')">
     </nav>
     <h1 class="bg-secondary text-white px-2 py-2" th:text="'Výsledky študenta s ID: ' + ${model.studentId} + ' a kódom:' + ${model.deviceIdentificationCode}">Výsledky študenta</h1>
     

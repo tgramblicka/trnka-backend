@@ -23,10 +23,10 @@
                 <a th:class="${currentPage} == 'testing' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
                    th:href="@{/vst/ui/teacher/testing}">Testovanie</a>
             </li>
-            <li role="presentation" class="nav-item">
-                <a th:class="${currentPage} == 'results' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
-                   th:href="@{/vst/ui/teacher/results}">Výsledky</a>
-            </li>
+<!--            <li role="presentation" class="nav-item">-->
+<!--                <a th:class="${currentPage} == 'results' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"-->
+<!--                   th:href="@{/vst/ui/teacher/results}">Výsledky</a>-->
+<!--            </li>-->
             <li role="presentation" class="nav-item" th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
                 <a th:class="${currentPage} == 'user-management' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
                    th:href="@{/vst/ui/admin/user-management/all}">Používatelia</a>
