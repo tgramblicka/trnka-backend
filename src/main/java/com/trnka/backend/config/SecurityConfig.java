@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/vst/ui/teacher/**", "/vst/ui/course/**", "/vst/ui/examination/**", "/vst/ui/student/**", "/vst/ui/sync-management/**")
+                .antMatchers("/vst/ui/teacher/**", "/vst/ui/course/**", "/vst/ui/examination/**", "/vst/ui/student/**", "/vst/ui/sync-management/**", "/vst/ui/manual/**")
                 .hasAnyRole("TEACHER", "ADMIN")
                 .antMatchers("/vst/ui/admin/**", "/vst/sync/**")
                 .hasAnyRole("ADMIN")

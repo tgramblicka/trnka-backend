@@ -39,6 +39,10 @@
                 <a th:class="${currentPage} == 'sync-management' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
                    th:href="@{/vst/ui/sync-management}">Synchronizácia</a>
             </li>
+            <li role="presentation" class="nav-item">
+                <a th:class="${currentPage} == 'manual' ? 'nav-link active bg-primary text-light' : 'nav-link inactive'" href="#"
+                   th:href="@{/vst/ui/manual}">Manuál</a>
+            </li>
         </ul>
 
         <form class="form-inline my-2 my-lg-0 float-right" action="#" th:action="@{/vst/ui/logout}" method="POST">

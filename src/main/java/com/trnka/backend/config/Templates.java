@@ -14,7 +14,8 @@ public enum Templates {
     STUDENT_EXAM_STATISTICS("student-examination-statistics"),
     ADMIN_USER_LIST("admin-user-list"),
     ADMIN_USER_EDIT("admin-edit-user"),
-    SYNC_MANAGEMENT("sync-management");
+    SYNC_MANAGEMENT("sync-management"),
+    MANUAL("manual");
 
 
 

@@ -14,6 +14,7 @@ public class RestApiPaths {
 
     public static final String PATH_UI_STUDENT = PATH_UI + "student";  // todo rename to students
     public static final String PATH_UI_SYNC_MANAGEMENT = PATH_UI + "sync-management";
+    public static final String PATH_UI_MANUAL = PATH_UI + "manual";
 
     private RestApiPaths() {
         super();
