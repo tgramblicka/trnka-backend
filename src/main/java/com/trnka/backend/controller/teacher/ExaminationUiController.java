@@ -46,7 +46,7 @@ public class ExaminationUiController {
 
     @RequestMapping(method = RequestMethod.GET, path = DELETE_TEST)
     public ModelAndView deleteTest(@RequestParam Long id) {
-        return examinationService.deleteTest(id);
+        return examinationService.deleteTestAndGetUi(id);
     }
 
 }

@@ -10,6 +10,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +23,7 @@ import com.trnka.backend.dto.ExaminationStepCreateDto;
 import com.trnka.backend.repository.BrailRepository;
 import com.trnka.backend.repository.CourseRepository;
 import com.trnka.backend.repository.ExaminationRepository;
+import com.trnka.backend.repository.ExaminationStepRepository;
 import com.trnka.backend.service.CourseService;
 import com.trnka.backend.service.ErrorPage;
 import com.trnka.restapi.dto.SequenceType;
@@ -38,10 +40,12 @@ public class ExaminationService {
     private static final String TEST_SUCC_UPDATED = "Test bol úspešne upravený.";
 
     private final ExaminationRepository examinationRepository;
+    private final ExaminationStepRepository examinationStepRepository;
     private final BrailRepository brailRepository;
     private final CourseRepository courseRepository;
     private final CourseService courseService;
     private final ExaminationListService examinationListService;
+
 
     @Transactional
     public ModelAndView createOrEditTest(ExaminationModel model) {
@@ -66,9 +70,7 @@ public class ExaminationService {
             examinationRepository.save(entity);
             return getEditExaminationUiModel(entity, TEST_SUCC_UPDATED, Collections.EMPTY_LIST);
         }
-        String msg = String.format("Test with id %s not found!", detachedEntity.getId());
-        log.error(msg);
-        return ErrorPage.create(msg);
+        return examinationNotExistErrorPage(detachedEntity.getId());
     }
 
     private List<String> validate(ExaminationModel model) {
@@ -158,9 +160,7 @@ public class ExaminationService {
     public ModelAndView createExaminationStep(final ExaminationStepCreateDto dto) {
         Optional<Examination> examination = examinationRepository.findById(dto.getExaminationId());
         if (examination == null) {
-            String errorMsg = String.format("Examination with id %s does not exist!", dto.getExaminationId());
-            log.error(errorMsg);
-            return ErrorPage.create(errorMsg);
+            return examinationNotExistErrorPage(dto.getExaminationId());
         }
         ExaminationStep step = new ExaminationStep();
         step.setBrailCharacter(brailRepository.findById(dto.getSelectedBrailId()).get());
@@ -172,8 +172,27 @@ public class ExaminationService {
         return getEditExaminationUiModel(realExamination, null, Collections.EMPTY_LIST);
     }
 
-    public ModelAndView deleteTest(final Long id) {
-        examinationRepository.deleteById(id);
+    private ModelAndView examinationNotExistErrorPage(final Long examinationId) {
+        String errorMsg = String.format("Examination with id %s does not exist!", examinationId);
+        log.error(errorMsg);
+        return ErrorPage.create(errorMsg);
+    }
+
+    public ModelAndView deleteTestAndGetUi(final Long id) {
+        Optional<Examination> examinationOptional = examinationRepository.findById(id);
+        if (!examinationOptional.isPresent()) {
+            examinationNotExistErrorPage(id);
+        }
+        deleteExaminationTransactional(examinationOptional.get());
         return examinationListService.getExaminationsForCurrentTeacher();
+    }
+
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void deleteExaminationTransactional(Examination examination){
+        examinationStepRepository.deleteAll(examination.getExaminationSteps());
+
+        examination.getExaminationSteps().clear();
+        examinationRepository.delete(examination);
     }
 }

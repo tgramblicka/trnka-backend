@@ -21,7 +21,7 @@ import lombok.Setter;
 public class ExaminationStep extends BaseEntity {
 
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "brail_character_id", referencedColumnName = "id", nullable = false)
     @NotNull
     private BrailCharacter brailCharacter;

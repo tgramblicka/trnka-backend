@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import com.trnka.backend.domain.UserType;
 import com.trnka.backend.repository.ExaminationRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.trnka.backend.config.Templates;
@@ -26,6 +28,7 @@ public class ExaminationListService {
     private final TeacherService teacherRepository;
     private final ExaminationRepository examinationRepository;
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ModelAndView getExaminationsForCurrentTeacher() {
         Optional<Teacher> teacherOptional = teacherRepository.getCurrentTeacher();
         if (!teacherOptional.isPresent()) {
