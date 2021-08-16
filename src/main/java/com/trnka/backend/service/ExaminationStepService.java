@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
@@ -113,4 +114,32 @@ public class ExaminationStepService {
                                               "Examination not found by provided ID!");
         }
     }
+
+    public ModelAndView deleteExaminationStep(final ExaminationStepReorderDto dto) {
+        Examination examination = findExamination(dto.getExaminationId());
+        if (examination == null){
+            log.error("Examination with ID: {} not found, examination step won't be deleted!", dto.getExaminationId());
+
+        }
+        deleteExaminationStepTransactional(examination, dto.getExaminationStepId());
+        return getExaminationStepListFragment(examination.getId());
+    }
+
+    private ModelAndView getExaminationStepListFragment(final Long examinationId) {
+        ModelAndView mv = new ModelAndView(Templates.EXAMINATION_STEP_LIST.getTemplateName() + " :: #examination-step-list");
+        mv.addObject("examinationSteps", findExamination(examinationId).getExaminationSteps());
+        return mv;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void deleteExaminationStepTransactional(Examination examination, Long stepId) {
+        Optional<ExaminationStep> optionalExaminationStep = examinationStepRepository.findById(stepId);
+        if (!optionalExaminationStep.isPresent()) {
+            log.error("Examination step with ID: {} not found, this step won't be deleted!", stepId);
+            return;
+        }
+        examination.getExaminationSteps().removeIf(step -> step.getId().equals(stepId));
+        examinationStepRepository.delete(optionalExaminationStep.get());
+    }
+
 }

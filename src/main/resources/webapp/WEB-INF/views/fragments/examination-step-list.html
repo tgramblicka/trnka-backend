@@ -15,6 +15,7 @@
             <th scope="col">Brail reprezentácia</th>
             <th scope="col">Zachovaj poradie</th>
             <th scope="col">Zmeň poradie</th>
+            <th scope="col">Zmazanie</th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,9 @@
             <td>
                 <button type="button" class="btn btn-secondary my-2 my-sm-0" th:attr="onclick=|moveBrailUp(${step.id})|"> ↑ </button>
                 <button type="button" class="btn btn-secondary my-2 my-sm-0" th:attr="onclick=|moveBrailDown(${step.id})|"> ↓ </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-secondary my-2 my-sm-0" th:attr="onclick=|deleteExaminationStep(${step.id})|">Vymazať</button>
             </td>
         </tr>
         </tbody>

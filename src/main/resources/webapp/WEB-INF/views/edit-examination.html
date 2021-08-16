@@ -42,6 +42,24 @@
             });
         }
 
+        function deleteExaminationStep(examinationStepId) {
+            console.log("deleting " + examinationStepId);
+            jQuery.ajax({
+                url: '/vst/ui/course/brail/delete',
+                type: "DELETE",
+                data: JSON.stringify({examinationId: examinationId, examinationStepId: examinationStepId}),
+                dataType: "html",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#examination-step-list").replaceWith(response);
+                },
+                error: function () {
+                    alert("Error occurred");
+                }
+
+            });
+        }
+
         $(document).ready(function () {
         });
     </script>
